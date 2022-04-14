@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -140,6 +142,48 @@ public class Line {
       return false;
    }
 
+
+   /**
+    * @param rect
+    * @return - If this line does not intersect with the rectangle, null is returned,
+    *           otherwise, the closest intersection point to the start of the line is returned.
+    */
+   public Point closestIntersectionToStartOfLine(Rectangle rect) {
+      List<Line> rectEdges = new ArrayList<>();
+      rectEdges.add(rect.getLeftEdge());
+      rectEdges.add(rect.getRightEdge());
+      rectEdges.add(rect.getUpperEdge());
+      rectEdges.add(rect.getBottomEdge());
+
+//      System.out.println(rectEdges);
+
+      List<Point> intersectionPoints = new ArrayList<>();
+      Point p = null;
+
+      for (Line elem : rectEdges) {
+         p = elem.intersectionWith(this);
+         if (p != null) {
+            intersectionPoints.add(p);
+//            System.out.println(p);
+            p = null;
+         }
+      }
+      if (intersectionPoints.size() == 0) {
+         return null;
+      }
+      double distance = Double.MAX_VALUE, temp = 0;
+      Point resPoint = null;
+      for (Point elem : intersectionPoints) {
+         temp = elem.distance(this.start);
+//         System.out.println(temp);
+         if (distance > temp) {
+            distance = temp;
+            resPoint = elem;
+         }
+      }
+      return resPoint;
+   }
+
    /**
     * @param other
     * @return - a new Point object representing the intersection point of the lines, null otherwise.
@@ -151,15 +195,13 @@ public class Line {
          return null;
       }
 
-
-      //vertical or horizontal lines
       if (this.start.getX() == this.end.getX()  //this line is vertical line
          && other.start.getY() == other.end.getY()) {  //other line is horizontal line
          x = this.start.getX();
          y = other.start.getY();
       } else if (this.start.getX() == this.end.getX()) { //this line is vertical line (other line is not horizontal)
          x = this.start.getX();
-         y = other.slope * this.start.getX() + other.yIntercept;
+         y = other.slope * x + other.yIntercept;
       } else if (other.start.getX() == other.end.getX()  //other line is vertical line
          && this.start.getY() == this.end.getY()) {   //this line is horizontal line
          x = other.start.getX();
@@ -168,21 +210,36 @@ public class Line {
          x = other.start.getX();
          y = this.slope * other.start.getX() + this.yIntercept;
       } else {
-      // line1 equation: y1 = m1x + b1
-      // line2 equation: y2 = m2x + b2
-      // y1 = y2
-      // m1x + b1 = m2x + b2
-      // x(m1 - m2) = b2 - b1
-      // x = (b2 - b1) / (m1 - m2)
-      // y1 = m1x + b1 (we found x, and we have m1)
-      // b1 and b2 are the y interceptors
-      // m1 and m2 are the slopes
-        //else if and only if both this and other lines are not vertical or horizontal lines
-
+         // line1 equation: y1 = m1x + b1
+         // line2 equation: y2 = m2x + b2
+         // y1 = y2
+         // m1x + b1 = m2x + b2
+         // x(m1 - m2) = b2 - b1
+         // x = (b2 - b1) / (m1 - m2)
+         // y1 = m1x + b1 (we found x, and we have m1)
+         // b1 and b2 are the y interceptors
+         // m1 and m2 are the slopes
+         // else if and only if both this and other lines are not vertical or horizontal lines
          x = ((other.yIntercept - this.yIntercept) / (this.slope - other.slope));
          y = this.slope * x + this.yIntercept;
       }
+
+      // check if both x and y coordinates are between both lines' coordinates
+      if (!(x <= Math.max(this.start.getX(), this.end.getX()) && x >= Math.min(this.start.getX(), this.end.getX())
+              && y <= Math.max(this.start.getY(), this.end.getY()) && y >= Math.min(this.start.getY(), this.end.getY())
+              && x <= Math.max(other.start.getX(), other.end.getX())
+              && x >= Math.min(other.start.getX(), other.end.getX())
+              && y <= Math.max(other.start.getY(), other.end.getY())
+              && y >= Math.min(other.start.getY(), other.end.getY()))) {
+         return null;
+      }
       return new Point(x, y);
+   }
+
+   @Override
+   public String toString() {
+      return "Start Line: " + "(" + this.getStartPoint().getX() + " , " + this.getStartPoint().getY() + ")\nEnd Line: "
+              + "(" + this.getEndPoint().getX() + " , " + this.getEndPoint().getY() + ")\n";
    }
 
    /**

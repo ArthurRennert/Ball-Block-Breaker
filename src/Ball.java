@@ -8,6 +8,14 @@ import java.awt.Color;
 public class Ball {
    //instance variables
    private Point point;
+
+   /**
+    * @return the radius of the Ball object.
+    */
+   public int getRadius() {
+      return radius;
+   }
+
    private int radius;
    private Color color;
    private Velocity velocity;
@@ -109,6 +117,27 @@ public class Ball {
 
       if (frameWidth <= point.getY() + radius || point.getY() <= radius) {
          velocity.setDy(-velocity.getDy());
+      }
+      point = this.getVelocity().applyToPoint(point);
+   }
+
+   /**
+    * @param fromWidth
+    * @param fromHeight
+    * @param frameWidth
+    * @param frameHeight
+    */
+   public void moveOneStep(int fromWidth, int fromHeight, int frameWidth, int frameHeight) {
+      if (frameWidth <= point.getX() + radius + velocity.getDx()
+              || point.getX() <= radius + fromWidth - velocity.getDx()) {
+         velocity.setDx(-velocity.getDx());
+//         System.out.println(point.getX());
+      }
+
+      if (frameHeight < point.getY() + radius + velocity.getDy()
+              || point.getY() < radius + fromHeight - velocity.getDy()) {
+         velocity.setDy(-velocity.getDy());
+//         System.out.println(point.getY());
       }
       point = this.getVelocity().applyToPoint(point);
    }

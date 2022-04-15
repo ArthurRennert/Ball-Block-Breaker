@@ -84,4 +84,12 @@ public class Velocity {
    public void setDy(double dy) {
       this.dy = dy;
    }
+
+   /**
+    * @return
+    */
+   @Override
+   public String toString() {
+      return "dx: " + dx + " dy: " + dy;
+   }
 }

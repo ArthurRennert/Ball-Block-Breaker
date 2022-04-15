@@ -1,6 +1,7 @@
 import biuoop.DrawSurface;
 
 import java.awt.Color;
+import java.util.List;
 
 /**
  *
@@ -8,17 +9,7 @@ import java.awt.Color;
 public class Ball {
    //instance variables
    private Point point;
-
-   /**
-    * @return the radius of the Ball object.
-    */
-   public int getRadius() {
-      return radius;
-   }
-
-   private int radius;
-   private Color color;
-   private Velocity velocity;
+   private GameEnvironment ge;
 
 
    /**
@@ -45,6 +36,25 @@ public class Ball {
       this.color = new Color(color.getRGB());
       velocity = new Velocity(0, 0);
    }
+
+
+   /**
+    * @param gameEnvironment
+    */
+   public void setGameEnvironment(GameEnvironment gameEnvironment) {
+      ge = gameEnvironment;
+   }
+
+   /**
+    * @return the radius of the Ball object.
+    */
+   public int getRadius() {
+      return radius;
+   }
+
+   private int radius;
+   private Color color;
+   private Velocity velocity;
 
    /**
     * @return - the x coordinate of the center of the ball.
@@ -117,6 +127,37 @@ public class Ball {
 
       if (frameWidth <= point.getY() + radius || point.getY() <= radius) {
          velocity.setDy(-velocity.getDy());
+      }
+      point = this.getVelocity().applyToPoint(point);
+   }
+
+   /**
+    *
+    */
+   public void moveOneStep() {
+      List<Collidable> collidableList = ge.getListOfCollidableObjects();
+//      System.out.println(collidableList);
+
+      for (Collidable elem : collidableList) {
+         double minX = Math.min(elem.getCollisionRectangle().getRightEdge().getStartPoint().getX(),
+                 elem.getCollisionRectangle().getLeftEdge().getStartPoint().getX());
+         double maxX = Math.max(elem.getCollisionRectangle().getRightEdge().getStartPoint().getX(),
+                 elem.getCollisionRectangle().getLeftEdge().getStartPoint().getX());
+         double minY = Math.min(elem.getCollisionRectangle().getUpperEdge().getStartPoint().getY(),
+                 elem.getCollisionRectangle().getBottomEdge().getStartPoint().getY());
+         double maxY = Math.max(elem.getCollisionRectangle().getUpperEdge().getStartPoint().getY(),
+                 elem.getCollisionRectangle().getBottomEdge().getStartPoint().getY());
+
+         if (minX <= point.getX() + velocity.getDx()
+                 && point.getX() + velocity.getDx() <= maxX) {
+            velocity.setDx(-velocity.getDx());
+         }
+
+         if (minY <= point.getY() + velocity.getDy()
+                 && point.getY() + velocity.getDy() <= maxY
+                 && minX <= point.getX() && point.getX() <= maxX) {
+            velocity.setDy(-velocity.getDy());
+         }
       }
       point = this.getVelocity().applyToPoint(point);
    }

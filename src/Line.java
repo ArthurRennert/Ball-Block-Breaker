@@ -107,7 +107,7 @@ public class Line {
     */
    public boolean isIntersecting(Line other) {
       //the (potential) intersection point variables
-      double x, y;
+//      double x, y;
 
       //parallel lines
       if (this.slope == other.slope) {
@@ -116,30 +116,36 @@ public class Line {
 
       Point intersectionPoint = this.intersectionWith(other);
 
+      if (intersectionPoint == null) { // no intersection point returned from intersectionWith method,
+         return false;                 //therefore, no intersection point exists
+      } else {
+         return true;
+      }
+
       // check if the intersectionPoint is on both lines segment
       // to be in line segment the intersectionPoint must meet the following:
       // 1. intersectionPoint's x and y coordinates must be between the line's corresponding coordinates
       // 2. intersectionPoint's x and y coordinates must satisfy the line formulas:
       // m = (y-y1) / (x - x1) and m = (y2 - y1) / (x2 - x1)
 
-      if ((Double.isInfinite(this.slope)
-              || (Math.abs(intersectionPoint.getY() - (this.slope * intersectionPoint.getX() + this.yIntercept))
-              <= EPSILON))
-              && (intersectionPoint.getX() >= Math.min(this.start.getX(), this.end.getX())
-              && intersectionPoint.getX() <= Math.max(this.start.getX(), this.end.getX()))
-              && (intersectionPoint.getY() >= Math.min(this.start.getY(), this.end.getY())
-              && intersectionPoint.getY() <= Math.max(this.start.getY(), this.end.getY()))
-              //second line
-              && ((Double.isInfinite(other.slope)
-              || (Math.abs(intersectionPoint.getY() - (other.slope * intersectionPoint.getX() + other.yIntercept))
-              <= EPSILON)))
-              && intersectionPoint.getX() >= Math.min(other.start.getX(), other.end.getX())
-              && intersectionPoint.getX() <= Math.max(other.start.getX(), other.end.getX())
-              && intersectionPoint.getY() >= Math.min(other.start.getY(), other.end.getY())
-              && intersectionPoint.getY() <= Math.max(other.start.getY(), other.end.getY())) {
-         return true;
-      }
-      return false;
+//      if ((Double.isInfinite(this.slope)
+//              || (Math.abs(intersectionPoint.getY() - (this.slope * intersectionPoint.getX() + this.yIntercept))
+//              <= EPSILON))
+//              && (intersectionPoint.getX() >= Math.min(this.start.getX(), this.end.getX())
+//              && intersectionPoint.getX() <= Math.max(this.start.getX(), this.end.getX()))
+//              && (intersectionPoint.getY() >= Math.min(this.start.getY(), this.end.getY())
+//              && intersectionPoint.getY() <= Math.max(this.start.getY(), this.end.getY()))
+//              //second line
+//              && ((Double.isInfinite(other.slope)
+//              || (Math.abs(intersectionPoint.getY() - (other.slope * intersectionPoint.getX() + other.yIntercept))
+//              <= EPSILON)))
+//              && intersectionPoint.getX() >= Math.min(other.start.getX(), other.end.getX())
+//              && intersectionPoint.getX() <= Math.max(other.start.getX(), other.end.getX())
+//              && intersectionPoint.getY() >= Math.min(other.start.getY(), other.end.getY())
+//              && intersectionPoint.getY() <= Math.max(other.start.getY(), other.end.getY())) {
+//         return true;
+//      }
+//      return false;
    }
 
 
@@ -223,6 +229,11 @@ public class Line {
          x = ((other.yIntercept - this.yIntercept) / (this.slope - other.slope));
          y = this.slope * x + this.yIntercept;
       }
+
+      System.out.println("x: " + x);
+      System.out.println("y: " + y);
+      System.out.println("this line: " + this);
+      System.out.println("other line: " + other);
 
       // check if both x and y coordinates are between both lines' coordinates
       if (!(x <= Math.max(this.start.getX(), this.end.getX()) && x >= Math.min(this.start.getX(), this.end.getX())

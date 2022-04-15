@@ -45,17 +45,17 @@ public class Test {
               (int) l.getEndPoint().getX(), (int) l.getEndPoint().getY());
 
       d.setColor(Color.RED);
-      Point intersectionPoint = l.closestIntersectionToStartOfLine(r);
-      if (intersectionPoint != null) {
-         d.fillCircle((int) intersectionPoint.getX(), (int) intersectionPoint.getY(), 3);
-      }
-      System.out.println(l.closestIntersectionToStartOfLine(r));
-
-//      List<Point> listOfIntersectionPoints = r.intersectionPoints(l);
-//
-//      for (Point elem : listOfIntersectionPoints) {
-//         d.fillCircle((int) elem.getX(), (int) elem.getY(), 3);
+//      Point intersectionPoint = l.closestIntersectionToStartOfLine(r);
+//      if (intersectionPoint != null) {
+//         d.fillCircle((int) intersectionPoint.getX(), (int) intersectionPoint.getY(), 3);
 //      }
+//      System.out.println(l.closestIntersectionToStartOfLine(r));
+
+      List<Point> listOfIntersectionPoints = r.intersectionPoints(l);
+
+      for (Point elem : listOfIntersectionPoints) {
+         d.fillCircle((int) elem.getX(), (int) elem.getY(), 3);
+      }
 
 
 

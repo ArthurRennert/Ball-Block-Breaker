@@ -15,7 +15,7 @@ public class AbstractArtDrawing {
     *
     */
    public void drawRandomLines() {
-      GUI gui = new GUI("Random Lines", 400, 300);
+      GUI gui = new GUI("Random Lines", 400, 400);
       DrawSurface d = gui.getDrawSurface();
       for (int i = 0; i < 10; ++i) {
          lines.add(Line.generateRandomLine());
@@ -29,8 +29,11 @@ public class AbstractArtDrawing {
          for (int j = i - 1; j >= 0; j--) {
             if (lines.get(i).isIntersecting(lines.get(j))) {
                Point intersectionPoint = lines.get(i).intersectionWith(lines.get(j));
-               d.setColor(Color.RED);
-               d.fillCircle((int) intersectionPoint.getX(), (int) intersectionPoint.getY(), 3);
+               if (intersectionPoint != null) {
+                  d.setColor(Color.RED);
+                  d.fillCircle((int) intersectionPoint.getX(), (int) intersectionPoint.getY(), 3);
+               }
+               intersectionPoint = null;
             }
          }
       }

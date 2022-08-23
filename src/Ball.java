@@ -139,14 +139,14 @@ public class Ball {
 //      System.out.println(collidableList);
 
       for (Collidable elem : collidableList) {
-         double minX = Math.min(elem.getCollisionRectangle().getRightEdge().getStartPoint().getX(),
-                 elem.getCollisionRectangle().getLeftEdge().getStartPoint().getX());
-         double maxX = Math.max(elem.getCollisionRectangle().getRightEdge().getStartPoint().getX(),
-                 elem.getCollisionRectangle().getLeftEdge().getStartPoint().getX());
-         double minY = Math.min(elem.getCollisionRectangle().getUpperEdge().getStartPoint().getY(),
-                 elem.getCollisionRectangle().getBottomEdge().getStartPoint().getY());
-         double maxY = Math.max(elem.getCollisionRectangle().getUpperEdge().getStartPoint().getY(),
-                 elem.getCollisionRectangle().getBottomEdge().getStartPoint().getY());
+         double minX = Math.min(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
+                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
+         double maxX = Math.max(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
+                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
+         double minY = Math.min(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
+                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
+         double maxY = Math.max(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
+                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
 
          if (minX <= point.getX() + velocity.getDx()
                  && point.getX() + velocity.getDx() <= maxX) {

@@ -12,11 +12,6 @@ public class Line {
     private Point end;
     private double slope;
     private double yIntercept;
-//    private double _xIntercept;
-
-   //class variables
-   private static final double EPSILON = 0.0001;
-
 
    /**
     * @param start
@@ -48,11 +43,6 @@ public class Line {
    private double slopeCalc() {
       return ((end.getY() - start.getY()) / (end.getX() - start.getX()));
    }
-
-//   private double get_xIntercept()
-//   {
-//
-//   }
 
    /**
     * @return - the Y Intercept of the line.
@@ -93,6 +83,21 @@ public class Line {
    }
 
    /**
+    * @return - the x's coordinate of the starting Point object of the line.
+    */
+   public double getXOfStartPoint() {
+      return this.start.getX();
+   }
+
+   /**
+    * @return - the y's coordinate of the starting Point object of the line.
+    */
+
+   public double getYOfStartPoint() {
+      return this.start.getY();
+   }
+
+   /**
     * @return - the ending Point object of the line.
     */
    // Returns the end point of the line
@@ -100,52 +105,59 @@ public class Line {
       return this.end;
    }
 
+   /**
+    * @return - the x's coordinate of the ending Point object of the line.
+    */
+   public double getXOfEndPoint() {
+      return this.end.getX();
+   }
+
+   /**
+    * @return - the y's coordinate of the ending Point object of the line.
+    */
+   public double getYOfEndPoint() {
+      return this.end.getY();
+   }
 
    /**
     * @param other
     * @return - true if the lines intersect, false otherwise.
     */
    public boolean isIntersecting(Line other) {
-      //the (potential) intersection point variables
-//      double x, y;
+      // Find the four orientations needed for general and special cases
+      Point p1 = this.start, q1 = this.end, p2 = other.start, q2 = other.end;
+      int o1 = Point.orientation(p1, q1, p2);
+      int o2 = Point.orientation(p1, q1, q2);
+      int o3 = Point.orientation(p2, q2, p1);
+      int o4 = Point.orientation(p2, q2, q1);
 
-      //parallel lines
-      if (this.slope == other.slope) {
-         return false;
-      }
-
-      Point intersectionPoint = this.intersectionWith(other);
-
-      if (intersectionPoint == null) { // no intersection point returned from intersectionWith method,
-         return false;                 //therefore, no intersection point exists
-      } else {
+      // General case
+      if (o1 != o2 && o3 != o4) {
          return true;
       }
 
-      // check if the intersectionPoint is on both lines segment
-      // to be in line segment the intersectionPoint must meet the following:
-      // 1. intersectionPoint's x and y coordinates must be between the line's corresponding coordinates
-      // 2. intersectionPoint's x and y coordinates must satisfy the line formulas:
-      // m = (y-y1) / (x - x1) and m = (y2 - y1) / (x2 - x1)
+      // Special Cases
+      // p1, q1 and p2 are collinear and p2 lies on segment p1q1
+      if (o1 == 0 && isPointOnSegment(p1, p2, q1)) {
+         return true;
+      }
 
-//      if ((Double.isInfinite(this.slope)
-//              || (Math.abs(intersectionPoint.getY() - (this.slope * intersectionPoint.getX() + this.yIntercept))
-//              <= EPSILON))
-//              && (intersectionPoint.getX() >= Math.min(this.start.getX(), this.end.getX())
-//              && intersectionPoint.getX() <= Math.max(this.start.getX(), this.end.getX()))
-//              && (intersectionPoint.getY() >= Math.min(this.start.getY(), this.end.getY())
-//              && intersectionPoint.getY() <= Math.max(this.start.getY(), this.end.getY()))
-//              //second line
-//              && ((Double.isInfinite(other.slope)
-//              || (Math.abs(intersectionPoint.getY() - (other.slope * intersectionPoint.getX() + other.yIntercept))
-//              <= EPSILON)))
-//              && intersectionPoint.getX() >= Math.min(other.start.getX(), other.end.getX())
-//              && intersectionPoint.getX() <= Math.max(other.start.getX(), other.end.getX())
-//              && intersectionPoint.getY() >= Math.min(other.start.getY(), other.end.getY())
-//              && intersectionPoint.getY() <= Math.max(other.start.getY(), other.end.getY())) {
-//         return true;
-//      }
-//      return false;
+      // p1, q1 and q2 are collinear and q2 lies on segment p1q1
+      if (o2 == 0 && isPointOnSegment(p1, q2, q1)) {
+         return true;
+      }
+
+      // p2, q2 and p1 are collinear and p1 lies on segment p2q2
+      if (o3 == 0 && isPointOnSegment(p2, p1, q2)) {
+         return true;
+      }
+
+      // p2, q2 and q1 are collinear and q1 lies on segment p2q2
+      if (o4 == 0 && isPointOnSegment(p2, q1, q2)) {
+         return true;
+      }
+
+      return false; // Doesn't fall in any of the above cases
    }
 
 
@@ -156,10 +168,10 @@ public class Line {
     */
    public Point closestIntersectionToStartOfLine(Rectangle rect) {
       List<Line> rectEdges = new ArrayList<>();
-      rectEdges.add(rect.getLeftEdge());
-      rectEdges.add(rect.getRightEdge());
-      rectEdges.add(rect.getUpperEdge());
-      rectEdges.add(rect.getBottomEdge());
+      rectEdges.add(rect.getLeftSide());
+      rectEdges.add(rect.getRightSide());
+      rectEdges.add(rect.getUpperSide());
+      rectEdges.add(rect.getBottomSide());
 
 //      System.out.println(rectEdges);
 
@@ -195,56 +207,66 @@ public class Line {
     * @return - a new Point object representing the intersection point of the lines, null otherwise.
     */
    public Point intersectionWith(Line other) {
-      double x, y;
+      Point a = this.start, b = this.end, c = other.start, d = other.end;
 
-      if (this.slope == other.slope) {
-         return null;
+      // Line ab represented as a1x + b1y = c1
+      double a1 = b.getY() - a.getY();
+      double b1 = a.getX() - b.getX();
+      double c1 = a1 * (a.getX()) + b1 * (a.getY());
+
+      // Line cd represented as a2x + b2y = c2
+      double a2 = d.getY() - c.getY();
+      double b2 = c.getX() - d.getX();
+      double c2 = a2 * (c.getX()) + b2 * (c.getY());
+
+      double determinant = a1 * b2 - a2 * b1;
+
+      if (determinant == 0) { // The lines are parallel
+         if (isPointOnSegment(a, c, b)) {
+            return new Point(c);
+         } else if (isPointOnSegment(c, a, d)) {
+            return new Point(a);
+         }
       }
 
-      if (this.start.getX() == this.end.getX()  //this line is vertical line
-         && other.start.getY() == other.end.getY()) {  //other line is horizontal line
-         x = this.start.getX();
-         y = other.start.getY();
-      } else if (this.start.getX() == this.end.getX()) { //this line is vertical line (other line is not horizontal)
-         x = this.start.getX();
-         y = other.slope * x + other.yIntercept;
-      } else if (other.start.getX() == other.end.getX()  //other line is vertical line
-         && this.start.getY() == this.end.getY()) {   //this line is horizontal line
-         x = other.start.getX();
-         y = this.start.getY();
-      } else if (other.start.getX() == other.end.getX()) { //other line is vertical line (this line is not horizontal)
-         x = other.start.getX();
-         y = this.slope * other.start.getX() + this.yIntercept;
-      } else {
-         // line1 equation: y1 = m1x + b1
-         // line2 equation: y2 = m2x + b2
-         // y1 = y2
-         // m1x + b1 = m2x + b2
-         // x(m1 - m2) = b2 - b1
-         // x = (b2 - b1) / (m1 - m2)
-         // y1 = m1x + b1 (we found x, and we have m1)
-         // b1 and b2 are the y interceptors
-         // m1 and m2 are the slopes
-         // else if and only if both this and other lines are not vertical or horizontal lines
-         x = ((other.yIntercept - this.yIntercept) / (this.slope - other.slope));
-         y = this.slope * x + this.yIntercept;
-      }
-
-      System.out.println("x: " + x);
-      System.out.println("y: " + y);
-      System.out.println("this line: " + this);
-      System.out.println("other line: " + other);
-
-      // check if both x and y coordinates are between both lines' coordinates
-      if (!(x <= Math.max(this.start.getX(), this.end.getX()) && x >= Math.min(this.start.getX(), this.end.getX())
-              && y <= Math.max(this.start.getY(), this.end.getY()) && y >= Math.min(this.start.getY(), this.end.getY())
-              && x <= Math.max(other.start.getX(), other.end.getX())
-              && x >= Math.min(other.start.getX(), other.end.getX())
-              && y <= Math.max(other.start.getY(), other.end.getY())
-              && y >= Math.min(other.start.getY(), other.end.getY()))) {
-         return null;
-      }
+      // The lines are not parallel (determinant is not zero)
+      double x = (b2 * c1 - b1 * c2) / determinant;
+      double y = (a1 * c2 - a2 * c1) / determinant;
       return new Point(x, y);
+
+      //      System.out.println("x: " + x);
+      //      System.out.println("y: " + y);
+      //      System.out.println("this line: " + this);
+      //      System.out.println("other line: " + other);
+   }
+
+   /**
+    * Given three collinear points p, q, r, the function checks if point q lies on line segment 'pr'.
+    * @param p - point p.
+    * @param q - point q.
+    * @param r - point r.
+    * @return - true if point q lies on line segment 'pr', otherwise false is returned.
+    */
+   private static boolean isPointOnSegment(Point p, Point q, Point r) {
+      if (q.getX() <= Math.max(p.getX(), r.getX()) && q.getX() >= Math.min(p.getX(), r.getX())
+              && q.getY() <= Math.max(p.getY(), r.getY()) && q.getY() >= Math.min(p.getY(), r.getY())) {
+         return true;
+      }
+      return false;
+   }
+
+   /**
+    * @return - true if this line is vertical, otherwise false is returned.
+    */
+   private boolean isVerticalLine() {
+      return this.start.getX() == this.end.getX();
+   }
+
+   /**
+    * @return - true if this line is horizontal, otherwise false is returned.
+    */
+   private boolean isHorizontalLine() {
+      return this.start.getY() == this.end.getY();
    }
 
    @Override

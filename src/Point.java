@@ -2,6 +2,7 @@
  *
  */
 public class Point {
+
    //instance variables
    private double x;
    private double y;
@@ -61,6 +62,25 @@ public class Point {
    public double getY() {
       return this.y;
    }
+
+
+   /**
+    * This method finds orientation of ordered triplet (p, q, r).
+    * @param p - point one.
+    * @param q - point two.
+    * @param r - point three.
+    * @return - 0 --> p, q and r are collinear, 1 --> Clockwise, 2 --> Counterclockwise.
+    */
+   public static int orientation(Point p, Point q, Point r) {
+      double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+
+      if (val == 0) {
+         return 0; // collinear
+      }
+
+      return (val > 0) ? 1 : 2; // clock or counterclock wise
+   }
+
 
    /**
     * @return - a String representation of the Point object. The format: x: value , y: value

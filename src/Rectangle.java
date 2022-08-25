@@ -8,17 +8,20 @@ public class Rectangle {
 
    private Point point;
    private double width, height;
+   private String name;
 
 
    /**
     * @param upperLeft
     * @param width
     * @param height
+    * @param name
     */
-   public Rectangle(Point upperLeft, double width, double height) {
+   public Rectangle(Point upperLeft, double width, double height, String name) {
       point = new Point(upperLeft);
       this.width = width;
       this.height = height;
+      this.name = name;
    }
 
    /**
@@ -27,10 +30,10 @@ public class Rectangle {
     */
    public java.util.List<Point> intersectionPoints(Line line) {
       List<Point> retList = new ArrayList<Point>();
-      List<Line> rectEdgesList = getSidesList();
+      List<Line> rectSidesList = getSidesList();
       Point temp = null;
 
-      for (Line elem : rectEdgesList) {
+      for (Line elem : rectSidesList) {
          if (elem.isIntersecting(line)) {
             temp = elem.intersectionWith(line);
             retList.add(temp);
@@ -43,14 +46,14 @@ public class Rectangle {
     * @return - A list of the 4 sides combining the rectangle.
     */
    public List<Line> getSidesList() {
-      List<Line> rectEdgesList = new ArrayList<>();
+      List<Line> rectSidesList = new ArrayList<>();
 
-      rectEdgesList.add(new Line(getUpperLeft(), getUpperRight()));   //the upper edge
-      rectEdgesList.add(new Line(getUpperLeft(), getLowerLeft()));    //the left edge
-      rectEdgesList.add(new Line(getLowerLeft(), getLowerRight()));   //the bottom edge
-      rectEdgesList.add(new Line(getUpperRight(), getLowerRight()));  //the right edge
+      rectSidesList.add(new Line(getUpperLeft(), getUpperRight()));   //the upper edge
+      rectSidesList.add(new Line(getUpperLeft(), getLowerLeft()));    //the left edge
+      rectSidesList.add(new Line(getLowerLeft(), getLowerRight()));   //the bottom edge
+      rectSidesList.add(new Line(getUpperRight(), getLowerRight()));  //the right edge
 
-      return rectEdgesList;
+      return rectSidesList;
    }
 
    /**
@@ -65,6 +68,13 @@ public class Rectangle {
     */
    public double getHeight() {
       return height;
+   }
+
+   /**
+    * @return - The name of the rectangle.
+    */
+   public String getName() {
+      return name;
    }
 
    /**
@@ -177,6 +187,12 @@ public class Rectangle {
     */
    public Line getBottomSide() {
       return new Line(getLowerLeft(), getLowerRight());
+   }
+
+   @Override
+   public String toString() {
+      return "Name: " + name + "\nUpper side: " + getUpperSide() + "\nBottom side: " + getBottomSide() + "\nLeft side: "
+              + getLeftSide() + "\nRight side: " + getRightSide();
    }
 
 }

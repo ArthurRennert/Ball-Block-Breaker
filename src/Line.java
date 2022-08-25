@@ -167,30 +167,13 @@ public class Line {
     *           otherwise, the closest intersection point to the start of the line is returned.
     */
    public Point closestIntersectionToStartOfLine(Rectangle rect) {
-      List<Line> rectEdges = new ArrayList<>();
-      rectEdges.add(rect.getLeftSide());
-      rectEdges.add(rect.getRightSide());
-      rectEdges.add(rect.getUpperSide());
-      rectEdges.add(rect.getBottomSide());
-
-//      System.out.println(rectEdges);
-
-      List<Point> intersectionPoints = new ArrayList<>();
-      Point p = null;
-
-      for (Line elem : rectEdges) {
-         p = elem.intersectionWith(this);
-         if (p != null) {
-            intersectionPoints.add(p);
-//            System.out.println(p);
-            p = null;
-         }
-      }
+      List<Point> intersectionPoints = rect.intersectionPoints(this);
+//      System.out.println("Intersection Points: " + intersectionPoints);
       if (intersectionPoints.size() == 0) {
          return null;
       }
-      double distance = Double.MAX_VALUE, temp = 0;
-      Point resPoint = null;
+      double distance = intersectionPoints.get(0).distance(this.start), temp;
+      Point resPoint = intersectionPoints.get(0);
       for (Point elem : intersectionPoints) {
          temp = elem.distance(this.start);
 //         System.out.println(temp);
@@ -258,20 +241,20 @@ public class Line {
    /**
     * @return - true if this line is vertical, otherwise false is returned.
     */
-   private boolean isVerticalLine() {
+   public boolean isVerticalLine() {
       return this.start.getX() == this.end.getX();
    }
 
    /**
     * @return - true if this line is horizontal, otherwise false is returned.
     */
-   private boolean isHorizontalLine() {
+   public boolean isHorizontalLine() {
       return this.start.getY() == this.end.getY();
    }
 
    @Override
    public String toString() {
-      return "Start Line: " + "(" + this.getStartPoint().getX() + " , " + this.getStartPoint().getY() + ")\nEnd Line: "
+      return "Start Line: " + "(" + this.getStartPoint().getX() + " , " + this.getStartPoint().getY() + ")\tEnd Line: "
               + "(" + this.getEndPoint().getX() + " , " + this.getEndPoint().getY() + ")\n";
    }
 

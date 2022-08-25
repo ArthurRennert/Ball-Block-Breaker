@@ -51,8 +51,7 @@ public class Velocity {
     * @param p
     * @return - a new Point object with its Velocity added to it.
     */
-   // Take a point with position (x,y) and return a new point
-   // with position (x+dx, y+dy)
+   // Take a point with position (x,y) and return a new point with position (x+dx, y+dy)
    public Point applyToPoint(Point p) {
       return new Point(p.getX() + dx, p.getY() + dy);
    }

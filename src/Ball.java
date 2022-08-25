@@ -1,5 +1,4 @@
 import biuoop.DrawSurface;
-
 import java.awt.Color;
 import java.util.List;
 
@@ -9,6 +8,9 @@ import java.util.List;
 public class Ball {
    //instance variables
    private Point point;
+   private int radius;
+   private Color color;
+   private Velocity velocity;
    private GameEnvironment ge;
 
 
@@ -52,9 +54,6 @@ public class Ball {
       return radius;
    }
 
-   private int radius;
-   private Color color;
-   private Velocity velocity;
 
    /**
     * @return - the x coordinate of the center of the ball.
@@ -116,6 +115,7 @@ public class Ball {
       return velocity;
    }
 
+
    /**
     * @param frameWidth
     * @param frameHeight
@@ -134,30 +134,91 @@ public class Ball {
    /**
     *
     */
-   public void moveOneStep() {
+   public void moveOneStep(DrawSurface d) {
       List<Collidable> collidableList = ge.getListOfCollidableObjects();
 //      System.out.println(collidableList);
 
-      for (Collidable elem : collidableList) {
-         double minX = Math.min(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
-                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
-         double maxX = Math.max(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
-                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
-         double minY = Math.min(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
-                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
-         double maxY = Math.max(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
-                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
+      CollisionInfo collInfo = ge.getClosestCollision(new Line(point,
+              new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
 
-         if (minX <= point.getX() + velocity.getDx()
-                 && point.getX() + velocity.getDx() <= maxX) {
-            velocity.setDx(-velocity.getDx());
-         }
+      System.out.println(collInfo);
 
-         if (minY <= point.getY() + velocity.getDy()
-                 && point.getY() + velocity.getDy() <= maxY
-                 && minX <= point.getX() && point.getX() <= maxX) {
-            velocity.setDy(-velocity.getDy());
-         }
+      Velocity newVel = collInfo.collisionObject().hit(point, collInfo.collisionPoint(), this.getVelocity());
+
+
+
+
+      d.drawLine((int) point.getX(), (int) point.getY(), (int) this.getVelocity().getDx() * 600000,
+              (int) this.getVelocity().getDy() * 600000);
+
+      Line l = new Line((int) point.getX(), (int) point.getY(), (int) this.getVelocity().getDx() * 600000,
+              (int) this.getVelocity().getDy() * 600000);
+
+
+
+      Point collPo = null;
+      collPo = l.closestIntersectionToStartOfLine(collidableList.get(0).getCollisionRectangle());
+      if (collPo == null)
+         collPo = l.closestIntersectionToStartOfLine(collidableList.get(1).getCollisionRectangle());
+      if (collPo == null)
+         collPo = l.closestIntersectionToStartOfLine(collidableList.get(2).getCollisionRectangle());
+      if (collPo == null)
+         collPo = l.closestIntersectionToStartOfLine(collidableList.get(3).getCollisionRectangle());
+
+
+//      System.out.println("Collision point: " + collPo);
+//      System.out.println("Current location: " + point);
+//      System.out.println("DX, DY: " + velocity.getDx() + ", " + velocity.getDy() + "\n");
+      d.fillCircle((int) collPo.getX(), (int) collPo.getY(), 8);
+//      System.out.println("Upper: " +  l.closestIntersectionToStartOfLine(collidableList.get(0).getCollisionRectangle()));
+//      System.out.println("Lower: " + l.closestIntersectionToStartOfLine(collidableList.get(1).getCollisionRectangle()));
+//      System.out.println("Left: " + l.closestIntersectionToStartOfLine(collidableList.get(2).getCollisionRectangle()));
+//      System.out.println("Right: " + l.closestIntersectionToStartOfLine(collidableList.get(3).getCollisionRectangle()));
+
+
+//         if (point.getX() > collPo.getX() && (point.getX() + velocity.getDx()) < collPo.getX()
+//                 || point.getX() < collPo.getX() && (point.getX() + velocity.getDx()) > collPo.getX()) {
+//            velocity.setDx(-velocity.getDx());
+//            System.out.println("velocity Dx changed");
+//         }
+//      if (Math.abs(collPo.getX() - (point.getX() + velocity.getDx())) <= getRadius()) {
+//         velocity.setDx(-velocity.getDx());
+//      }
+
+//         if (point.getY() > collPo.getY() && (point.getY() + velocity.getDy()) < collPo.getY()
+//                 || point.getY() < collPo.getY() && (point.getY() + velocity.getDy()) > collPo.getY()) {
+//            velocity.setDy(-velocity.getDy());
+//            System.out.println("velocity Dy changed");
+//         }
+
+
+//      if (Math.abs(collPo.getY() - (point.getY() + velocity.getDy())) <= getRadius()) {
+//         velocity.setDy(-velocity.getDy());
+//      }
+
+//      for (Collidable elem : collidableList) {
+//         double minX = Math.min(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
+//                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
+//         double maxX = Math.max(elem.getCollisionRectangle().getRightSide().getStartPoint().getX(),
+//                 elem.getCollisionRectangle().getLeftSide().getStartPoint().getX());
+//         double minY = Math.min(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
+//                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
+//         double maxY = Math.max(elem.getCollisionRectangle().getUpperSide().getStartPoint().getY(),
+//                 elem.getCollisionRectangle().getBottomSide().getStartPoint().getY());
+//
+//         if (minX <= point.getX() + velocity.getDx()
+//                 && point.getX() + velocity.getDx() <= maxX) {
+//            velocity.setDx(-velocity.getDx());
+//         }
+//
+//         if (minY <= point.getY() + velocity.getDy()
+//                 && point.getY() + velocity.getDy() <= maxY
+//                 && minX <= point.getX() && point.getX() <= maxX) {
+//            velocity.setDy(-velocity.getDy());
+//         }
+//      }
+      if(newVel != null) {
+         this.setVelocity(newVel);
       }
       point = this.getVelocity().applyToPoint(point);
    }

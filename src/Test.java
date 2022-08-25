@@ -25,7 +25,7 @@ public class Test {
 
       GUI gui = new GUI("Random Lines", 400, 300);
       DrawSurface d = gui.getDrawSurface();
-      Rectangle r = new Rectangle(new Point(60, 60), 100, 100);
+      Rectangle r = new Rectangle(new Point(60, 60), 100, 100, "TestRectangle");
       Line l = new Line(new Point(20, 20), new Point(180, 190));
       //Line l2 = new Line(new Point(20, 60), new Point(20, 180));
       d.setColor(Color.GREEN);
@@ -62,6 +62,9 @@ public class Test {
          d.fillCircle((int) elem.getX(), (int) elem.getY(), 3);
       }
 
+      Point closestPoint = l.closestIntersectionToStartOfLine(r);
+      d.setColor(Color.YELLOW);
+      d.fillCircle((int) closestPoint.getX(), (int) closestPoint.getY(), 10);
 
 //         for (int j = i - 1; j >= 0; j--) {
 //            if (lines.get(i).isIntersecting(lines.get(j))) {

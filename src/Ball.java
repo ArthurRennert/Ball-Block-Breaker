@@ -145,7 +145,7 @@ public class Ball {
 
       Velocity newVel = collInfo.collisionObject().hit(point, collInfo.collisionPoint(), this.getVelocity());
 
-
+//      ge.setNextCollObj(collInfo.collisionObject());
 
 
       d.drawLine((int) point.getX(), (int) point.getY(), (int) this.getVelocity().getDx() * 600000,
@@ -155,21 +155,39 @@ public class Ball {
               (int) this.getVelocity().getDy() * 600000);
 
 
+      Line ll = collidableList.get(1).getCollisionRectangle().getBottomSide();
+      Line ll2 = collidableList.get(1).getCollisionRectangle().getUpperSide();
+      Line ll3 = collidableList.get(1).getCollisionRectangle().getRightSide();
+      Line ll4 = collidableList.get(4).getCollisionRectangle().getLeftSide();
+      Line ll5 = collidableList.get(3).getCollisionRectangle().getRightSide();
+      Line ll6 = collidableList.get(2).getCollisionRectangle().getUpperSide();
 
-      Point collPo = null;
-      collPo = l.closestIntersectionToStartOfLine(collidableList.get(0).getCollisionRectangle());
-      if (collPo == null)
-         collPo = l.closestIntersectionToStartOfLine(collidableList.get(1).getCollisionRectangle());
-      if (collPo == null)
-         collPo = l.closestIntersectionToStartOfLine(collidableList.get(2).getCollisionRectangle());
-      if (collPo == null)
-         collPo = l.closestIntersectionToStartOfLine(collidableList.get(3).getCollisionRectangle());
+      d.setColor(Color.BLUE);
+      d.drawLine((int) ll.getStartPoint().getX(), (int) ll.getStartPoint().getY(), (int) ll.getEndPoint().getX(), (int) ll.getEndPoint().getY());
+      d.drawLine((int) ll2.getStartPoint().getX(), (int) ll2.getStartPoint().getY(), (int) ll2.getEndPoint().getX(), (int) ll2.getEndPoint().getY());
+      d.drawLine((int) ll3.getStartPoint().getX(), (int) ll3.getStartPoint().getY(), (int) ll3.getEndPoint().getX(), (int) ll3.getEndPoint().getY());
+      d.drawLine((int) ll4.getStartPoint().getX(), (int) ll4.getStartPoint().getY(), (int) ll4.getEndPoint().getX(), (int) ll4.getEndPoint().getY());
+      d.drawLine((int) ll5.getStartPoint().getX(), (int) ll5.getStartPoint().getY(), (int) ll5.getEndPoint().getX(), (int) ll5.getEndPoint().getY());
+      d.drawLine((int) ll6.getStartPoint().getX(), (int) ll6.getStartPoint().getY(), (int) ll6.getEndPoint().getX(), (int) ll6.getEndPoint().getY());
+
+      System.out.println(collidableList.get(1).getCollisionRectangle().getUpperSide().getEndPoint().getX());
+
+      d.setColor(Color.GRAY);
+
+//      Point collPo = null;
+//      collPo = l.closestIntersectionToStartOfLine(collidableList.get(0).getCollisionRectangle());
+//      if (collPo == null)
+//         collPo = l.closestIntersectionToStartOfLine(collidableList.get(1).getCollisionRectangle());
+//      if (collPo == null)
+//         collPo = l.closestIntersectionToStartOfLine(collidableList.get(2).getCollisionRectangle());
+//      if (collPo == null)
+//         collPo = l.closestIntersectionToStartOfLine(collidableList.get(3).getCollisionRectangle());
 
 
 //      System.out.println("Collision point: " + collPo);
 //      System.out.println("Current location: " + point);
 //      System.out.println("DX, DY: " + velocity.getDx() + ", " + velocity.getDy() + "\n");
-      d.fillCircle((int) collPo.getX(), (int) collPo.getY(), 8);
+//      d.fillCircle((int) collPo.getX(), (int) collPo.getY(), 8);
 //      System.out.println("Upper: " +  l.closestIntersectionToStartOfLine(collidableList.get(0).getCollisionRectangle()));
 //      System.out.println("Lower: " + l.closestIntersectionToStartOfLine(collidableList.get(1).getCollisionRectangle()));
 //      System.out.println("Left: " + l.closestIntersectionToStartOfLine(collidableList.get(2).getCollisionRectangle()));
@@ -217,7 +235,7 @@ public class Ball {
 //            velocity.setDy(-velocity.getDy());
 //         }
 //      }
-      if(newVel != null) {
+      if(newVel != null && point.distance(collInfo.collisionPoint()) < 12) {
          this.setVelocity(newVel);
       }
       point = this.getVelocity().applyToPoint(point);

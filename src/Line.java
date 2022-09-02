@@ -230,9 +230,10 @@ public class Line {
     * @param r - point r.
     * @return - true if point q lies on line segment 'pr', otherwise false is returned.
     */
-   private static boolean isPointOnSegment(Point p, Point q, Point r) {
-      if (q.getX() <= Math.max(p.getX(), r.getX()) && q.getX() >= Math.min(p.getX(), r.getX())
-              && q.getY() <= Math.max(p.getY(), r.getY()) && q.getY() >= Math.min(p.getY(), r.getY())) {
+   public static boolean isPointOnSegment(Point p, Point q, Point r) {
+      System.out.println("p: " + p + "\nq: " + q + "\nr: " + r);
+      if (q.getX() <= (Math.max(p.getX(), r.getX()) + 0.5) && q.getX() >= Math.min(p.getX(), r.getX()) - 0.5
+              && q.getY() <= Math.max(p.getY(), r.getY()) + 0.5 && q.getY() >= Math.min(p.getY(), r.getY()) - 0.5) {
          return true;
       }
       return false;

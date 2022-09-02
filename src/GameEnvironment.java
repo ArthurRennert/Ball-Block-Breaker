@@ -8,18 +8,25 @@ import java.util.List;
 public class GameEnvironment {
 
    private List<Collidable> listOfCollidableObjects = new ArrayList<>();
+   private static Collidable nextCollObj;
 
    /**
     * @param frameWidth
     * @param frameHeight
     */
    public GameEnvironment(int frameWidth, int frameHeight) {
-      addCollidable(new Block(new Point(0, 0), frameWidth, (int) (frameHeight * 0.05), "UpperScreen")); //upper screen block
-//      addCollidable(new Block(new Point(250, 250), 5, 5)); //random block
+      addCollidable(new Block(new Point(0, 0), frameWidth, (int) (frameHeight * 0.05), "UpperScreen", false)); //upper screen block
+      addCollidable(new Block(new Point(150, 150), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false)); //random block
+      addCollidable(new Block(new Point(350, 350), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false)); //random block
+      addCollidable(new Block(new Point(550, 550), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false)); //random block
 
-      addCollidable(new Block(new Point(0, frameHeight * 0.95), frameWidth, (int) (frameHeight * 0.05), "LowerScreen")); //lower screen block
-      addCollidable(new Block(new Point(0, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.85), "LeftScreen")); //left screen block
-      addCollidable(new Block(new Point(frameWidth * 0.95, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.85), "RightScreen")); //right screen block
+
+
+
+
+      addCollidable(new Block(new Point(0, frameHeight * 0.95), frameWidth, (int) (frameHeight * 0.05), "LowerScreen", false)); //lower screen block
+      addCollidable(new Block(new Point(0, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "LeftScreen", true)); //left screen block
+      addCollidable(new Block(new Point(frameWidth * 0.95, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "RightScreen", true)); //right screen block
    }
 
    /**
@@ -35,6 +42,16 @@ public class GameEnvironment {
     */
    public List<Collidable> getListOfCollidableObjects() {
       return listOfCollidableObjects;
+   }
+
+
+   public Collidable getNextCollObj() {
+      return nextCollObj;
+   }
+
+
+   public void setNextCollObj(Collidable obj) {
+      nextCollObj = obj;
    }
 
    /**

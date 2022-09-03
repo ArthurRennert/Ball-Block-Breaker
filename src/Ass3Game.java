@@ -11,11 +11,14 @@ public class Ass3Game {
    //class variables
    private static final int FRAME_WIDTH = 800;
    private static final int FRAME_HEIGHT = 800;
+
+   private static int count = 5000;
+
    /**
     * @param args
     */
    public static void main(String[] args) {
-
+      long startTime = System.nanoTime();
       GUI gui = new GUI("The game", FRAME_WIDTH, FRAME_HEIGHT);
       biuoop.Sleeper sleeper = new biuoop.Sleeper();
       GameEnvironment ge = new GameEnvironment(FRAME_WIDTH, FRAME_HEIGHT);
@@ -40,6 +43,13 @@ public class Ass3Game {
          ball.drawOn(d);
          gui.show(d);
          sleeper.sleepFor(10);  // wait for 50 milliseconds.
+
+         count--;
+         if (count == 0) {
+            long endTime = System.nanoTime();
+            System.out.println("Total time: " + (endTime - startTime) / 1000000);
+            System.exit(0);
+         }
       }
    }
 }

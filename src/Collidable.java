@@ -17,4 +17,8 @@ public interface Collidable {
     * @return - the new velocity expected after the hit (based on the force the object inflicted on us)
     */
    Velocity hit(Point currentLocation, Point collisionPoint, Velocity currentVelocity);
+
+   void decCntToDis();
+
+   int getCntToDis();
 }

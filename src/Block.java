@@ -10,6 +10,7 @@ public class Block implements Collidable {
 
    private Rectangle rectangle;
    private boolean isVertical;
+   private int cntToDis;
 
 
    /**
@@ -18,10 +19,12 @@ public class Block implements Collidable {
     * @param height
     * @param name
     */
-   public Block(Point p, int width, int height, String name, boolean isVert) {
+   public Block(Point p, int width, int height, String name, boolean isVert, int cnt) {
       rectangle = new Rectangle(p, width, height, name);
       isVertical = isVert;
+      cntToDis = cnt;
    }
+
 
    @Override
    public Rectangle getCollisionRectangle() {
@@ -67,6 +70,16 @@ public class Block implements Collidable {
 
 //      }
 //      return null;
+   }
+
+   @Override
+   public void decCntToDis() {
+      cntToDis--;
+   }
+
+   @Override
+   public int getCntToDis() {
+      return cntToDis;
    }
 
    @Override

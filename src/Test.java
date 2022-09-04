@@ -25,7 +25,7 @@ public class Test {
 
       GUI gui = new GUI("Random Lines", 400, 300);
       DrawSurface d = gui.getDrawSurface();
-      Rectangle r = new Rectangle(new Point(60, 60), 100, 100, "TestRectangle");
+      Rectangle r = new Rectangle(new Point(60, 60), 100, 100, "TestRectangle", Color.GRAY);
       Line l = new Line(new Point(20, 20), new Point(180, 190));
       //Line l2 = new Line(new Point(20, 60), new Point(20, 180));
       d.setColor(Color.GREEN);

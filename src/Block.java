@@ -1,4 +1,4 @@
-import java.util.Iterator;
+import java.awt.Color;
 import java.util.List;
 
 /**
@@ -9,8 +9,7 @@ public class Block implements Collidable {
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
-   private boolean isVertical;
-   private int cntToDis;
+   private int hitCount;
 
 
    /**
@@ -19,10 +18,9 @@ public class Block implements Collidable {
     * @param height
     * @param name
     */
-   public Block(Point p, int width, int height, String name, boolean isVert, int cnt) {
-      rectangle = new Rectangle(p, width, height, name);
-      isVertical = isVert;
-      cntToDis = cnt;
+   public Block(Point p, int width, int height, String name, int cnt, Color c) {
+      rectangle = new Rectangle(p, width, height, name, c);
+      hitCount = cnt;
    }
 
 
@@ -32,29 +30,10 @@ public class Block implements Collidable {
    }
 
    @Override
-   public Velocity hit(Point currentLocation, Point collisionPoint, Velocity currentVelocity) {
-//      List<Line> rectSidesList = getCollisionRectangle().getSidesList();
-//
-//      Iterator<Line> iterator = rectSidesList.iterator();
-//      Line l = null;
-//      while (iterator.hasNext()) {
-//         l = iterator.next();
-//         if (collisionPoint.getX() < l.getXOfStartPoint() || collisionPoint.getX() > l.getXOfEndPoint()
-//                 || Math.abs(collisionPoint.getY() - l.getYOfEndPoint()) > EPSILON)
-//            iterator.remove();
-//      }
-//
-//      System.out.println("SIZE: " + rectSidesList.size());
-//
-//      l = rectSidesList.get(0);
-//
-//      System.out.println("Curr Loc: " + currentLocation + " Coll Loc: " + collisionPoint);
-//      if(currentLocation.distance(collisionPoint) < 25) {
-//         if (l.isHorizontalLine())
-
-
+   public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
       List<Line> sidesList = getCollisionRectangle().getSidesList();
       Line l = null;
+
       for (Line elem : sidesList) {
          if(Line.isPointOnSegment(elem.getStartPoint(), collisionPoint, elem.getEndPoint())) {
             l = elem;
@@ -62,24 +41,19 @@ public class Block implements Collidable {
          }
       }
 
-
-
       if(l.isVerticalLine())
          return new Velocity(-currentVelocity.getDx(), currentVelocity.getDy());
       return new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
-
-//      }
-//      return null;
    }
 
    @Override
-   public void decCntToDis() {
-      cntToDis--;
+   public void updateHitCount() {
+      hitCount--;
    }
 
    @Override
-   public int getCntToDis() {
-      return cntToDis;
+   public int getHitCount() {
+      return hitCount;
    }
 
    @Override

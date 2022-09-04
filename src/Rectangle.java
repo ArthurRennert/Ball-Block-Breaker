@@ -1,3 +1,5 @@
+import biuoop.DrawSurface;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Rectangle {
    private Point point;
    private double width, height;
    private String name;
+   private Color color;
 
 
    /**
@@ -17,11 +20,12 @@ public class Rectangle {
     * @param height
     * @param name
     */
-   public Rectangle(Point upperLeft, double width, double height, String name) {
+   public Rectangle(Point upperLeft, double width, double height, String name, Color c) {
       point = new Point(upperLeft);
       this.width = width;
       this.height = height;
       this.name = name;
+      color = c;
    }
 
    /**
@@ -40,6 +44,14 @@ public class Rectangle {
          }
       }
       return retList;
+   }
+
+   public void drawOn(DrawSurface surface) {
+      surface.setColor(this.color);
+      surface.fillRectangle((int) point.getX(),
+              (int) point.getY(),
+              (int) width,
+              (int) height);
    }
 
    /**

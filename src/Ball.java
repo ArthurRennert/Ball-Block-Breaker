@@ -55,6 +55,9 @@ public class Ball {
       return radius;
    }
 
+   public Point getPoint() {
+      return point;
+   }
 
    /**
     * @return - the x coordinate of the center of the ball.
@@ -132,42 +135,15 @@ public class Ball {
       point = this.getVelocity().applyToPoint(point);
    }
 
-
    /**
     *
     */
-   public void moveOneStep(DrawSurface d) {
-      ge.decStepsToNextColl();
-      System.out.println("steps: " + ge.getStepsToNextColl());
-      if (ge.getStepsToNextColl() == 1) {
-         List<Collidable> collidableList = ge.getListOfCollidableObjects();
-//      System.out.println(collidableList);
-
-         System.out.println("\n\n\nYES\n\n\n");
-         CollisionInfo collInfo = ge.getClosestCollision(new Line(point,
-                 new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)), this);
-
-         System.out.println(collInfo);
-         double distUnit = point.distance(new Point(point.getX() + this.getVelocity().getDx(), point.getY() + this.getVelocity().getDy()));
-         double totalDist = point.distance(collInfo.collisionPoint());
-         int numOfUnits = (int) ((totalDist / distUnit) + 1);
-         System.out.println("distUnit: " + distUnit + "\ntotalDist: " + totalDist + "\nnumOfUnits: " + ((int) ((totalDist / distUnit) - 1)));
-
-
-         Velocity newVel = null;
-         if (numOfUnits == 1) {
-            newVel = collInfo.collisionObject().hit(point, collInfo.collisionPoint(), this.getVelocity());
-            int ind = collidableList.indexOf(collInfo.collisionObject());
-            collidableList.get(ind).decCntToDis();
-            if (collidableList.get(ind).getCntToDis() == 0)
-               collidableList.remove(collInfo.collisionObject());
-         }
-
-
-         if (newVel != null && point.distance(collInfo.collisionPoint()) < getRadius()) {
-            this.setVelocity(newVel);
-         }
-         ge.resetStepsToNextColl();
+   public void moveOneStep(int stepsToNextCollision) {
+      if(stepsToNextCollision <= 0) {
+         Velocity newVel = Ass3Game.getCollInfo().collisionObject().hit(Ass3Game.getCollInfo().collisionPoint(), this.getVelocity());
+         this.setVelocity(newVel);
+         ge.updateCollision(Ass3Game.getCollInfo().collisionObject());
+         Ass3Game.calcStepsToNextCollision();
       }
       point = this.getVelocity().applyToPoint(point);
    }
@@ -182,13 +158,11 @@ public class Ball {
       if (frameWidth <= point.getX() + radius + velocity.getDx()
               || point.getX() <= radius + fromWidth - velocity.getDx()) {
          velocity.setDx(-velocity.getDx());
-//         System.out.println(point.getX());
       }
 
       if (frameHeight < point.getY() + radius + velocity.getDy()
               || point.getY() < radius + fromHeight - velocity.getDy()) {
          velocity.setDy(-velocity.getDy());
-//         System.out.println(point.getY());
       }
       point = this.getVelocity().applyToPoint(point);
    }

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 
 /**
@@ -8,26 +9,24 @@ import java.util.List;
 public class GameEnvironment {
 
    private List<Collidable> listOfCollidableObjects = new ArrayList<>();
-   private static Collidable nextCollObj;
-   private static int stepsToNextColl = 2;
 
    /**
     * @param frameWidth
     * @param frameHeight
     */
    public GameEnvironment(int frameWidth, int frameHeight) {
-      addCollidable(new Block(new Point(0, 0), frameWidth, (int) (frameHeight * 0.05), "UpperScreen", false, Integer.MAX_VALUE)); //upper screen block
-      addCollidable(new Block(new Point(150, 150), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false, 3)); //random block
-      addCollidable(new Block(new Point(350, 350), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false, 4)); //random block
-      addCollidable(new Block(new Point(550, 550), (int) (frameWidth * 0.25), (int) (frameHeight * 0.10), "random", false, 5)); //random block
+      addCollidable(new Block(new Point(0, 0), frameWidth, (int) (frameHeight * 0.05), "UpperScreen", Integer.MAX_VALUE, Color.GRAY)); //upper screen block
+      addCollidable(new Block(new Point(150, 150), (int) (frameWidth * 0.15), (int) (frameHeight * 0.05), "random", 3, Color.DARK_GRAY)); //random block
+      addCollidable(new Block(new Point(350, 350), (int) (frameWidth * 0.20), (int) (frameHeight * 0.08), "random", 2, Color.CYAN)); //random block
+      addCollidable(new Block(new Point(550, 550), (int) (frameWidth * 0.25), (int) (frameHeight * 0.11), "random", 1, Color.RED)); //random block
 
 
 
 
 
-      addCollidable(new Block(new Point(0, frameHeight * 0.95), frameWidth, (int) (frameHeight * 0.05), "LowerScreen", false, Integer.MAX_VALUE)); //lower screen block
-      addCollidable(new Block(new Point(0, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "LeftScreen", true, Integer.MAX_VALUE)); //left screen block
-      addCollidable(new Block(new Point(frameWidth * 0.95, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "RightScreen", true, Integer.MAX_VALUE)); //right screen block
+      addCollidable(new Block(new Point(0, frameHeight * 0.95), frameWidth, (int) (frameHeight * 0.05), "LowerScreen", Integer.MAX_VALUE, Color.GRAY)); //lower screen block
+      addCollidable(new Block(new Point(0, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "LeftScreen", Integer.MAX_VALUE, Color.GRAY)); //left screen block
+      addCollidable(new Block(new Point(frameWidth * 0.95, frameHeight * 0.05), (int) (frameWidth * 0.05), (int) (frameHeight * 0.90), "RightScreen", Integer.MAX_VALUE, Color.GRAY)); //right screen block
    }
 
    /**
@@ -45,26 +44,13 @@ public class GameEnvironment {
       return listOfCollidableObjects;
    }
 
-
-   public Collidable getNextCollObj() {
-      return nextCollObj;
-   }
-
-
-   public void setNextCollObj(Collidable obj) {
-      nextCollObj = obj;
-   }
-
-   public void decStepsToNextColl() {
-      stepsToNextColl--;
-   }
-
-   public void resetStepsToNextColl() {
-      stepsToNextColl = 2;
-   }
-
-   public int getStepsToNextColl() {
-      return stepsToNextColl;
+   public void updateCollision(Collidable coll) {
+      int ind = listOfCollidableObjects.indexOf(coll);
+      listOfCollidableObjects.get(ind).updateHitCount();
+      int countToDis = listOfCollidableObjects.get(ind).getHitCount();
+      if(countToDis == 0) {
+         listOfCollidableObjects.remove(ind);
+      }
    }
 
    /**
@@ -76,7 +62,7 @@ public class GameEnvironment {
     * @return - the information about the closest collision that is going to occur.
     *           If no collision going to occur, null is returned.
     */
-   public CollisionInfo getClosestCollision(Line trajectory, Ball ball) {
+   public CollisionInfo getClosestCollision(Line trajectory) {
       double distance = Integer.MAX_VALUE, temp;
       Point resCollisionPoint = null;
       Collidable collObj = null;
@@ -92,10 +78,10 @@ public class GameEnvironment {
             }
          }
       }
-      stepsToNextColl = (int) ((trajectory.getStartPoint().distance(resCollisionPoint)
-                        / trajectory.getStartPoint().distance(new Point(ball.getX()
-                           + ball.getVelocity().getDx(), ball.getY() + ball.getVelocity().getDy()))) - 1);
-      System.out.println("stepsToNextColl: " + stepsToNextColl);
+//      stepsToNextColl = (int) ((trajectory.getStartPoint().distance(resCollisionPoint)
+//                        / trajectory.getStartPoint().distance(new Point(ball.getX()
+//                           + ball.getVelocity().getDx(), ball.getY() + ball.getVelocity().getDy()))) - 1);
+//      System.out.println("stepsToNextColl: " + stepsToNextColl);
       return new CollisionInfo(resCollisionPoint, collObj);
    }
 }

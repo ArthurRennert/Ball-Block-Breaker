@@ -28,6 +28,10 @@ public class Rectangle {
       color = c;
    }
 
+   public void setUpperLeftPoint(Point p) {
+      point = new Point(p);
+   }
+
    /**
     * @param line
     * @return - Return a (possibly empty) List of intersection points with the specified line.
@@ -46,12 +50,8 @@ public class Rectangle {
       return retList;
    }
 
-   public void drawOn(DrawSurface surface) {
-      surface.setColor(this.color);
-      surface.fillRectangle((int) point.getX(),
-              (int) point.getY(),
-              (int) width,
-              (int) height);
+   public Color getColor() {
+      return color;
    }
 
    /**

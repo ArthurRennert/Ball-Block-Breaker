@@ -1,15 +1,18 @@
+import biuoop.DrawSurface;
+
 import java.awt.Color;
 import java.util.List;
 
 /**
  * Class block.
  */
-public class Block implements Collidable {
+public class Block implements Collidable, Sprite {
 
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
    private int hitCount;
+   private boolean disappearable;
 
 
    /**
@@ -18,9 +21,10 @@ public class Block implements Collidable {
     * @param height
     * @param name
     */
-   public Block(Point p, int width, int height, String name, int cnt, Color c) {
+   public Block(Point p, int width, int height, String name, int cnt, Color c, boolean dis) {
       rectangle = new Rectangle(p, width, height, name, c);
       hitCount = cnt;
+      disappearable = dis;
    }
 
 
@@ -44,6 +48,27 @@ public class Block implements Collidable {
       if(l.isVerticalLine())
          return new Velocity(-currentVelocity.getDx(), currentVelocity.getDy());
       return new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
+   }
+
+   public void drawOn(DrawSurface surface) {
+      surface.setColor(rectangle.getColor());
+      surface.fillRectangle((int) rectangle.getXUpperLeftCoordinate(),
+              (int) rectangle.getYUpperLeftCoordinate(),
+              (int) rectangle.getWidth(),
+              (int) rectangle.getHeight());
+   }
+
+   public boolean isDisappearable() {
+      return disappearable;
+   }
+
+   public void addToGame(Game g) {
+      g.addSprite(this);
+      g.addCollidable(this);
+   }
+
+   public void timePassed() {
+
    }
 
    @Override

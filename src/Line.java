@@ -7,6 +7,8 @@ import java.util.Random;
  */
 public class Line {
 
+   private static final double EPSILON = 0.5;
+
    //instance variables
     private Point start;
     private Point end;
@@ -232,8 +234,8 @@ public class Line {
     */
    public static boolean isPointOnSegment(Point p, Point q, Point r) {
 //      System.out.println("p: " + p + "\nq: " + q + "\nr: " + r);
-      if (q.getX() <= (Math.max(p.getX(), r.getX()) + 0.5) && q.getX() >= Math.min(p.getX(), r.getX()) - 0.5
-              && q.getY() <= Math.max(p.getY(), r.getY()) + 0.5 && q.getY() >= Math.min(p.getY(), r.getY()) - 0.5) {
+      if (q.getX() <= (Math.max(p.getX(), r.getX()) + EPSILON) && q.getX() >= Math.min(p.getX(), r.getX()) - EPSILON
+              && q.getY() <= Math.max(p.getY(), r.getY()) + EPSILON && q.getY() >= Math.min(p.getY(), r.getY()) - EPSILON) {
          return true;
       }
       return false;

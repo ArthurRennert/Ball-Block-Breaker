@@ -37,7 +37,7 @@ public class Ass3Game {
       while (true) {
          DrawSurface d = gui.getDrawSurface();
          for (Collidable elem : list) {
-            elem.getCollisionRectangle().drawOn(d);
+            elem.drawOn(d);
          }
          ball.moveOneStep(stepsToNextCollision);
          stepsToNextCollision--;
@@ -57,7 +57,7 @@ public class Ass3Game {
    public static void calcStepsToNextCollision() {
       collInfo = ge.getClosestCollision(new Line(ball.getPoint(), new Point(ball.getVelocity().getDx() * 600000, ball.getVelocity().getDy() * 600000)));
       double distanceToCollision = ball.getPoint().distance(collInfo.collisionPoint());
-      stepsToNextCollision = (int) ((distanceToCollision - ball.getRadius()) / BALL_SPEED);
+      stepsToNextCollision = (int) (distanceToCollision / BALL_SPEED);
 //      System.out.println("stepsToNextCollision: " + stepsToNextCollision);
    }
 

@@ -1,3 +1,5 @@
+import biuoop.DrawSurface;
+
 /**
  *
  */
@@ -20,4 +22,8 @@ public interface Collidable {
    void updateHitCount();
 
    int getHitCount();
+
+   public void drawOn(DrawSurface surface);
+
+   public boolean isDisappearable();
 }

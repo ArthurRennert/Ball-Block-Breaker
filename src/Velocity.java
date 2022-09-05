@@ -47,6 +47,10 @@ public class Velocity {
    }
 
 
+   public int getSpeed() {
+      return (int) (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
+   }
+
    /**
     * @param p
     * @return - a new Point object with its Velocity added to it.

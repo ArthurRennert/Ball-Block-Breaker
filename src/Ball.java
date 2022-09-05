@@ -1,6 +1,5 @@
 import biuoop.DrawSurface;
 import java.awt.Color;
-import java.util.List;
 
 /**
  *
@@ -8,8 +7,8 @@ import java.util.List;
 public class Ball implements Sprite {
    //instance variables
    private Point point;
-   private int radius;
-   private Color color;
+   private final int radius;
+   private final Color color;
    private Velocity velocity;
    private GameEnvironment ge;
 
@@ -55,6 +54,9 @@ public class Ball implements Sprite {
       return radius;
    }
 
+   /**
+    * @return - the point object.
+    */
    public Point getPoint() {
       return point;
    }
@@ -119,7 +121,6 @@ public class Ball implements Sprite {
       return velocity;
    }
 
-
    /**
     * @param frameWidth
     * @param frameHeight
@@ -135,31 +136,27 @@ public class Ball implements Sprite {
       point = this.getVelocity().applyToPoint(point);
    }
 
-   /**
-    *
-    */
-   public void moveOneStep(int stepsToNextCollision) {
-      if(stepsToNextCollision <= 1) {
-         Velocity newVel = Ass3Game.getCollInfo().collisionObject().hit(Ass3Game.getCollInfo().collisionPoint(), this.getVelocity());
-         this.setVelocity(newVel);
-         ge.updateCollision(Ass3Game.getCollInfo().collisionObject());
-         Ass3Game.calcStepsToNextCollision();
-      }
-      point = this.getVelocity().applyToPoint(point);
-   }
 
+   /**
+    * @param g
+    */
    public void addToGame(Game g) {
       g.addSprite(this);
    }
 
+   /**
+    *
+    */
    public void timePassed() {
 //      if(stepsToNextCollision <= 1) {
-      CollisionInfo collInfo = ge.getClosestCollision(new Line(this.getPoint(), new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
+      CollisionInfo collInfo =
+              ge.getClosestCollision(new Line(this.getPoint(),
+                      new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
 
       double distanceToCollision = this.getPoint().distance(collInfo.collisionPoint());
       int stepsToNextCollision = (int) (distanceToCollision / 10);
 
-      if(stepsToNextCollision <= 1) {
+      if (stepsToNextCollision <= 1) {
          Velocity newVel = collInfo.collisionObject().hit(collInfo.collisionPoint(), this.getVelocity());
          this.setVelocity(newVel);
 //         ge.updateCollision(collInfo.collisionObject());

@@ -1,9 +1,7 @@
 package collision;
 
-import collision.CollisionInfo;
 import gui.shapes.Line;
 import gui.shapes.Point;
-import gui.shapes.Rectangle;
 import sprites.Collidable;
 
 import java.util.ArrayList;

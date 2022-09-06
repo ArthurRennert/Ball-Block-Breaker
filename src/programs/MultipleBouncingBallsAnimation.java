@@ -33,7 +33,7 @@ public class MultipleBouncingBallsAnimation {
       for (int i = 0; i < args.length; i++) {
          balls.add(new Ball((double) rand.nextInt(200) + 200, (double) rand.nextInt(200) + 200,
                  Integer.parseInt(args[i]), new Color((int) (Math.random() * 0x1000000))));   //java.awt.Color.BLACK
-         balls.get(i).setVelocity(velocityDeterminer(balls.get(i).getSize()));
+         balls.get(i).setVelocity(velocityDeterminer(balls.get(i).getRadius()));
       }
 
       while (true) {

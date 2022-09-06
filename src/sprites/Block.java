@@ -1,24 +1,29 @@
 package sprites;
 
 import biuoop.DrawSurface;
+import collision.HitListener;
+import collision.HitNotifier;
+import gui.levels.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Line;
 import gui.shapes.Point;
 import gui.shapes.Rectangle;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class block.
  */
-public class Block implements Collidable, Sprite {
+public class Block implements Collidable, Sprite, HitNotifier {
 
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
    private int hitCount;
    private boolean disappearable;
+   private List<HitListener> hitListeners;
 
 
    /**
@@ -31,6 +36,7 @@ public class Block implements Collidable, Sprite {
       rectangle = new Rectangle(p, width, height, name, c);
       hitCount = cnt;
       disappearable = dis;
+      hitListeners = new ArrayList<>();
    }
 
 
@@ -40,19 +46,20 @@ public class Block implements Collidable, Sprite {
    }
 
    @Override
-   public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+   public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
       List<Line> sidesList = getCollisionRectangle().getSidesList();
       Line l = null;
 
       for (Line elem : sidesList) {
-         if(Line.isPointOnSegment(elem.getStartPoint(), collisionPoint, elem.getEndPoint())) {
+         if (Line.isPointOnSegment(elem.getStartPoint(), collisionPoint, elem.getEndPoint())) {
             l = elem;
             break;
          }
       }
-
-      if(l.isVerticalLine())
+      this.notifyHit(hitter);
+      if (l.isVerticalLine()) {
          return new Velocity(-currentVelocity.getDx(), currentVelocity.getDy());
+      }
       return new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
    }
 
@@ -82,9 +89,18 @@ public class Block implements Collidable, Sprite {
    /**
     * @param g
     */
-   public void addToGame(gui.Game g) {
+   public void addToGame(GameLevel g) {
       g.addSprite(this);
       g.addCollidable(this);
+   }
+
+
+   /**
+    * @param gameLevel
+    */
+   public void removeFromGame(GameLevel gameLevel) {
+      gameLevel.removeSprite(this);
+      gameLevel.removeCollidable(this);
    }
 
    /**
@@ -108,5 +124,31 @@ public class Block implements Collidable, Sprite {
    public String toString() {
       return utilities.ConsoleColors.RED_UNDERLINED + "Rectangle\n" + utilities.ConsoleColors.RED + rectangle;
 
+   }
+
+   @Override
+   public void addHitListener(HitListener hl) {
+      hitListeners.add(hl);
+   }
+
+   @Override
+   public void removeHitListener(HitListener hl) {
+      hitListeners.remove(hl);
+   }
+
+   public List<HitListener> listOfHitListeners() {
+      return hitListeners;
+   }
+
+   /**
+    * @param hitter
+    */
+   private void notifyHit(Ball hitter) {
+      // Make a copy of the hitListeners before iterating over them.
+      List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+      // Notify all listeners about a hit event:
+      for (HitListener hl : listeners) {
+         hl.hitEvent(this, hitter);
+      }
    }
 }

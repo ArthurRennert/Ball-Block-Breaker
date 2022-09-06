@@ -3,8 +3,10 @@ package collision;
 import gui.shapes.Line;
 import gui.shapes.Point;
 import sprites.Collidable;
+import sprites.Sprite;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -31,6 +33,21 @@ public class GameEnvironment {
       listOfCollidableObjects.add(c);
    }
 
+
+   /**
+    * @param c
+    */
+   public void removeCollidable(Collidable c) {
+//      Iterator<Collidable> it = listOfCollidableObjects.iterator();
+//      while (it.hasNext()) {
+//         Collidable coll = it.next();
+//         if (coll.equals(c)) {
+//            it.remove();
+//         }
+//      }
+      listOfCollidableObjects.remove(c);
+   }
+
    /**
     * @return - the list of collidable objects.
     */
@@ -38,6 +55,9 @@ public class GameEnvironment {
       return listOfCollidableObjects;
    }
 
+   /**
+    * @param coll
+    */
    public void updateCollision(Collidable coll) {
       int ind = listOfCollidableObjects.indexOf(coll);
       if (listOfCollidableObjects.get(ind).isDisappearable()) {

@@ -3,6 +3,7 @@ package sprites;
 import biuoop.DrawSurface;
 import collision.CollisionInfo;
 import collision.GameEnvironment;
+import gui.levels.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Point;
 
@@ -46,12 +47,30 @@ public class Ball implements Sprite {
       velocity = new Velocity(0, 0);
    }
 
+   /**
+    * @param other
+    */
+   public Ball(Ball other) {
+      this.point = new Point(other.getPoint());
+      this.radius = other.getRadius();
+      this.color = new Color(other.getColor().getRGB());
+      this.velocity = new Velocity(other.getVelocity());
+   }
+
 
    /**
     * @param gameEnvironment
     */
    public void setGameEnvironment(GameEnvironment gameEnvironment) {
       ge = gameEnvironment;
+   }
+
+
+   /**
+    * @return
+    */
+   public GameEnvironment getGameEnvironment() {
+      return ge;
    }
 
    /**
@@ -66,6 +85,13 @@ public class Ball implements Sprite {
     */
    public Point getPoint() {
       return point;
+   }
+
+   /**
+    * @param p
+    */
+   public void setPoint(Point p) {
+      this.point = new Point(p);
    }
 
    /**
@@ -147,8 +173,15 @@ public class Ball implements Sprite {
    /**
     * @param g
     */
-   public void addToGame(gui.Game g) {
+   public void addToGame(GameLevel g) {
       g.addSprite(this);
+   }
+
+   /**
+    * @param gameLevel
+    */
+   public void removeFromGame(GameLevel gameLevel) {
+      gameLevel.removeSprite(this);
    }
 
    /**
@@ -164,7 +197,8 @@ public class Ball implements Sprite {
       int stepsToNextCollision = (int) (distanceToCollision / 10);
 
       if (stepsToNextCollision <= 1) {
-         Velocity newVel = collInfo.collisionObject().hit(collInfo.collisionPoint(), this.getVelocity());
+//         System.out.println("hit");
+         Velocity newVel = collInfo.collisionObject().hit(this, collInfo.collisionPoint(), this.getVelocity());
          this.setVelocity(newVel);
 //         ge.updateCollision(collInfo.collisionObject());
       }

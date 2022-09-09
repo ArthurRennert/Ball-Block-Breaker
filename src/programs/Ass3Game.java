@@ -1,6 +1,8 @@
 package programs;
 
+import gui.levels.FirstLevel;
 import gui.levels.GameLevel;
+import gui.levels.LevelInformation;
 
 /**
  *
@@ -12,7 +14,8 @@ public class Ass3Game {
     * @param args
     */
    public static void main(String[] args) {
-      GameLevel gameLevel = new GameLevel();
+      LevelInformation firstLevel = new FirstLevel();
+      GameLevel gameLevel = new GameLevel(firstLevel);
       gameLevel.initialize();
       gameLevel.run();
    }

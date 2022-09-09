@@ -27,22 +27,7 @@ public interface Collidable {
    Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity);
 
    /**
-    *
-    */
-   void updateHitCount();
-
-   /**
-    * @return
-    */
-   int getHitCount();
-
-   /**
     * @param surface
     */
    public void drawOn(DrawSurface surface);
-
-   /**
-    * @return
-    */
-   public boolean isDisappearable();
 }

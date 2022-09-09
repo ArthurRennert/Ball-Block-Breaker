@@ -55,19 +55,6 @@ public class GameEnvironment {
       return listOfCollidableObjects;
    }
 
-   /**
-    * @param coll
-    */
-   public void updateCollision(Collidable coll) {
-      int ind = listOfCollidableObjects.indexOf(coll);
-      if (listOfCollidableObjects.get(ind).isDisappearable()) {
-         listOfCollidableObjects.get(ind).updateHitCount();
-         int hitCount = listOfCollidableObjects.get(ind).getHitCount();
-         if (hitCount == 0) {
-            listOfCollidableObjects.remove(ind);
-         }
-      }
-   }
 
    /**
     * Assume an object moving from line.start() to line.end().

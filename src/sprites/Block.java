@@ -21,8 +21,6 @@ public class Block implements Collidable, Sprite, HitNotifier {
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
-   private int hitCount;
-   private boolean disappearable;
    private List<HitListener> hitListeners;
 
 
@@ -31,11 +29,10 @@ public class Block implements Collidable, Sprite, HitNotifier {
     * @param width
     * @param height
     * @param name
+    * @param c
     */
-   public Block(Point p, int width, int height, String name, int cnt, Color c, boolean dis) {
+   public Block(Point p, int width, int height, String name, Color c) {
       rectangle = new Rectangle(p, width, height, name, c);
-      hitCount = cnt;
-      disappearable = dis;
       hitListeners = new ArrayList<>();
    }
 
@@ -79,12 +76,6 @@ public class Block implements Collidable, Sprite, HitNotifier {
       surface.drawLine((int) rectangle.getXUpperRightCoordinate(), (int) rectangle.getYUpperRightCoordinate(), (int) rectangle.getXLowerRightCoordinate(), (int) rectangle.getYLowerRightCoordinate());
    }
 
-   /**
-    * @return
-    */
-   public boolean isDisappearable() {
-      return disappearable;
-   }
 
    /**
     * @param g
@@ -110,15 +101,6 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
    }
 
-   @Override
-   public void updateHitCount() {
-      hitCount--;
-   }
-
-   @Override
-   public int getHitCount() {
-      return hitCount;
-   }
 
    @Override
    public String toString() {
@@ -136,6 +118,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
       hitListeners.remove(hl);
    }
 
+   /**
+    * @return
+    */
    public List<HitListener> listOfHitListeners() {
       return hitListeners;
    }

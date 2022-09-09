@@ -40,7 +40,7 @@ public class PauseScreen implements Animation {
 //      d.fillRectangle(0, 0, frameWidth, frameHeight);
       gameScreen.drawAllOn(d);
       d.setColor(DARK_YELLOW);
-      d.drawText((int) (d.getWidth() / 3.5), d.getHeight() / 5, "GameLevel paused. Press the ENTER key to continue", 40);
+      d.drawText((int) (d.getWidth() / 3.5), d.getHeight() / 5, "Game paused. Press the ENTER key to continue", 40);
       if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
          this.stop = true;
       }

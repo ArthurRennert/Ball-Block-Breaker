@@ -30,7 +30,7 @@ public class BallAdder implements HitListener {
    @Override
    public void hitEvent(Block beingHit, Ball hitter) {
       Ball b = new Ball(hitter);
-      b.setPoint(new Point(GameLevel.getFrameWidth() / 4, GameLevel.getFrameHeight() / 4));
+      b.setPoint(new Point(ScreenSettings.FRAME_WIDTH / 4, ScreenSettings.FRAME_HEIGHT / 4));
       b.setGameEnvironment(hitter.getGameEnvironment());
       b.addToGame(gameLevel);
       remainingBalls.increase(1);

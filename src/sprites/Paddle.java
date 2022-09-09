@@ -1,7 +1,7 @@
 package sprites;
 
 import biuoop.GUI;
-import gui.levels.GameLevel;
+import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Line;
 import gui.shapes.Point;
@@ -14,29 +14,33 @@ import java.util.List;
  *
  */
 public class Paddle extends Block implements Sprite, Collidable {
+    private static final int PADDLE_SEGMENTS = 5;
+
+    private GUI gui;
     private biuoop.KeyboardSensor keyboard;
 
-    private static final int PADDLE_WIDTH = 140;
-    private static final int PADDLE_SEGMENTS = 5;
-    private static final int MOVE_LEFT = 15;
-    private static final int MOVE_RIGHT = 15;
-    private GUI gui;
+    private int paddleWidth;
+    private int paddleSpeed;
+
 
     /**
-     *
+     * @param paddleWidth
+     * @param paddleSpeed
      */
-    public Paddle() {
-        super(new Point((GameLevel.getFrameWidth() - PADDLE_WIDTH) / 2, GameLevel.getFrameHeight() * 0.95), PADDLE_WIDTH, (int) (GameLevel.getFrameHeight() * 0.03), "Paddle", 0, Color.ORANGE,false);
+    public Paddle(int paddleWidth, int paddleSpeed) {
+        super(new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95), paddleWidth, (int) (ScreenSettings.FRAME_HEIGHT * 0.03), "Paddle", Color.ORANGE);
+        this.paddleWidth = paddleWidth;
+        this.paddleSpeed = paddleSpeed;
     }
 
     /**
      *
      */
     public void moveLeft() {
-        if (getCollisionRectangle().getUpperLeft().getX() - MOVE_LEFT <= GameLevel.getFrameWidth() * 0.03) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.03, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() - paddleSpeed <= ScreenSettings.FRAME_WIDTH * 0.03) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.03, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - MOVE_LEFT, getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - paddleSpeed, getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -44,10 +48,10 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     public void moveRight() {
-        if (getCollisionRectangle().getUpperLeft().getX() + PADDLE_WIDTH + MOVE_RIGHT >= GameLevel.getFrameWidth() * 0.97) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.97 - PADDLE_WIDTH, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() + paddleWidth + paddleSpeed >= ScreenSettings.FRAME_WIDTH * 0.97) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.97 - paddleWidth, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + MOVE_RIGHT, getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + paddleSpeed, getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -55,10 +59,10 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     public void moveLeftSlow() {
-        if (getCollisionRectangle().getUpperLeft().getX() - (MOVE_LEFT - 5) <= GameLevel.getFrameWidth() * 0.03) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.03, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() - (paddleSpeed - 5) <= ScreenSettings.FRAME_WIDTH * 0.03) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.03, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - (MOVE_LEFT - 5), getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - (paddleSpeed - 5), getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -66,10 +70,10 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     public void moveLeftFast() {
-        if (getCollisionRectangle().getUpperLeft().getX() - (MOVE_LEFT + 5) <= GameLevel.getFrameWidth() * 0.03) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.03, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() - (paddleSpeed + 5) <= ScreenSettings.FRAME_WIDTH * 0.03) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.03, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - (MOVE_LEFT + 5), getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() - (paddleSpeed + 5), getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -77,10 +81,10 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     public void moveRightSlow() {
-        if (getCollisionRectangle().getUpperLeft().getX() + PADDLE_WIDTH + MOVE_RIGHT - 5 >= GameLevel.getFrameWidth() * 0.97) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.97 - PADDLE_WIDTH, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() + paddleWidth + paddleSpeed - 5 >= ScreenSettings.FRAME_WIDTH * 0.97) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.97 - paddleWidth, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + (MOVE_RIGHT - 5), getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + (paddleSpeed - 5), getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -88,10 +92,10 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     public void moveRightFast() {
-        if (getCollisionRectangle().getUpperLeft().getX() + PADDLE_WIDTH + MOVE_RIGHT + 5 >= GameLevel.getFrameWidth() * 0.97) {
-            getCollisionRectangle().setUpperLeftPoint(new Point(GameLevel.getFrameWidth() * 0.97 - PADDLE_WIDTH, getCollisionRectangle().getUpperLeft().getY()));
+        if (getCollisionRectangle().getUpperLeft().getX() + paddleWidth + paddleSpeed + 5 >= ScreenSettings.FRAME_WIDTH * 0.97) {
+            getCollisionRectangle().setUpperLeftPoint(new Point(ScreenSettings.FRAME_WIDTH * 0.97 - paddleWidth, getCollisionRectangle().getUpperLeft().getY()));
         } else {
-            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + (MOVE_RIGHT + 5), getCollisionRectangle().getUpperLeft().getY()));
+            getCollisionRectangle().setUpperLeftPoint(new Point(getCollisionRectangle().getUpperLeft().getX() + (paddleSpeed + 5), getCollisionRectangle().getUpperLeft().getY()));
         }
     }
 
@@ -145,7 +149,7 @@ public class Paddle extends Block implements Sprite, Collidable {
             return new Velocity(-currentVelocity.getDx(), currentVelocity.getDy());
         }
 
-        int paddleSegment = PADDLE_WIDTH / PADDLE_SEGMENTS;
+        int paddleSegment = paddleWidth / PADDLE_SEGMENTS;
         int collision = (int) collisionPoint.getX();
         int paddleStart = (int) getCollisionRectangle().getXUpperLeftCoordinate();
         if (paddleStart <= collision && collision <= paddleStart + paddleSegment) { //region 1
@@ -160,12 +164,4 @@ public class Paddle extends Block implements Sprite, Collidable {
             return Velocity.fromAngleAndSpeed(120, currentVelocity.getSpeed());
         }
     }
-
-//    public int getHitCount() {
-//        return 1;
-//    }
-
-//    public void updateHitCount() {
-//
-//    }
 }

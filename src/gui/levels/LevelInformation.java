@@ -35,4 +35,5 @@ public interface LevelInformation {
    List<Block> getFrameBlocksList();
    List<Block> getPitBlocksList();
    List<Velocity> getVelocityList();
+   String getName();
 }

@@ -26,9 +26,9 @@ public class GameLevel implements Animation {
     private utilities.Counter blocksCounter;
     private utilities.Counter ballsCounter;
     private utilities.Counter score;
-    private AnimationRunner runner;
+    private AnimationRunner animationRunner;
     private boolean running;
-    private KeyboardSensor keyboard;
+    private KeyboardSensor keyboardSensor;
     private utilities.Timer timer;
     private LevelInformation levelInformation;
 
@@ -36,17 +36,18 @@ public class GameLevel implements Animation {
     /**
      * @param levelInfo
      */
-    public GameLevel(LevelInformation levelInfo) {
+    public GameLevel(LevelInformation levelInfo, KeyboardSensor ks, AnimationRunner ar, Counter score) {
         environment = new GameEnvironment(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
         sprites = new SpriteCollection();
         blocksCounter = new Counter();
         ballsCounter = new Counter();
-        score = new Counter();
-        score.setValue(0);
-        runner = new AnimationRunner(60, "Ball Block Breaker", ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
-        keyboard = runner.getGUI().getKeyboardSensor();
+//        animationRunner = new AnimationRunner(60, "Ball Block Breaker", ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
+//        keyboard = animationRunner.getGUI().getKeyboardSensor();
         timer = new utilities.Timer(0, 0, 0);
         levelInformation = levelInfo;
+        keyboardSensor = ks;
+        animationRunner = ar;
+        this.score = score;
     }
 
 
@@ -72,9 +73,9 @@ public class GameLevel implements Animation {
             elem.addToGame(this);
             elem.addHitListener(ballRemoverListener);
         }
+
         blocksCounter.setValue(levelInformation.numberOfBlocksToRemove());
         ballsCounter.setValue(levelInformation.numberOfBalls());
-
 
         List<Ball> ballList = levelInformation.getBallsList();
         List<Velocity> velocityList = levelInformation.getVelocityList();
@@ -84,23 +85,14 @@ public class GameLevel implements Animation {
             ballList.get(i).setVelocity(velocityList.get(i));
         }
 
-//        for (Ball elem : levelInformation.getBallsList()) {
-//            elem.addToGame(this);
-//            elem.setGameEnvironment(environment);
-//        }
-
-
-
         Paddle paddle = new Paddle(levelInformation.paddleWidth(), levelInformation.paddleSpeed());
-        paddle.setGUI(runner.getGUI());
+        paddle.setGUI(animationRunner.getGUI());
         paddle.addToGame(this);
-
 
 //        BallAdder ballAdderListener = new BallAdder(this, ballsCounter);
 
         ScoreIndicator scoreIndicator = new ScoreIndicator(score, new Point(0, 0), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.04));
         scoreIndicator.addToGame(this);
-
     }
 
 
@@ -109,9 +101,13 @@ public class GameLevel implements Animation {
      */
     public void run() {
         this.running = true;
-        this.runner.run(new CountdownAnimation(1, 3, this.sprites));
+        this.animationRunner.run(new CountdownAnimation(1, 3, this.sprites));
         timer.timerInit();
-        this.runner.run(this);
+        this.animationRunner.run(this);
+    }
+
+    public SpriteCollection getSprites() {
+        return this.sprites;
     }
 
 
@@ -148,8 +144,8 @@ public class GameLevel implements Animation {
     public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
         this.sprites.notifyAllTimePassed();
-        if (this.keyboard.isPressed("space")) {
-            this.runner.run(new PauseScreen(this.keyboard, ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT, this.sprites));
+        if (this.keyboardSensor.isPressed("space")) {
+            this.animationRunner.run(new PauseScreen(this.keyboardSensor, this.sprites));
         }
         if (blocksCounter.getValue() == 0) {
             score.increase(100);
@@ -160,6 +156,14 @@ public class GameLevel implements Animation {
             timer.stopTimer();
             this.running = false;
         }
+    }
+
+    public int getNumOfBallsLeft() {
+        return ballsCounter.getValue();
+    }
+
+    public int getNumOfBlocksLeft() {
+        return blocksCounter.getValue();
     }
 
     @Override

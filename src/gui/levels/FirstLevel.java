@@ -34,7 +34,7 @@ public class FirstLevel implements LevelInformation {
       frameBlocks = initialFrameBlocks();
       pitBlocks = initialPitBlocks();
       paddleSpeed = 20;
-      paddleWidth = 140;
+      paddleWidth = 240;
       levelName = "First level";
       background = new Background(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT, ScreenSettings.DARK_BLUE);
       numberOfBlocksToRemove = 57;
@@ -138,5 +138,10 @@ public class FirstLevel implements LevelInformation {
    @Override
    public int numberOfBlocksToRemove() {
       return numberOfBlocksToRemove;
+   }
+
+   @Override
+   public String getName() {
+      return levelName;
    }
 }

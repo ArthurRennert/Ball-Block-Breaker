@@ -13,7 +13,7 @@ public class BetweenLevelsScreen implements Animation {
     private static final Color DARK_YELLOW = new Color(255, 204, 0);
 
     private KeyboardSensor keyboard;
-    private boolean stop;
+    private boolean running;
     private SpriteCollection gameScreen;
     private String name;
 
@@ -24,7 +24,7 @@ public class BetweenLevelsScreen implements Animation {
      */
     public BetweenLevelsScreen(KeyboardSensor k, String name, SpriteCollection gameScreen) {
         this.keyboard = k;
-        this.stop = false;
+        this.running = false;
         this.gameScreen = gameScreen;
         this.name = name;
     }
@@ -36,15 +36,12 @@ public class BetweenLevelsScreen implements Animation {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 19), d.getHeight() / 5, "You finished the " + this.name + ". Press the ENTER key to continue to the next level.", 40);
-        if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-            this.stop = true;
-        }
     }
 
     /**
      * @return
      */
     public boolean shouldStop() {
-        return this.stop;
+        return !this.running;
     }
 }

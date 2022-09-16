@@ -29,5 +29,5 @@ public interface Collidable {
    /**
     * @param surface
     */
-   public void drawOn(DrawSurface surface);
+   void drawOn(DrawSurface surface);
 }

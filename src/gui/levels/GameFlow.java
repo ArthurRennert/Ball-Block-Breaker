@@ -33,17 +33,23 @@ public class GameFlow {
                 level.run();
             }
 
+//            if (level.getNumOfBallsLeft() == 0) {
+//                this.animationRunner.run(new GameOver(keyboardSensor, level.getSprites(), score.getValue()));
+//                System.exit(0);
+//                break;
+//            }
+
             if (level.getNumOfBallsLeft() == 0) {
-                this.animationRunner.run(new GameOver(keyboardSensor, level.getSprites(), score.getValue()));
+                this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new GameOver(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
                 break;
             }
 
             if (i == (levels.size() - 1) && level.getNumOfBlocksLeft() == 0) {
-                this.animationRunner.run(new GameWon(keyboardSensor, level.getSprites(), score.getValue()));
+                this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new GameWon(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
             }
-            this.animationRunner.run(new BetweenLevelsScreen(keyboardSensor, levelInfo.getName(), level.getSprites()));
+            this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "m", new BetweenLevelsScreen(keyboardSensor, levelInfo.getName(), level.getSprites())));
         }
     }
 

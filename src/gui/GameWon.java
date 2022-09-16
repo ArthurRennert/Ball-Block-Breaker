@@ -14,7 +14,7 @@ public class GameWon implements Animation {
 
     private KeyboardSensor keyboard;
     private SpriteCollection gameScreen;
-    private boolean stop;
+    private boolean running;
     private int score;
 
 
@@ -24,7 +24,7 @@ public class GameWon implements Animation {
      */
     public GameWon(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
-        this.stop = false;
+        this.running = false;
         this.score = score;
         this.gameScreen = gameScreen;
     }
@@ -36,15 +36,12 @@ public class GameWon implements Animation {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 5), d.getHeight() / 5, "You Win. Your score is " +  this.score + ". Press the SPACE key to terminate.", 40);
-        if (this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
-            this.stop = true;
-        }
     }
 
     /**
      * @return
      */
     public boolean shouldStop() {
-        return this.stop;
+        return !this.running;
     }
 }

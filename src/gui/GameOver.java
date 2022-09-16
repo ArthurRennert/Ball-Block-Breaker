@@ -13,7 +13,7 @@ public class GameOver implements Animation {
     private static final Color DARK_YELLOW = new Color(255, 204, 0);
 
     private KeyboardSensor keyboard;
-    private boolean stop;
+    private boolean running;
     private SpriteCollection gameScreen;
     private int score;
 
@@ -25,7 +25,7 @@ public class GameOver implements Animation {
      */
     public GameOver(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
-        this.stop = false;
+        this.running = false;
         this.gameScreen = gameScreen;
         this.score = score;
     }
@@ -37,15 +37,12 @@ public class GameOver implements Animation {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 5), d.getHeight() / 5, "Game over. Your score is " +  this.score + ". Press the SPACE key to terminate.", 40);
-        if (this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
-            this.stop = true;
-        }
     }
 
     /**
      * @return
      */
     public boolean shouldStop() {
-        return this.stop;
+        return !this.running;
     }
 }

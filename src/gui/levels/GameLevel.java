@@ -101,12 +101,14 @@ public class GameLevel implements Animation {
      */
     public void run() {
         this.running = true;
-        this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new CountdownAnimation(1, 3, this.sprites)));
+        this.animationRunner.run(new CountdownAnimation(1, 3, this.sprites));
         timer.timerInit();
-        this.animationRunner.run(new KeyPressStoppableAnimation(this.keyboardSensor, "space", new PauseScreen(this.keyboardSensor, this.sprites)));
         this.animationRunner.run(this);
     }
 
+    /**
+     * @return
+     */
     public SpriteCollection getSprites() {
         return this.sprites;
     }
@@ -145,9 +147,9 @@ public class GameLevel implements Animation {
     public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
         this.sprites.notifyAllTimePassed();
-//        if (this.keyboardSensor.isPressed("space")) {
-//            this.animationRunner.run(new PauseScreen(this.keyboardSensor, this.sprites));
-//        }
+        if (this.keyboardSensor.isPressed("enter")) {
+            this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new PauseScreen(this.keyboardSensor, this.sprites)));
+        }
         if (blocksCounter.getValue() == 0) {
             score.increase(100);
             timer.stopTimer();
@@ -159,10 +161,16 @@ public class GameLevel implements Animation {
         }
     }
 
+    /**
+     * @return
+     */
     public int getNumOfBallsLeft() {
         return ballsCounter.getValue();
     }
 
+    /**
+     * @return
+     */
     public int getNumOfBlocksLeft() {
         return blocksCounter.getValue();
     }

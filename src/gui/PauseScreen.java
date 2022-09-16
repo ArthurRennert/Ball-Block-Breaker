@@ -23,7 +23,7 @@ public class PauseScreen implements Animation {
     */
    public PauseScreen(KeyboardSensor k, SpriteCollection gameScreen) {
       this.keyboard = k;
-      this.running = false;
+      this.running = true;
       this.gameScreen = gameScreen;
    }
 
@@ -34,6 +34,7 @@ public class PauseScreen implements Animation {
       gameScreen.drawAllOn(d);
       d.setColor(DARK_YELLOW);
       d.drawText((int) (d.getWidth() / 3.5), d.getHeight() / 5, "Game paused. Press the SPACE key to continue", 40);
+//      running = false;
    }
 
    /**

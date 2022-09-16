@@ -3,19 +3,27 @@ package gui;
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 
+/**
+ *
+ */
 public class KeyPressStoppableAnimation implements Animation {
 
     private KeyboardSensor keyboardSensor;
     private String key;
     private Animation animation;
-    private boolean running;
+    private boolean stop;
     private boolean isAlreadyPressed;
 
+    /**
+     * @param sensor
+     * @param key
+     * @param animation
+     */
     public KeyPressStoppableAnimation(KeyboardSensor sensor, String key, Animation animation) {
         keyboardSensor = sensor;
         this.key = key;
         this.animation = animation;
-        running = true;
+        stop = false;
         isAlreadyPressed = true;
     }
 
@@ -24,17 +32,15 @@ public class KeyPressStoppableAnimation implements Animation {
      */
     @Override
     public void doOneFrame(DrawSurface d) {
-//        while (running) {
-            animation.doOneFrame(d);
-            if (this.keyboardSensor.isPressed(key)) {
-                if (isAlreadyPressed)
-//                    continue;
-                    return;
-                running = false;
-            } else if (!this.keyboardSensor.isPressed(key)) {
-                isAlreadyPressed = false;
+        animation.doOneFrame(d);
+        if (this.keyboardSensor.isPressed(key)) {
+            if (isAlreadyPressed) {
+                return;
             }
-//        }
+            stop = true;
+        } else if (!this.keyboardSensor.isPressed(key)) {
+            isAlreadyPressed = false;
+        }
     }
 
     /**
@@ -42,7 +48,8 @@ public class KeyPressStoppableAnimation implements Animation {
      */
     @Override
     public boolean shouldStop() {
-        return animation.shouldStop();
+//        System.out.println(!running);
+        return this.stop;
     }
     // ...
     // think about the implementations of doOneFrame and shouldStop.

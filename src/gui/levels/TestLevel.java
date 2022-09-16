@@ -89,9 +89,9 @@ public class TestLevel implements LevelInformation {
     @Override
     public List<Block> initialBlocks() {
         List<Block> resList = new ArrayList<>();
-        int blocksWidth = 300;
+        int blocksWidth = 500;
         int blocksHeight = 40;
-        double xStart = ScreenSettings.FRAME_WIDTH * 0.50 - blocksWidth;
+        double xStart = ScreenSettings.FRAME_WIDTH * 0.60 - blocksWidth;
         double yStart = ScreenSettings.FRAME_HEIGHT * 0.30;
 
         resList.add(new Block(new Point(xStart, yStart),

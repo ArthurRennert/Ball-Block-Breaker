@@ -20,6 +20,7 @@ public class BetweenLevelsScreen implements Animation {
 
     /**
      * @param k
+     * @param name
      * @param gameScreen
      */
     public BetweenLevelsScreen(KeyboardSensor k, String name, SpriteCollection gameScreen) {
@@ -35,11 +36,12 @@ public class BetweenLevelsScreen implements Animation {
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
-        d.drawText((int) (d.getWidth() / 19), d.getHeight() / 5, "You finished the " + this.name + ". Press the ENTER key to continue to the next level.", 40);
+        d.drawText((int) (d.getWidth() / 10), d.getHeight() / 5, "You finished the "
+                + this.name + ". Press the SPACE key to continue to the next level.", 40);
     }
 
     /**
-     * @return
+     * @return - true whether the animation should stop, otherwise false.
      */
     public boolean shouldStop() {
         return !this.running;

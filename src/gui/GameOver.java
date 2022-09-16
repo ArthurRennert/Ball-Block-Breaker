@@ -25,7 +25,7 @@ public class GameOver implements Animation {
      */
     public GameOver(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
-        this.running = false;
+        this.running = true;
         this.gameScreen = gameScreen;
         this.score = score;
     }
@@ -37,6 +37,7 @@ public class GameOver implements Animation {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 5), d.getHeight() / 5, "Game over. Your score is " +  this.score + ". Press the SPACE key to terminate.", 40);
+        running = false;
     }
 
     /**

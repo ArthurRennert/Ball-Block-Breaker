@@ -20,11 +20,12 @@ public class GameWon implements Animation {
 
     /**
      * @param k
+     * @param gameScreen
      * @param score
      */
     public GameWon(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
-        this.running = false;
+        this.running = true;
         this.score = score;
         this.gameScreen = gameScreen;
     }
@@ -36,6 +37,7 @@ public class GameWon implements Animation {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 5), d.getHeight() / 5, "You Win. Your score is " +  this.score + ". Press the SPACE key to terminate.", 40);
+//        running = false;
     }
 
     /**
@@ -44,4 +46,12 @@ public class GameWon implements Animation {
     public boolean shouldStop() {
         return !this.running;
     }
+
+
+//    /**
+//     * @param val
+//     */
+//    public void setShouldStop(boolean val) {
+//        running = false;
+//    }
 }

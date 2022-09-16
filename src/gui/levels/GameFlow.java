@@ -19,6 +19,9 @@ public class GameFlow {
         score.setValue(0);
     }
 
+    /**
+     * @param levels
+     */
     public void runLevels(List<LevelInformation> levels) {
 
         for (int i = 0; i < levels.size(); i++) {
@@ -49,7 +52,7 @@ public class GameFlow {
                 this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new GameWon(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
             }
-            this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "m", new BetweenLevelsScreen(keyboardSensor, levelInfo.getName(), level.getSprites())));
+            this.animationRunner.run(new KeyPressStoppableAnimation(keyboardSensor, "space", new BetweenLevelsScreen(keyboardSensor, levelInfo.getName(), level.getSprites())));
         }
     }
 

@@ -30,7 +30,7 @@
     </target>
 
     <target name="run3.1" depends="compile" >
-        <java classname="BallsTest1" classpath="${classpath}" fork="true">
+        <java classname="tests.BallsTest1" classpath="${classpath}" fork="true">
             <!-- This specifies to pass the arguments from the `ant` command into the `java` execution command -->
             <arg line="${args}"/>
         </java>

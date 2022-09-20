@@ -103,6 +103,7 @@ public class GameLevel implements Animation {
         this.running = true;
         this.animationRunner.run(new CountdownAnimation(1, 3, this.sprites));
         timer.timerInit();
+//        KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(keyboardSensor, "space", this);
         this.animationRunner.run(this);
     }
 

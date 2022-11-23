@@ -23,7 +23,7 @@ public class Line {
       this.start = new Point(start);
       this.end = new Point(end);
       this.slope = this.slopeCalc();
-      this.yIntercept = this.getYIntercept();
+      this.yIntercept = this.calcYIntercept();
    }
 
    /**
@@ -36,7 +36,7 @@ public class Line {
       this.start = new Point(x1, y1);
       this.end = new Point(x2, y2);
       this.slope = this.slopeCalc();
-      this.yIntercept = this.getYIntercept();
+      this.yIntercept = this.calcYIntercept();
    }
 
    /**
@@ -50,7 +50,7 @@ public class Line {
     * @return - the Y Intercept of the line.
     */
    //change public to private
-   public double getYIntercept() {
+   public double calcYIntercept() {
       return this.start.getY() - (this.slope * this.start.getX());
    }
 
@@ -122,6 +122,8 @@ public class Line {
    }
 
    /**
+    * Method that returns true if line segment 'p1q1'
+    * and 'p2q2' intersect.
     * @param other
     * @return - true if the lines intersect, false otherwise.
     */

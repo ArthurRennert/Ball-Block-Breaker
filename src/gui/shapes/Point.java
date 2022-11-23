@@ -71,7 +71,9 @@ public class Point {
     * @param p - point one.
     * @param q - point two.
     * @param r - point three.
-    * @return - 0 --> p, q and r are collinear, 1 --> Clockwise, 2 --> Counterclockwise.
+    * @return - 0 --> p, q and r are collinear.
+    *           1 --> Clockwise.
+    *           2 --> Counterclockwise.
     */
    public static int orientation(Point p, Point q, Point r) {
       double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);

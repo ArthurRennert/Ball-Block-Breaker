@@ -26,7 +26,7 @@ public class AbstractArtDrawing {
          d.setColor(Color.BLACK);
          d.drawLine((int) lines.get(i).getXOfStartPoint(), (int) lines.get(i).getYOfStartPoint(),
                  (int) lines.get(i).getXOfEndPoint(), (int) lines.get(i).getYOfEndPoint());
-         Point middle = lines.get(i).middle();
+         Point middle = lines.get(i).calcMiddle();
          d.setColor(Color.BLUE);
          d.fillCircle((int) middle.getX(), (int) middle.getY(), 3);
 

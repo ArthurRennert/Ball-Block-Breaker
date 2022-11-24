@@ -72,7 +72,7 @@ public class Line {
     * @return - a new Point object representing the middle point of the line.
     */
    // Returns the middle point of the line
-   public Point middle() {
+   public Point calcMiddle() {
       return new Point((this.start.getX() + this.end.getX()) / 2, (this.start.getY() + this.end.getY()) / 2);
    }
 

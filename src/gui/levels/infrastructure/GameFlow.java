@@ -45,7 +45,6 @@ public class GameFlow {
 //            }
 
             while (lives.getValue() > 0 && level.getNumOfBlocksLeft() > 0) {
-                System.out.println("lives.getValue(): " + lives.getValue());
                 level.run();
             }
 

@@ -25,7 +25,7 @@ public class BallBlockBreaker {
       List<LevelInformation> levels = new ArrayList<>();
       levels.add(new TestLevel());
       levels.add(new TestLevel2());
-//      levels.add(new FirstLevel());
+      levels.add(new FirstLevel());
 //      levels.add(new RandomLevel());
       gameFlow.runLevels(levels);
    }

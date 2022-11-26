@@ -68,7 +68,9 @@ public class FirstLevel implements LevelInformation {
    }
 
    public void resetBallsLocation() {
-
+      numberOfBalls = 1;
+      ballsList = initialBalls();
+      velList = initialBallVelocities();
    }
 
    /**

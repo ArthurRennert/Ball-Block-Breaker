@@ -173,9 +173,7 @@ public class GameLevel implements Animation {
      * @param s
      */
     public void removeSprite(Sprite s) {
-        System.out.println("before remove: " + sprites.getSize());
         sprites.removeSprite(s);
-        System.out.println("after remove: " + sprites.getSize());
     }
 
     @Override

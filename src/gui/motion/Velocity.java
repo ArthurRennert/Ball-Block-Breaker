@@ -51,6 +51,9 @@ public class Velocity {
    }
 
 
+   /**
+    * @return
+    */
    public int getSpeed() {
       return (int) (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
    }

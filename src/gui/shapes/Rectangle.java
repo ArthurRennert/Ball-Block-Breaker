@@ -54,8 +54,18 @@ public class Rectangle {
       return retList;
    }
 
+   /**
+    * @return
+    */
    public Color getColor() {
       return color;
+   }
+
+   /**
+    * @param c
+    */
+   public void setColor(Color c) {
+      color = c;
    }
 
    /**

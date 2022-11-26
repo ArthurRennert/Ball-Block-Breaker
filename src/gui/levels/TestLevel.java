@@ -1,12 +1,13 @@
 package gui.levels;
 
-import gui.Background;
+import gui.levels.infrastructure.LevelInformation;
+import sprites.Background;
 import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Point;
 import sprites.Ball;
 import sprites.Block;
-import sprites.Sprite;
+import sprites.Paddle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class TestLevel implements LevelInformation {
     private List<Velocity> velList;
     private int paddleSpeed;
     private int paddleWidth;
+    private int paddleHeight;
+    private Point paddleInitialPoint;
+    private Paddle paddle;
     private String levelName;
     private Background background;
     private List<Block> blocks;
@@ -35,7 +39,10 @@ public class TestLevel implements LevelInformation {
         pitBlocks = initialPitBlocks();
         paddleSpeed = 10;
         paddleWidth = 240;
-        levelName = "Random level";
+        paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
+        paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
+        paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
+        levelName = "Random";
         background = new Background(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT, ScreenSettings.DARK_BLUE);
         numberOfBlocksToRemove = 1;
     }
@@ -49,6 +56,18 @@ public class TestLevel implements LevelInformation {
         List<Ball> resList = new ArrayList<>();
         resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 5, ScreenSettings.FRAME_HEIGHT / 5), 10, Color.WHITE));
         return resList;
+    }
+
+    /**
+     *
+     */
+    public void resetBallsLocation () {
+        numberOfBalls = 1;
+        ballsList = initialBalls();
+        velList = initialBallVelocities();
+//        for (Ball elem : ballsList) {
+//            elem.setPoint(new Point(ScreenSettings.FRAME_WIDTH / 5, ScreenSettings.FRAME_HEIGHT / 5));
+//        }
     }
 
     public List<Ball> getBallsList () {
@@ -74,6 +93,21 @@ public class TestLevel implements LevelInformation {
     @Override
     public int paddleWidth() {
         return paddleWidth;
+    }
+
+    @Override
+    public int paddleHeight() {
+        return paddleHeight;
+    }
+
+    @Override
+    public Point paddleInitialPoint() {
+        return paddleInitialPoint;
+    }
+
+    @Override
+    public Paddle getPaddle() {
+        return paddle;
     }
 
     @Override

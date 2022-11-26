@@ -2,11 +2,8 @@ package collision;
 
 import gui.shapes.Line;
 import gui.shapes.Point;
-import sprites.Collidable;
-import sprites.Sprite;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 

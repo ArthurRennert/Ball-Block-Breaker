@@ -26,6 +26,17 @@ public class Timer {
    }
 
    /**
+    * @param hour
+    * @param minute
+    * @param second
+    */
+   public void setTimer(int hour, int minute, int second) {
+      this.second = second;
+      this.minute = minute;
+      this.hour = hour;
+   }
+
+   /**
     * @return
     */
    public int getTimeInSeconds () {

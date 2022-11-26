@@ -1,10 +1,12 @@
 package sprites;
 
 import biuoop.GUI;
+import collision.Collidable;
 import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Line;
 import gui.shapes.Point;
+import sprites.infrastructure.Sprite;
 
 
 import java.awt.Color;
@@ -20,17 +22,23 @@ public class Paddle extends Block implements Sprite, Collidable {
     private biuoop.KeyboardSensor keyboard;
 
     private int paddleWidth;
+    private int paddleHeight;
     private int paddleSpeed;
+    private Point initialPoint;
 
 
     /**
+     * @param paddleInitialPoint
      * @param paddleWidth
+     * @param paddleHeight
      * @param paddleSpeed
      */
-    public Paddle(int paddleWidth, int paddleSpeed) {
-        super(new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95), paddleWidth, (int) (ScreenSettings.FRAME_HEIGHT * 0.03), "Paddle", Color.ORANGE);
+    public Paddle(Point paddleInitialPoint, int paddleWidth, int paddleHeight, int paddleSpeed) {
+        super(new Point(paddleInitialPoint), paddleWidth, paddleHeight, "Paddle", Color.ORANGE);
         this.paddleWidth = paddleWidth;
         this.paddleSpeed = paddleSpeed;
+        this.paddleHeight = paddleHeight;
+        initialPoint = paddleInitialPoint;
     }
 
     /**
@@ -125,6 +133,13 @@ public class Paddle extends Block implements Sprite, Collidable {
     public void setGUI(GUI g) {
         gui = g;
         keyboard = gui.getKeyboardSensor();
+    }
+
+    /**
+     * @param point
+     */
+    public void setLocation(Point point) {
+        getCollisionRectangle().setUpperLeftPoint(initialPoint);
     }
 
 

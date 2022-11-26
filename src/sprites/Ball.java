@@ -3,9 +3,10 @@ package sprites;
 import biuoop.DrawSurface;
 import collision.CollisionInfo;
 import collision.GameEnvironment;
-import gui.levels.GameLevel;
+import gui.animations.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Point;
+import sprites.infrastructure.Sprite;
 
 import java.awt.Color;
 
@@ -159,11 +160,11 @@ public class Ball implements Sprite {
     * @param frameHeight
     */
    public void moveOneStep(int frameWidth, int frameHeight) {
-      if (frameHeight <= point.getX() + radius || point.getX() <= radius) {
+      if (frameWidth <= point.getX() + radius || point.getX() <= radius) {
          velocity.setDx(-velocity.getDx());
       }
 
-      if (frameWidth <= point.getY() + radius || point.getY() <= radius) {
+      if (frameHeight <= point.getY() + radius || point.getY() <= radius) {
          velocity.setDy(-velocity.getDy());
       }
       point = this.getVelocity().applyToPoint(point);

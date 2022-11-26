@@ -1,13 +1,15 @@
 package sprites;
 
 import biuoop.DrawSurface;
-import collision.HitListener;
-import collision.HitNotifier;
-import gui.levels.GameLevel;
+import collision.Collidable;
+import collision.listeners.hit_listeners.infrastructure.HitListener;
+import collision.listeners.hit_notifiers.HitNotifier;
+import gui.animations.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Line;
 import gui.shapes.Point;
 import gui.shapes.Rectangle;
+import sprites.infrastructure.Sprite;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -98,7 +100,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
     *
     */
    public void timePassed() {
-
+//      if (rectangle.getColor().getRGB() == Color.GREEN.getRGB()) {
+//         rectangle.setColor(Color.RED);
+//      }
    }
 
 

@@ -1,7 +1,6 @@
 package collision;
 
 import gui.shapes.Point;
-import sprites.Collidable;
 import utilities.ConsoleColors;
 
 /**

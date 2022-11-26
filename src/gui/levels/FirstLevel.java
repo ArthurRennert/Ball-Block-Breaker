@@ -1,23 +1,30 @@
 package gui.levels;
 
-import gui.Background;
+import gui.levels.infrastructure.LevelInformation;
+import sprites.Background;
 import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Point;
 import sprites.Ball;
 import sprites.Block;
-import sprites.Sprite;
+import sprites.Paddle;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class FirstLevel implements LevelInformation {
    private int numberOfBalls;
    private List<Ball> ballsList;
    private List<Velocity> velList;
    private int paddleSpeed;
    private int paddleWidth;
+   private int paddleHeight;
+   private Point paddleInitialPoint;
+   private Paddle paddle;
    private String levelName;
    private Background background;
    private List<Block> blocks;
@@ -26,6 +33,9 @@ public class FirstLevel implements LevelInformation {
    private int numberOfBlocksToRemove;
 
 
+   /**
+    *
+    */
    public FirstLevel() {
       numberOfBalls = 1;
       ballsList = initialBalls();
@@ -35,9 +45,12 @@ public class FirstLevel implements LevelInformation {
       pitBlocks = initialPitBlocks();
       paddleSpeed = 20;
       paddleWidth = 240;
+      paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
       levelName = "First level";
       background = new Background(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT, ScreenSettings.DARK_BLUE);
       numberOfBlocksToRemove = 57;
+      paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
+      paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
    }
 
    @Override
@@ -45,12 +58,22 @@ public class FirstLevel implements LevelInformation {
       return numberOfBalls;
    }
 
+   /**
+    * @return
+    */
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
       resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 5, ScreenSettings.FRAME_HEIGHT / 5), 10, Color.WHITE));
       return resList;
    }
 
+   public void resetBallsLocation() {
+
+   }
+
+   /**
+    * @return
+    */
    public List<Ball> getBallsList () {
       return ballsList;
    }
@@ -62,6 +85,9 @@ public class FirstLevel implements LevelInformation {
       return resList;
    }
 
+   /**
+    * @return
+    */
    public List<Velocity> getVelocityList() {
       return velList;
    }
@@ -74,6 +100,21 @@ public class FirstLevel implements LevelInformation {
    @Override
    public int paddleWidth() {
       return paddleWidth;
+   }
+
+   @Override
+   public int paddleHeight() {
+      return paddleHeight;
+   }
+
+   @Override
+   public Point paddleInitialPoint() {
+      return paddleInitialPoint;
+   }
+
+   @Override
+   public Paddle getPaddle() {
+      return paddle;
    }
 
    @Override
@@ -123,14 +164,23 @@ public class FirstLevel implements LevelInformation {
       return resList;
    }
 
+   /**
+    * @return
+    */
    public List<Block> getBlocksList() {
       return blocks;
    }
 
+   /**
+    * @return
+    */
    public List<Block> getFrameBlocksList() {
       return frameBlocks;
    }
 
+   /**
+    * @return
+    */
    public List<Block> getPitBlocksList() {
       return pitBlocks;
    }

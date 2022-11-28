@@ -32,9 +32,9 @@ public interface LevelInformation {
    // before the level is considered to be "cleared".
    // This number should be <= blocks.size();
    int numberOfBlocksToRemove();
-   List<Block> getBlocksList();
+   List<Block> getGameBlocksList();
    List<Ball> getBallsList ();
-   void resetBallsLocation();
+   void resetBalls();
    List<Block> initialFrameBlocks();
    List<Block> initialPitBlocks();
    List<Block> getFrameBlocksList();

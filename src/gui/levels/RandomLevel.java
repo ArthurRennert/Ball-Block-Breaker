@@ -58,7 +58,7 @@ public class RandomLevel implements LevelInformation {
         return resList;
     }
 
-    public void resetBallsLocation() {
+    public void resetBalls() {
 
     }
 
@@ -154,7 +154,7 @@ public class RandomLevel implements LevelInformation {
         return resList;
     }
 
-    public List<Block> getBlocksList() {
+    public List<Block> getGameBlocksList() {
         return blocks;
     }
 

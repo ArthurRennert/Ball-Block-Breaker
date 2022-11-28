@@ -7,6 +7,7 @@ import gui.levels.*;
 import gui.levels.infrastructure.GameFlow;
 import gui.levels.infrastructure.LevelInformation;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class BallBlockBreaker {
       KeyboardSensor keyboardSensor = animationRunner.getGUI().getKeyboardSensor();
       GameFlow gameFlow = new GameFlow(animationRunner, keyboardSensor);
       List<LevelInformation> levels = new ArrayList<>();
-      levels.add(new TestLevel());
+//      levels.add(new TestLevel());
       levels.add(new TestLevel2());
       levels.add(new FirstLevel());
 //      levels.add(new RandomLevel());

@@ -70,6 +70,13 @@ public class Timer {
    /**
     *
     */
+   public void restartTimer() {
+      timer.restart();
+   }
+
+   /**
+    *
+    */
    public void countdownTimerInit() {
       timer = new javax.swing.Timer(1000, e -> {
          second--;

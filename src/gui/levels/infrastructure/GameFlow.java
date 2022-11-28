@@ -24,7 +24,7 @@ public class GameFlow {
         score = new Counter();
         lives = new Counter();
         score.setValue(0);
-        lives.setValue(2);
+        lives.setValue(5);
     }
 
     /**
@@ -64,7 +64,7 @@ public class GameFlow {
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new GameWon(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
             }
-            this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, levelInfo.getName(), level.getSprites())));
+            this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().showTimer(), levelInfo.getName(), level.getSprites())));
         }
     }
 

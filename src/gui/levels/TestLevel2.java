@@ -69,7 +69,7 @@ public class TestLevel2 implements LevelInformation {
         return resList;
     }
 
-    public void resetBallsLocation() {
+    public void resetBalls() {
         numberOfBalls = 1;
         ballsList = initialBalls();
         velList = initialBallVelocities();
@@ -143,7 +143,7 @@ public class TestLevel2 implements LevelInformation {
         return resList;
     }
 
-    public List<Block> getBlocksList() {
+    public List<Block> getGameBlocksList() {
         return blocks;
     }
 

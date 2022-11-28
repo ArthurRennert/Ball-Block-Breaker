@@ -16,19 +16,22 @@ public class BetweenLevels implements Animation {
     private KeyboardSensor keyboard;
     private boolean running;
     private SpriteCollection gameScreen;
-    private String name;
+    private String levelName;
+    private String timeElapsedToFinishLevel;
 
 
     /**
      * @param k
+     * @param timeElapsed
      * @param name
      * @param gameScreen
      */
-    public BetweenLevels(KeyboardSensor k, String name, SpriteCollection gameScreen) {
+    public BetweenLevels(KeyboardSensor k, String timeElapsed, String name, SpriteCollection gameScreen) {
         this.keyboard = k;
         this.running = false;
         this.gameScreen = gameScreen;
-        this.name = name;
+        this.levelName = name;
+        this.timeElapsedToFinishLevel = timeElapsed;
     }
 
     /**
@@ -37,8 +40,8 @@ public class BetweenLevels implements Animation {
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
-        d.drawText((int) (d.getWidth() / 10), d.getHeight() / 5, "You finished the "
-                + this.name + ". Press the SPACE key to continue to the next level.", 30);
+        d.drawText((int) (d.getWidth() / 11), d.getHeight() / 5, "You finished the "
+                + this.levelName + " level in " + timeElapsedToFinishLevel + " minutes. Press the SPACE key to continue to the next level.", 25);
     }
 
     /**

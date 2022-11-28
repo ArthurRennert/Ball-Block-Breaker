@@ -67,7 +67,7 @@ public class FirstLevel implements LevelInformation {
       return resList;
    }
 
-   public void resetBallsLocation() {
+   public void resetBalls() {
       numberOfBalls = 1;
       ballsList = initialBalls();
       velList = initialBallVelocities();
@@ -169,7 +169,7 @@ public class FirstLevel implements LevelInformation {
    /**
     * @return
     */
-   public List<Block> getBlocksList() {
+   public List<Block> getGameBlocksList() {
       return blocks;
    }
 

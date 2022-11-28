@@ -66,6 +66,13 @@ public class Ball implements Sprite {
       ge = gameEnvironment;
    }
 
+   /**
+    *
+    */
+   public void unsetGameEnvironment() {
+      ge = null;
+   }
+
 
    /**
     * @return

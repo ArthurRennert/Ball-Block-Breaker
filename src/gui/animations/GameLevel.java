@@ -201,7 +201,6 @@ public class GameLevel implements Animation {
         this.sprites.drawAllOn(d);
         this.sprites.notifyAllTimePassed();
         if (this.keyboardSensor.isPressed("enter")) {
-            int timeElapsed = timer.getTimeInSeconds();
             timer.stopTimer();
             this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new PauseScreen(this.keyboardSensor, this.sprites)));
             timer.restartTimer();

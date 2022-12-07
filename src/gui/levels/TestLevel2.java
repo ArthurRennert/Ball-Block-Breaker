@@ -30,6 +30,9 @@ public class TestLevel2 implements LevelInformation {
     private int numberOfBlocksToRemove;
 
 
+    /**
+     *
+     */
     public TestLevel2() {
         numberOfBalls = 1;
         ballsList = initialBalls();

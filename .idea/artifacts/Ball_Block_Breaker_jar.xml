@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ball Block Breaker:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ball_Block_Breaker_jar</output-path>
+    <root id="archive" name="Ball Block Breaker.jar">
+      <element id="module-output" name="Ball Block Breaker" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/biuoop-1.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class that runs the game.
+ * The class that runs the game..
  */
 public class BallBlockBreaker {
 

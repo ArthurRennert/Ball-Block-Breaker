@@ -1,8 +1,6 @@
 package sprites.infrastructure;
 
 import biuoop.DrawSurface;
-import sprites.infrastructure.Sprite;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,15 @@ public class SpriteCollection {
     public SpriteCollection() {
         listOfSpriteObjects = new ArrayList<>();
     }
+
+
+    /**
+     * @param other
+     */
+    public SpriteCollection(SpriteCollection other) {
+        listOfSpriteObjects = new ArrayList<>(other.listOfSpriteObjects);
+    }
+
 
     /**
      * @param s
@@ -39,6 +46,13 @@ public class SpriteCollection {
 //        }
         listOfSpriteObjects.remove(s);
     }
+
+//    /**
+//     * @return
+//     */
+//    public List<Sprite> getListOfSpriteObjects() {
+//        return listOfSpriteObjects;
+//    }
 
     /**
      * @return

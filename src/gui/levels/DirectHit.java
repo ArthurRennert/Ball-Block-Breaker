@@ -1,13 +1,12 @@
 package gui.levels;
 
-import biuoop.DrawSurface;
+import gui.ScreenSettings;
 import gui.levels.infrastructure.FrameBlocksTypes;
 import gui.levels.infrastructure.LevelInformation;
 import gui.levels.infrastructure.PitBlocksTypes;
-import sprites.backgrounds.infrastructure.Background;
-import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Point;
+import sprites.backgrounds.infrastructure.Background;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  *
  */
-public class FirstLevel implements LevelInformation {
+public class DirectHit implements LevelInformation {
    private int numberOfBalls;
    private List<Ball> ballsList;
    private List<Velocity> velList;
@@ -29,7 +28,7 @@ public class FirstLevel implements LevelInformation {
    private Point paddleInitialPoint;
    private Paddle paddle;
    private String levelName;
-   private Background background;
+   private sprites.backgrounds.DirectHit background;
    private List<Block> blocks;
    private List<Block> frameBlocks;
    private List<Block> pitBlocks;
@@ -39,19 +38,19 @@ public class FirstLevel implements LevelInformation {
    /**
     *
     */
-   public FirstLevel(DrawSurface d) {
+   public DirectHit() {
       numberOfBalls = 1;
+      background = new sprites.backgrounds.DirectHit();
       ballsList = initialBalls();
       velList = initialBallVelocities();
       blocks = initialBlocks();
       frameBlocks = initialFrameBlocks();
       pitBlocks = initialPitBlocks();
       paddleSpeed = 20;
-      paddleWidth = 240;
+      paddleWidth = 100;
       paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
-      levelName = "First level";
-      background = new Background();
-      numberOfBlocksToRemove = 57;
+      levelName = "DirectHit";
+      numberOfBlocksToRemove = 1;
       paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
    }
@@ -62,50 +61,28 @@ public class FirstLevel implements LevelInformation {
    }
 
 
-   /**
-    * @return
-    */
+   @Override
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
-      resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 5, ScreenSettings.FRAME_HEIGHT / 5), 10, Color.WHITE));
+      resList.add(new Ball(new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
       return resList;
-   }
-
-   public void resetBalls() {
-      numberOfBalls = 1;
-      ballsList = initialBalls();
-      velList = initialBallVelocities();
-   }
-
-   /**
-    * @return
-    */
-   public List<Ball> getBallsList () {
-      return ballsList;
    }
 
    @Override
    public List<Velocity> initialBallVelocities() {
       List<Velocity> resList = new ArrayList<>();
-      resList.add(Velocity.fromAngleAndSpeed(20, 10));
+      resList.add(Velocity.fromAngleAndSpeed(0, 10));
       return resList;
-   }
-
-   /**
-    * @return
-    */
-   public List<Velocity> getVelocityList() {
-      return velList;
    }
 
    @Override
    public int paddleSpeed() {
-      return paddleSpeed;
+      return 0;
    }
 
    @Override
    public int paddleWidth() {
-      return paddleWidth;
+      return paddleSpeed;
    }
 
    @Override
@@ -136,22 +113,34 @@ public class FirstLevel implements LevelInformation {
    @Override
    public List<Block> initialBlocks() {
       List<Block> resList = new ArrayList<>();
-      Color[] colors = {new Color(Color.GRAY.getRGB()), new Color(Color.RED.getRGB()), new Color(Color.YELLOW.getRGB()), new Color(Color.BLUE.getRGB()), new Color(Color.PINK.getRGB()),
-              new Color(Color.GREEN.getRGB())};
-      int blocksWidth = 100;
+      Color[] colors = {new Color(Color.RED.getRGB())};
+      int blocksWidth = 40;
       int blocksHeight = 40;
-      double xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
-      double yStart = ScreenSettings.FRAME_HEIGHT * 0.30;
-      for (int row = 1; row <= 6; row++) {
-         for (int i = 0; i <= (12 - row); i++) {
-            resList.add(new Block(new Point(xStart, yStart),
-                    blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
-            xStart -= blocksWidth;
-         }
-         xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
-         yStart = ScreenSettings.FRAME_HEIGHT * 0.30 + (row  * blocksHeight);
-      }
+      resList.add(new Block(new Point(((ScreenSettings.FRAME_WIDTH  - blocksWidth) / 2), ScreenSettings.FRAME_HEIGHT * 0.25),
+              blocksWidth, blocksHeight, "gameblocks", colors[0]));
       return resList;
+   }
+
+   @Override
+   public int numberOfBlocksToRemove() {
+      return numberOfBlocksToRemove;
+   }
+
+   @Override
+   public List<Block> getGameBlocksList() {
+      return blocks;
+   }
+
+   @Override
+   public List<Ball> getBallsList() {
+      return ballsList;
+   }
+
+   @Override
+   public void resetBalls() {
+      numberOfBalls = 1;
+      ballsList = initialBalls();
+      velList = initialBallVelocities();
    }
 
    @Override
@@ -164,29 +153,18 @@ public class FirstLevel implements LevelInformation {
       return PitBlocksTypes.getRegularPitBlocks();
    }
 
-   /**
-    * @return
-    */
-   public List<Block> getGameBlocksList() {
-      return blocks;
-   }
-
-   /**
-    * @return
-    */
+   @Override
    public List<Block> getFrameBlocksList() {
       return frameBlocks;
    }
 
-   /**
-    * @return
-    */
+   @Override
    public List<Block> getPitBlocksList() {
-      return pitBlocks;
+      return PitBlocksTypes.getRegularPitBlocks();
    }
 
    @Override
-   public int numberOfBlocksToRemove() {
-      return numberOfBlocksToRemove;
+   public List<Velocity> getVelocityList() {
+      return velList;
    }
 }

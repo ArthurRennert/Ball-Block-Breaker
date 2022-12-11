@@ -1,7 +1,9 @@
 package gui.levels;
 
+import gui.levels.infrastructure.FrameBlocksTypes;
 import gui.levels.infrastructure.LevelInformation;
-import sprites.Background;
+import gui.levels.infrastructure.PitBlocksTypes;
+import sprites.backgrounds.infrastructure.Background;
 import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Point;
@@ -43,7 +45,7 @@ public class RandomLevel implements LevelInformation {
         paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
         paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
         levelName = "Random level";
-        background = new Background(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT, ScreenSettings.DARK_BLUE);
+        background = new Background();
         numberOfBlocksToRemove = 57;
     }
 
@@ -51,6 +53,7 @@ public class RandomLevel implements LevelInformation {
     public int numberOfBalls() {
         return numberOfBalls;
     }
+
 
     public List<Ball> initialBalls() {
         List<Ball> resList = new ArrayList<>();
@@ -75,11 +78,6 @@ public class RandomLevel implements LevelInformation {
 
     public List<Velocity> getVelocityList() {
         return velList;
-    }
-
-    @Override
-    public String getName() {
-        return levelName;
     }
 
     @Override
@@ -140,18 +138,12 @@ public class RandomLevel implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        List<Block> resList = new ArrayList<>();
-        resList.add(new Block(new Point(0, ScreenSettings.FRAME_HEIGHT * 0.04), (int) (ScreenSettings.FRAME_WIDTH * 0.999999), (int) (ScreenSettings.FRAME_HEIGHT * 0.05), "UpperScreen", ScreenSettings.MID_DARK_GRAY)); //upper screen block
-        resList.add(new Block(new Point(0, ScreenSettings.FRAME_HEIGHT * 0.09), (int) (ScreenSettings.FRAME_WIDTH * 0.03), (int) (ScreenSettings.FRAME_HEIGHT * 0.91), "LeftScreen", ScreenSettings.MID_DARK_GRAY)); //left screen block
-        resList.add(new Block(new Point(ScreenSettings.FRAME_WIDTH * 0.97, ScreenSettings.FRAME_HEIGHT * 0.09), (int) (ScreenSettings.FRAME_WIDTH * 0.02999999), (int) (ScreenSettings.FRAME_HEIGHT * 0.91), "RightScreen", ScreenSettings.MID_DARK_GRAY)); //right screen block
-        return resList;
+        return FrameBlocksTypes.getRegularFrameBlocks();
     }
 
     @Override
     public List<Block> initialPitBlocks() {
-        List<Block> resList = new ArrayList<>();
-        resList.add(new Block(new Point(0, ScreenSettings.FRAME_HEIGHT * 0.995), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.005), "LowerScreen", Color.BLACK)); //lower screen block
-        return resList;
+        return PitBlocksTypes.getRegularPitBlocks();
     }
 
     public List<Block> getGameBlocksList() {

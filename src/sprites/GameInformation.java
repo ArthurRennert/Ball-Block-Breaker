@@ -47,7 +47,7 @@ public class GameInformation implements Sprite {
               (int) rectangle.getWidth(),
               (int) rectangle.getHeight());
       d.setColor(Color.BLACK);
-      d.drawText((int) (rectangle.getXUpperLeftCoordinate()),
+      d.drawText((int) (rectangle.getXUpperLeftCoordinate() + rectangle.getWidth() / 42),
               (int) (rectangle.getYUpperLeftCoordinate() + (rectangle.getHeight() / 1.22)), "Lives: " + String.valueOf(lives.getValue()), 28); //lives
       d.drawText((int) (rectangle.getXUpperLeftCoordinate() + (rectangle.getWidth() / 1.8)),
               (int) (rectangle.getYUpperLeftCoordinate() + (rectangle.getHeight() / 1.22)), "Score: " + String.valueOf(score.getValue()), 28); //score

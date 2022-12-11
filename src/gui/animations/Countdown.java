@@ -50,7 +50,7 @@ public class Countdown implements Animation {
       if (timer.getTimeInSeconds() > countFrom) {
          return;
       } else if (timer.getTimeInSeconds() > 0 && timer.getTimeInSeconds() <= countFrom) {
-         d.drawText((int) (d.getWidth() / 2.5), d.getHeight() / 5, "Game starts in " + timer.getTimeInSeconds(), 30);
+         d.drawText((int) (d.getWidth() / 2.4), d.getHeight() / 5, "Game starts in " + timer.getTimeInSeconds(), 30);
       } else if (timer.getTimeInSeconds() <= 0) {
          this.stop = true;
       }

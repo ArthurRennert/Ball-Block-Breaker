@@ -17,10 +17,13 @@ import sprites.Ball;
 import sprites.Block;
 import sprites.GameInformation;
 import collision.Collidable;
+import sprites.backgrounds.infrastructure.Background;
 import sprites.infrastructure.Sprite;
 import sprites.infrastructure.SpriteCollection;
 import utilities.Counter;
 import utilities.Timer;
+
+import java.awt.*;
 import java.util.List;
 
 
@@ -130,7 +133,7 @@ public class GameLevel implements Animation {
     }
 
     private void initializeGameInformation() {
-        gameInformation = new GameInformation(score, lives, levelInformation.getName(), timer, new Point(0, 0), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.04));
+        gameInformation = new GameInformation(score, lives, levelInformation.levelName(), timer, new Point(0, 0), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.04));
         gameInformation.addToGame(this);
     }
 
@@ -139,10 +142,25 @@ public class GameLevel implements Animation {
      */
     public void run() {
         this.running = true;
+        this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new Instructions(keyboardSensor, getSpritesListForInstructionAnimation())));
         this.animationRunner.run(new Countdown(3, this.sprites, animationRunner, keyboardSensor));
         timer.timerInit();
 //        KeyPressStoppable keyPressStoppableAnimation = new KeyPressStoppable(keyboardSensor, "space", this);
         this.animationRunner.run(this);
+    }
+
+    private SpriteCollection getSpritesListForInstructionAnimation() {
+        SpriteCollection s = new SpriteCollection(sprites);
+        s.removeSprite(levelInformation.getPaddle());
+        for (Ball elem : levelInformation.getBallsList()) {
+            s.removeSprite(elem);
+        }
+        for (Block elem : levelInformation.getGameBlocksList()) {
+            s.removeSprite(elem);
+        }
+        s.removeSprite(levelInformation.getBackground());
+        s.addSprite(new Background(Color.BLACK));
+        return s;
     }
 
     /**
@@ -151,6 +169,7 @@ public class GameLevel implements Animation {
     public SpriteCollection getSprites() {
         return this.sprites;
     }
+
 
     /**
      *

@@ -1,7 +1,7 @@
 package gui.levels.infrastructure;
 
 import gui.shapes.Point;
-import sprites.Background;
+import sprites.backgrounds.infrastructure.Background;
 import gui.motion.Velocity;
 import sprites.Ball;
 import sprites.Block;
@@ -40,5 +40,4 @@ public interface LevelInformation {
    List<Block> getFrameBlocksList();
    List<Block> getPitBlocksList();
    List<Velocity> getVelocityList();
-   String getName();
 }

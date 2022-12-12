@@ -33,7 +33,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     * @param name
     * @param c
     */
-   public Block(Point p, int width, int height, String name, Color c) {
+   public Block(Point p, double width, double height, String name, Color c) {
       rectangle = new Rectangle(p, width, height, name, c);
       hitListeners = new ArrayList<>();
    }

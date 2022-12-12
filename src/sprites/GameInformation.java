@@ -53,7 +53,7 @@ public class GameInformation implements Sprite {
               (int) (rectangle.getYUpperLeftCoordinate() + (rectangle.getHeight() / 1.22)), "Score: " + String.valueOf(score.getValue()), 28); //score
       d.drawText((int) (rectangle.getXUpperLeftCoordinate() + (rectangle.getWidth() / 4)),
               (int) (rectangle.getYUpperLeftCoordinate() + (rectangle.getHeight() / 1.22)), "Time: " + timer.showTimer(), 28); //timer
-      d.drawText((int) (rectangle.getXUpperLeftCoordinate() + (rectangle.getWidth() * 0.78)),
+      d.drawText((int) (rectangle.getXUpperLeftCoordinate() + (rectangle.getWidth() * 0.76)),
               (int) (rectangle.getYUpperLeftCoordinate() + (rectangle.getHeight() / 1.22)), "Level Name: " + levelName, 28); //level name
    }
 

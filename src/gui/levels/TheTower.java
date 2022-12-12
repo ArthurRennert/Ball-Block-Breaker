@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomLevel implements LevelInformation {
+public class TheTower implements LevelInformation {
     private int numberOfBalls;
     private List<Ball> ballsList;
     private List<Velocity> velList;
@@ -25,28 +25,28 @@ public class RandomLevel implements LevelInformation {
     private Point paddleInitialPoint;
     private Paddle paddle;
     private String levelName;
-    private Background background;
+    private sprites.backgrounds.infrastructure.Background background;
     private List<Block> blocks;
     private List<Block> frameBlocks;
     private List<Block> pitBlocks;
     private int numberOfBlocksToRemove;
 
 
-    public RandomLevel() {
-        numberOfBalls = 1;
+    public TheTower() {
+        numberOfBalls = 2;
+        numberOfBlocksToRemove = 40;
+        background = new sprites.backgrounds.TheTower();
+        paddleSpeed = 15;
+        paddleWidth = 130;
         ballsList = initialBalls();
         velList = initialBallVelocities();
         blocks = initialBlocks();
         frameBlocks = initialFrameBlocks();
         pitBlocks = initialPitBlocks();
-        paddleSpeed = 10;
-        paddleWidth = 130;
         paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
+        levelName = "The Tower";
         paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
         paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
-        levelName = "Random level";
-        background = new Background();
-        numberOfBlocksToRemove = 57;
     }
 
     @Override
@@ -57,12 +57,16 @@ public class RandomLevel implements LevelInformation {
 
     public List<Ball> initialBalls() {
         List<Ball> resList = new ArrayList<>();
-        resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 5, ScreenSettings.FRAME_HEIGHT / 5), 10, Color.WHITE));
+        for(int i = 0; i < numberOfBalls; i++) {
+            resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
+        }
         return resList;
     }
 
     public void resetBalls() {
-
+        numberOfBalls = 2;
+        ballsList = initialBalls();
+        velList = initialBallVelocities();
     }
 
     public List<Ball> getBallsList () {
@@ -72,7 +76,8 @@ public class RandomLevel implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> resList = new ArrayList<>();
-        resList.add(Velocity.fromAngleAndSpeed(20, 10));
+        resList.add(Velocity.fromAngleAndSpeed(130, 10));
+        resList.add(Velocity.fromAngleAndSpeed(230, 10));
         return resList;
     }
 
@@ -91,18 +96,18 @@ public class RandomLevel implements LevelInformation {
     }
 
     @Override
+    public int paddleHeight() {
+        return paddleHeight;
+    }
+
+    @Override
     public Point paddleInitialPoint() {
-        return null;
+        return paddleInitialPoint;
     }
 
     @Override
     public Paddle getPaddle() {
         return paddle;
-    }
-
-    @Override
-    public int paddleHeight() {
-        return paddleHeight;
     }
 
     @Override
@@ -118,14 +123,14 @@ public class RandomLevel implements LevelInformation {
     @Override
     public List<Block> initialBlocks() {
         List<Block> resList = new ArrayList<>();
-        Color[] colors = {new Color(Color.GRAY.getRGB()), new Color(Color.RED.getRGB()), new Color(Color.YELLOW.getRGB()), new Color(Color.BLUE.getRGB()), new Color(Color.PINK.getRGB()),
-                new Color(Color.GREEN.getRGB())};
+        Color[] colors = {new Color(Color.GRAY.getRGB()), new Color(Color.RED.getRGB()), new Color(Color.YELLOW.getRGB()), new Color(Color.BLUE.getRGB()),
+                new Color(Color.WHITE.getRGB())};
         int blocksWidth = 100;
         int blocksHeight = 40;
         double xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
         double yStart = ScreenSettings.FRAME_HEIGHT * 0.30;
-        for (int row = 1; row <= 6; row++) {
-            for (int i = 0; i <= (12 - row); i++) {
+        for (int row = 1; row <= 5; row++) {
+            for (int i = 0; i <= (10 - row); i++) {
                 resList.add(new Block(new Point(xStart, yStart),
                         blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
                 xStart -= blocksWidth;
@@ -134,6 +139,15 @@ public class RandomLevel implements LevelInformation {
             yStart = ScreenSettings.FRAME_HEIGHT * 0.30 + (row  * blocksHeight);
         }
         return resList;
+    }
+
+    @Override
+    public int numberOfBlocksToRemove() {
+        return numberOfBlocksToRemove;
+    }
+
+    public List<Block> getGameBlocksList() {
+        return blocks;
     }
 
     @Override
@@ -146,20 +160,11 @@ public class RandomLevel implements LevelInformation {
         return PitBlocksTypes.getRegularPitBlocks();
     }
 
-    public List<Block> getGameBlocksList() {
-        return blocks;
-    }
-
     public List<Block> getFrameBlocksList() {
         return frameBlocks;
     }
 
     public List<Block> getPitBlocksList() {
         return pitBlocks;
-    }
-
-    @Override
-    public int numberOfBlocksToRemove() {
-        return numberOfBlocksToRemove;
     }
 }

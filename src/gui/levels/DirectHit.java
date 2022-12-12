@@ -28,7 +28,7 @@ public class DirectHit implements LevelInformation {
    private Point paddleInitialPoint;
    private Paddle paddle;
    private String levelName;
-   private sprites.backgrounds.DirectHit background;
+   private sprites.backgrounds.infrastructure.Background background;
    private List<Block> blocks;
    private List<Block> frameBlocks;
    private List<Block> pitBlocks;
@@ -41,15 +41,15 @@ public class DirectHit implements LevelInformation {
    public DirectHit() {
       numberOfBalls = 1;
       background = new sprites.backgrounds.DirectHit();
+      paddleSpeed = 20;
+      paddleWidth = 100;
       ballsList = initialBalls();
       velList = initialBallVelocities();
       blocks = initialBlocks();
       frameBlocks = initialFrameBlocks();
       pitBlocks = initialPitBlocks();
-      paddleSpeed = 20;
-      paddleWidth = 100;
       paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
-      levelName = "DirectHit";
+      levelName = "Direct Hit";
       numberOfBlocksToRemove = 1;
       paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
@@ -64,7 +64,7 @@ public class DirectHit implements LevelInformation {
    @Override
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
-      resList.add(new Ball(new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
+      resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH  / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
       return resList;
    }
 
@@ -114,9 +114,9 @@ public class DirectHit implements LevelInformation {
    public List<Block> initialBlocks() {
       List<Block> resList = new ArrayList<>();
       Color[] colors = {new Color(Color.RED.getRGB())};
-      int blocksWidth = 40;
-      int blocksHeight = 40;
-      resList.add(new Block(new Point(((ScreenSettings.FRAME_WIDTH  - blocksWidth) / 2), ScreenSettings.FRAME_HEIGHT * 0.25),
+      int blocksWidth = 30;
+      int blocksHeight = 30;
+      resList.add(new Block(new Point(((ScreenSettings.FRAME_WIDTH  - blocksWidth) / 2), ScreenSettings.FRAME_HEIGHT * 0.35),
               blocksWidth, blocksHeight, "gameblocks", colors[0]));
       return resList;
    }
@@ -160,7 +160,7 @@ public class DirectHit implements LevelInformation {
 
    @Override
    public List<Block> getPitBlocksList() {
-      return PitBlocksTypes.getRegularPitBlocks();
+      return pitBlocks;
    }
 
    @Override

@@ -48,7 +48,6 @@ public class GameLevel implements Animation {
     private boolean running;
     private KeyboardSensor keyboardSensor;
     private LevelInformation levelInformation;
-    private boolean toRunInstructions;
 
     /**
      * @param levelInfo
@@ -67,7 +66,6 @@ public class GameLevel implements Animation {
         animationRunner = ar;
         this.score = score;
         this.lives = lives;
-        toRunInstructions = true;
     }
 
     /**
@@ -144,10 +142,7 @@ public class GameLevel implements Animation {
      */
     public void run() {
         this.running = true;
-//        this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new Instructions(keyboardSensor, getSpritesListForInstructionAnimation())));
-//        this.animationRunner.run(new Countdown(3, this.sprites, animationRunner, keyboardSensor));
         timer.timerInit();
-//        KeyPressStoppable keyPressStoppableAnimation = new KeyPressStoppable(keyboardSensor, "space", this);
         this.animationRunner.run(this);
     }
 

@@ -48,6 +48,7 @@ public class GameLevel implements Animation {
     private boolean running;
     private KeyboardSensor keyboardSensor;
     private LevelInformation levelInformation;
+    private boolean toRunInstructions;
 
     /**
      * @param levelInfo
@@ -66,6 +67,7 @@ public class GameLevel implements Animation {
         animationRunner = ar;
         this.score = score;
         this.lives = lives;
+        toRunInstructions = true;
     }
 
     /**
@@ -143,13 +145,16 @@ public class GameLevel implements Animation {
     public void run() {
         this.running = true;
 //        this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new Instructions(keyboardSensor, getSpritesListForInstructionAnimation())));
-        this.animationRunner.run(new Countdown(3, this.sprites, animationRunner, keyboardSensor));
+//        this.animationRunner.run(new Countdown(3, this.sprites, animationRunner, keyboardSensor));
         timer.timerInit();
 //        KeyPressStoppable keyPressStoppableAnimation = new KeyPressStoppable(keyboardSensor, "space", this);
         this.animationRunner.run(this);
     }
 
-    private SpriteCollection getSpritesListForInstructionAnimation() {
+    /**
+     * @return
+     */
+    public SpriteCollection getSpritesListForInstructionAnimation() {
         SpriteCollection s = new SpriteCollection(sprites);
         s.removeSprite(levelInformation.getPaddle());
         for (Ball elem : levelInformation.getBallsList()) {
@@ -232,7 +237,6 @@ public class GameLevel implements Animation {
         if (lives.getValue() == 0) {
             timer.stopTimer();
             this.running = false;
-            System.out.println("ok");
         }
     }
 

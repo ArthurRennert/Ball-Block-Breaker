@@ -13,15 +13,15 @@ import sprites.Ball;
 // of the number of blocks that remain.
 public class BlockRemover implements HitListener {
    private GameLevel gameLevel;
-   private Counter remainingBlocks;
+   private Counter numOfBlocksToRemove;
 
    /**
     * @param g
-    * @param removedBlocks
+    * @param numOfBlocksToRemove
     */
-   public BlockRemover(GameLevel g, Counter removedBlocks) {
+   public BlockRemover(GameLevel g, Counter numOfBlocksToRemove) {
       gameLevel = g;
-      remainingBlocks = removedBlocks;
+      this.numOfBlocksToRemove = numOfBlocksToRemove;
    }
 
    /**
@@ -32,8 +32,11 @@ public class BlockRemover implements HitListener {
    // from the gameLevel. Remember to remove this listener from the block
    // that is being removed from the gameLevel.
    public void hitEvent(Block beingHit, Ball hitter) {
-      beingHit.removeHitListener(this);
-      beingHit.removeFromGame(gameLevel);
-      remainingBlocks.decrease(1);
+      beingHit.markHit();
+      if(beingHit.hitsLeft() == 0) {
+         beingHit.removeHitListener(this);
+         beingHit.removeFromGame(gameLevel);
+         numOfBlocksToRemove.decrease(1);
+      }
    }
 }

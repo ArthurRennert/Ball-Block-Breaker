@@ -118,6 +118,7 @@ public class DirectHit implements LevelInformation {
       int blocksHeight = 30;
       resList.add(new Block(new Point(((ScreenSettings.FRAME_WIDTH  - blocksWidth) / 2), ScreenSettings.FRAME_HEIGHT * 0.35),
               blocksWidth, blocksHeight, "gameblocks", colors[0]));
+      resList.get(resList.size() - 1).initializeHitsCounter(1);
       return resList;
    }
 

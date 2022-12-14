@@ -46,7 +46,7 @@ public class InClouds extends Background {
         for(int i = 0; i <= 13; i++) {
             d.drawLine((int) ((ScreenSettings.FRAME_WIDTH / 1.19) - (10 * i)), (int) (ScreenSettings.FRAME_HEIGHT / 1.22), (int) ((ScreenSettings.FRAME_WIDTH / 1.24) - (10 * i)), ScreenSettings.FRAME_HEIGHT);
         }
-        d.fillCircle((int) (ScreenSettings.FRAME_WIDTH / 1.3), (int) (ScreenSettings.FRAME_HEIGHT / 1.25), 25);
+        d.fillCircle((int) (ScreenSettings.FRAME_WIDTH / 1.3), (int) (ScreenSettings.FRAME_HEIGHT / 1.24), 25);
         d.fillCircle((int) (ScreenSettings.FRAME_WIDTH / 1.28), (int) (ScreenSettings.FRAME_HEIGHT / 1.19), 29);
         d.setColor(SILVER);
         d.fillCircle((int) (ScreenSettings.FRAME_WIDTH / 1.25), (int) (ScreenSettings.FRAME_HEIGHT / 1.23), 35);

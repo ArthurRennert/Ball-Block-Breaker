@@ -34,7 +34,7 @@ public class TheTower implements LevelInformation {
 
     public TheTower() {
         numberOfBalls = 2;
-        numberOfBlocksToRemove = 40;
+        numberOfBlocksToRemove = 45;
         background = new sprites.backgrounds.TheTower();
         paddleSpeed = 15;
         paddleWidth = 130;
@@ -130,13 +130,18 @@ public class TheTower implements LevelInformation {
         double xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
         double yStart = ScreenSettings.FRAME_HEIGHT * 0.30;
         for (int row = 1; row <= 5; row++) {
-            for (int i = 0; i <= (10 - row); i++) {
+            for (int i = 0; i <= (11 - row); i++) {
                 resList.add(new Block(new Point(xStart, yStart),
                         blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
+                if(row == 1) {
+                    resList.get(resList.size() - 1).initializeHitsCounter(2);
+                } else {
+                    resList.get(resList.size() - 1).initializeHitsCounter(1);
+                }
                 xStart -= blocksWidth;
             }
             xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
-            yStart = ScreenSettings.FRAME_HEIGHT * 0.30 + (row  * blocksHeight);
+            yStart = ScreenSettings.FRAME_HEIGHT * 0.30 + (row * blocksHeight);
         }
         return resList;
     }
@@ -152,7 +157,7 @@ public class TheTower implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        return FrameBlocksTypes.getRegularFrameBlocks();
+        return  FrameBlocksTypes.getRegularFrameBlocks();
     }
 
     @Override

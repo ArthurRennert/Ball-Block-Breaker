@@ -23,6 +23,8 @@ public class ScoreTracking implements HitListener {
     * @param hitter
     */
    public void hitEvent(Block beingHit, Ball hitter) {
-      currentScore.increase(5);
+      if(beingHit.hitsLeft() == 0) {
+         currentScore.increase(beingHit.getValue());
+      }
    }
 }

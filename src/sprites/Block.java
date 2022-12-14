@@ -10,6 +10,7 @@ import gui.shapes.Line;
 import gui.shapes.Point;
 import gui.shapes.Rectangle;
 import sprites.infrastructure.Sprite;
+import utilities.Counter;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
+   private Counter hitsCounter;
+   int value;
    private List<HitListener> hitListeners;
 
 
@@ -35,6 +38,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     */
    public Block(Point p, double width, double height, String name, Color c) {
       rectangle = new Rectangle(p, width, height, name, c);
+      hitsCounter = new Counter();
       hitListeners = new ArrayList<>();
    }
 
@@ -139,5 +143,22 @@ public class Block implements Collidable, Sprite, HitNotifier {
       for (HitListener hl : listeners) {
          hl.hitEvent(this, hitter);
       }
+   }
+
+   public void initializeHitsCounter(int counter) {
+      hitsCounter.setValue(counter);
+      value = counter * 5;
+   }
+
+   public void markHit() {
+      hitsCounter.decrease(1);
+   }
+
+   public int hitsLeft() {
+      return hitsCounter.getValue();
+   }
+
+   public int getValue() {
+      return value;
    }
 }

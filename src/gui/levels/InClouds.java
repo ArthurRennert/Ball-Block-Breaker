@@ -144,6 +144,11 @@ public class InClouds implements LevelInformation {
             for (int col = 0; col < 15; col++) {
                 resList.add(new Block(new Point(xStart, yStart),
                         blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
+                if(row == 1) {
+                    resList.get(resList.size() - 1).initializeHitsCounter(2);
+                } else {
+                    resList.get(resList.size() - 1).initializeHitsCounter(1);
+                }
                 xStart -= blocksWidth;
             }
             xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;

@@ -42,7 +42,7 @@ public class WideEasy implements LevelInformation {
         numberOfBalls = 9;
         numberOfBlocksToRemove = 15;
         background = new sprites.backgrounds.WideEasy();
-        paddleSpeed = 5;
+        paddleSpeed = 3;
         paddleWidth = 1100;
         ballsList = initialBalls();
         velList = initialBallVelocities();
@@ -86,7 +86,7 @@ public class WideEasy implements LevelInformation {
     public List<Velocity> initialBallVelocities() {
         List<Velocity> resList = new ArrayList<>();
         for(int i = 0; i < numberOfBalls; i++) {
-            resList.add(Velocity.fromAngleAndSpeed(116 + (i * 16), 7));
+            resList.add(Velocity.fromAngleAndSpeed(116 + (i * 16), 9));
         }
         return resList;
     }
@@ -145,6 +145,7 @@ public class WideEasy implements LevelInformation {
         for (int i = 0; i < numberOfBlocksToRemove; i++) {
             resList.add(new Block(new Point(xStart, y),
                     blocksWidth, blocksHeight, "gameblocks", colors[i]));
+            resList.get(resList.size() - 1).initializeHitsCounter(1);
                 xStart -= blocksWidth;
         }
         return resList;

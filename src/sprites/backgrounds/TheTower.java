@@ -42,9 +42,9 @@ public class TheTower extends Background {
         for (int i = 1; i <= 4; i++) {
             d.fillRectangle((int) (ScreenSettings.FRAME_WIDTH * 0.1 - 41 + (betweenRects * i + (i-1) * rectWidth)), (int) (ScreenSettings.FRAME_HEIGHT / 1.29), rectWidth, ScreenSettings.FRAME_HEIGHT);
         }
-        int rectHeight = 10;
+        int rectHeight = 7;
         betweenRects = 30;
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 5; i++) {
             d.fillRectangle((int) (ScreenSettings.FRAME_WIDTH * 0.1 - 41), (int) (ScreenSettings.FRAME_HEIGHT / 1.29 + ((betweenRects * i + (i-1) * rectHeight))) , 82, rectHeight);
         }
         d.setColor(DARK_YELLOW);

@@ -28,8 +28,8 @@ public class WideEasy extends Background {
         d.fillRectangle((int) (ScreenSettings.FRAME_WIDTH * 0.03), (int) (ScreenSettings.FRAME_HEIGHT * 0.09),
                 (int) (ScreenSettings.FRAME_WIDTH * 0.94), (int) (ScreenSettings.FRAME_HEIGHT * 0.945));
         d.setColor(LEMON_CHIFFON);
-        for(int i = 0; i < 94; i++) {
-            d.drawLine(ScreenSettings.FRAME_WIDTH / 6, ScreenSettings.FRAME_HEIGHT / 4, (int) (ScreenSettings.FRAME_WIDTH * ((i * 0.01) + 0.03)), (int) (ScreenSettings.FRAME_HEIGHT * 0.45));
+        for(int i = 0; i <= 95; i++) {
+            d.drawLine(ScreenSettings.FRAME_WIDTH / 6, ScreenSettings.FRAME_HEIGHT / 4, (int) (ScreenSettings.FRAME_WIDTH * (0.03 + (0.01 * i))), (int) (ScreenSettings.FRAME_HEIGHT * 0.45));
         }
         d.fillCircle(ScreenSettings.FRAME_WIDTH / 6, ScreenSettings.FRAME_HEIGHT / 4, 80);
         d.setColor(ICTERINE);

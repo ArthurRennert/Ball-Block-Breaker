@@ -85,7 +85,7 @@ public class WideEasy implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> resList = new ArrayList<>();
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < numberOfBalls; i++) {
             resList.add(Velocity.fromAngleAndSpeed(116 + (i * 16), 7));
         }
         return resList;
@@ -138,7 +138,7 @@ public class WideEasy implements LevelInformation {
                 new Color(Color.BLUE.getRGB()), new Color(Color.BLUE.getRGB()), new Color(Color.GREEN.getRGB()),
                 new Color(Color.GREEN.getRGB()), new Color(Color.GREEN.getRGB()), new Color(Color.YELLOW.getRGB()), new Color(Color.YELLOW.getRGB()),
                 new Color(Color.ORANGE.getRGB()), new Color(Color.ORANGE.getRGB()), new Color(Color.RED.getRGB()), new Color(Color.RED.getRGB())};
-        double blocksWidth = (ScreenSettings.FRAME_WIDTH * 0.97 - ScreenSettings.FRAME_WIDTH * 0.03 - 1) / numberOfBlocksToRemove;
+        double blocksWidth = (ScreenSettings.FRAME_WIDTH * 0.97 - ScreenSettings.FRAME_WIDTH * 0.03) / numberOfBlocksToRemove;
         double blocksHeight = 30;
         double xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
         double y = ScreenSettings.FRAME_HEIGHT * 0.45;

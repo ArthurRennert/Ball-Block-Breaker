@@ -22,9 +22,9 @@ public class BallBlockBreaker {
       KeyboardSensor keyboardSensor = animationRunner.getGUI().getKeyboardSensor();
       GameFlow gameFlow = new GameFlow(animationRunner, keyboardSensor);
       List<LevelInformation> levels = new ArrayList<>();
-//      levels.add(new DirectHit());
-//      levels.add(new WideEasy());
-//      levels.add(new TheTower());
+      levels.add(new DirectHit());
+      levels.add(new WideEasy());
+      levels.add(new TheTower());
       levels.add(new InClouds());
       gameFlow.runLevels(levels);
    }

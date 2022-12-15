@@ -17,21 +17,27 @@ public class BetweenLevels implements Animation {
     private boolean running;
     private SpriteCollection gameScreen;
     private String levelName;
-    private String timeElapsedToFinishLevel;
+    private int minutesElapsedToFinishLevel;
+    private int secondsElapsedToFinishLevel;
+    private boolean isLastLevel;
 
 
     /**
      * @param k
-     * @param timeElapsed
+     * @param minutesElapsedToFinishLevel
+     * @param secondsElapsedToFinishLevel
      * @param name
      * @param gameScreen
+     * @param isLastLevel
      */
-    public BetweenLevels(KeyboardSensor k, String timeElapsed, String name, SpriteCollection gameScreen) {
+    public BetweenLevels(KeyboardSensor k, int minutesElapsedToFinishLevel, int secondsElapsedToFinishLevel, String name, SpriteCollection gameScreen, boolean isLastLevel) {
         this.keyboard = k;
         this.running = false;
         this.gameScreen = gameScreen;
         this.levelName = name;
-        this.timeElapsedToFinishLevel = timeElapsed;
+        this.minutesElapsedToFinishLevel = minutesElapsedToFinishLevel;
+        this.secondsElapsedToFinishLevel = secondsElapsedToFinishLevel;
+        this.isLastLevel = isLastLevel;
     }
 
     /**
@@ -40,8 +46,24 @@ public class BetweenLevels implements Animation {
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
-        d.drawText((int) (d.getWidth() / 11), d.getHeight() / 5, "You finished the "
-                + this.levelName + " level in " + timeElapsedToFinishLevel + " minutes. Press the SPACE key to continue to the next level.", 25);
+
+        String minutesElapsed = minutesElapsedToFinishLevel == 1 ? "minute" : "minutes";
+        String secondsElapsed = secondsElapsedToFinishLevel == 1 ? "second" : "seconds";
+        String timeElapsed =
+                minutesElapsedToFinishLevel > 0 ? String.valueOf(minutesElapsedToFinishLevel) + " " + minutesElapsed + " and " + String.valueOf(secondsElapsedToFinishLevel) + " seconds."
+                : String.valueOf(secondsElapsedToFinishLevel) + " " + secondsElapsed + ".";
+
+        String isLast = isLastLevel ? "move to the next screen." : "continue to the next level.";
+
+        if (minutesElapsedToFinishLevel > 0) {
+            d.drawText((int) (d.getWidth() / 12), d.getHeight() / 5, "You finished the "
+                    + this.levelName + " level in "
+                    + timeElapsed + " Press the SPACE key to " + isLast, 25);
+        } else {
+            d.drawText((int) (d.getWidth() / 7), d.getHeight() / 5, "You finished the "
+                    + this.levelName + " level in "
+                    + timeElapsed + " Press the SPACE key to " + isLast, 25);
+        }
     }
 
     /**

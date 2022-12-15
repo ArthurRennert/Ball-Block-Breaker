@@ -1,5 +1,6 @@
 package sprites;
 
+import biuoop.DrawSurface;
 import biuoop.GUI;
 import collision.Collidable;
 import gui.ScreenSettings;
@@ -111,6 +112,7 @@ public class Paddle extends Block implements Sprite, Collidable {
     /**
      *
      */
+    @Override
     public void timePassed() {
         if ((keyboard.isPressed("left") || keyboard.isPressed("a")) && (keyboard.isPressed("up") || keyboard.isPressed("w"))) {
             moveLeftFast();

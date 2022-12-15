@@ -110,4 +110,25 @@ public class Timer {
       String res = hour > 0 ? resWithHour : resWithoutHour;
       return res;
    }
+
+   /**
+    * @return
+    */
+   public int getHour() {
+      return hour;
+   }
+
+   /**
+    * @return
+    */
+   public int getMinute() {
+      return minute;
+   }
+
+   /**
+    * @return
+    */
+   public int getSecond() {
+      return second;
+   }
 }

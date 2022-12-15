@@ -197,18 +197,51 @@ public class Ball implements Sprite {
    /**
     *
     */
+   @Override
    public void timePassed() {
 //      if(stepsToNextCollision <= 1) {
-      CollisionInfo collInfo =
+      CollisionInfo collInfoCenterBall =
               ge.getClosestCollision(new gui.shapes.Line(this.getPoint(),
                       new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
 
-      double distanceToCollision = this.getPoint().distance(collInfo.collisionPoint());
-      int stepsToNextCollision = (int) (distanceToCollision / 10);
+      Point leftFromCenter = new Point(this.getPoint().getX() - (this.getRadius()), this.getPoint().getY());
+      CollisionInfo collInfoLeftBall =
+              ge.getClosestCollision(new gui.shapes.Line(leftFromCenter,
+                      new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
 
+      Point rightFromCenter = new Point(this.getPoint().getX() + (this.getRadius()), this.getPoint().getY());
+      CollisionInfo collInfoRightBall =
+              ge.getClosestCollision(new gui.shapes.Line(rightFromCenter,
+                      new Point(this.getVelocity().getDx() * 600000, this.getVelocity().getDy() * 600000)));
+
+
+      double distanceToCollisionFromCenterBall = this.getPoint().distance(collInfoCenterBall.collisionPoint());
+      double distanceToCollisionFromLeftBall = this.getPoint().distance(collInfoLeftBall.collisionPoint());
+      double distanceToCollisionFromRightBall = this.getPoint().distance(collInfoRightBall.collisionPoint());
+
+
+      CollisionInfo collisionInfo = collInfoCenterBall;
+      double minDistance = distanceToCollisionFromCenterBall;
+      if (distanceToCollisionFromLeftBall < distanceToCollisionFromCenterBall && distanceToCollisionFromLeftBall < distanceToCollisionFromRightBall) {
+         collisionInfo = collInfoLeftBall;
+         minDistance = distanceToCollisionFromLeftBall;
+      } else if (distanceToCollisionFromRightBall < distanceToCollisionFromCenterBall && distanceToCollisionFromRightBall < distanceToCollisionFromLeftBall) {
+         collisionInfo = collInfoRightBall;
+         minDistance = distanceToCollisionFromRightBall;
+      }
+
+//      if (collisionInfo == collInfoCenterBall) {
+//         System.out.println("center\n");
+//      } else if (collisionInfo == collInfoRightBall) {
+//         System.out.println("right\n");
+//      } else {
+//         System.out.println("left\n");
+//      }
+
+      int stepsToNextCollision = (int) (minDistance / 10);
       if (stepsToNextCollision <= 1) {
 //         System.out.println("hit");
-         Velocity newVel = collInfo.collisionObject().hit(this, collInfo.collisionPoint(), this.getVelocity());
+         Velocity newVel = collisionInfo.collisionObject().hit(this, collisionInfo.collisionPoint(), this.getVelocity());
          this.setVelocity(newVel);
 //         ge.updateCollision(collInfo.collisionObject());
       }

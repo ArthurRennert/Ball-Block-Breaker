@@ -65,10 +65,11 @@ public class GameFlow {
             }
 
             if (i == (levels.size() - 1) && level.getNumOfBlocksLeft() == 0) {
+                this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().getMinute(), level.getTimer().getSecond(), levelInfo.levelName(), level.getSprites(), true)));
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new GameWon(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
             }
-            this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().showTimer(), levelInfo.levelName(), level.getSprites())));
+            this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().getMinute(), level.getTimer().getSecond(), levelInfo.levelName(), level.getSprites(), false)));
         }
     }
 

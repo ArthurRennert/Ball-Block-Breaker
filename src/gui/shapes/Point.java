@@ -65,6 +65,20 @@ public class Point {
       return this.y;
    }
 
+   /**
+    * @param x
+    */
+   public void setX(double x) {
+      this.x = x;
+   }
+
+   /**
+    * @param x
+    */
+   public void setY(double x) {
+      this.y = y;
+   }
+
 
    /**
     * This method finds orientation of ordered triplet (p, q, r).

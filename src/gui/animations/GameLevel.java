@@ -3,10 +3,7 @@ package gui.animations;
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import collision.GameEnvironment;
-import collision.listeners.hit_listeners.BallAdder;
-import collision.listeners.hit_listeners.BallRemover;
-import collision.listeners.hit_listeners.BlockRemover;
-import collision.listeners.hit_listeners.ScoreTracking;
+import collision.listeners.hit_listeners.*;
 import gui.ScreenSettings;
 import gui.animations.infrastructure.Animation;
 import gui.animations.infrastructure.AnimationRunner;
@@ -34,6 +31,7 @@ public class GameLevel implements Animation {
     private static BlockRemover blockRemoverListener;
     private static ScoreTracking scoreTrackingListener;
     private static BallRemover ballRemoverListener;
+    private static SoundMaker soundMakerListener;
     private static BallAdder ballAdderListener;
     private static GameInformation gameInformation;
     private static Timer timer;
@@ -91,12 +89,14 @@ public class GameLevel implements Animation {
         blockRemoverListener = new BlockRemover(this, blocksCounter);
         scoreTrackingListener = new ScoreTracking(score);
         ballRemoverListener = new BallRemover(this, ballsCounter, lives);
+        soundMakerListener = new SoundMaker();
         //        BallAdder ballAdderListener = new BallAdder(this, ballsCounter);
     }
 
     private void initializeFrameBlocks() {
         for (Block elem : levelInformation.getFrameBlocksList()) {
             elem.addToGame(this);
+            elem.addHitListener(soundMakerListener);
         }
     }
 
@@ -106,6 +106,7 @@ public class GameLevel implements Animation {
             elem.addToGame(this);
             elem.addHitListener(blockRemoverListener);
             elem.addHitListener(scoreTrackingListener);
+            elem.addHitListener(soundMakerListener);
         }
     }
 

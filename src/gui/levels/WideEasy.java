@@ -144,7 +144,7 @@ public class WideEasy implements LevelInformation {
         double y = ScreenSettings.FRAME_HEIGHT * 0.45;
         for (int i = 0; i < numberOfBlocksToRemove; i++) {
             resList.add(new Block(new Point(xStart, y),
-                    blocksWidth, blocksHeight, "gameblocks", colors[i]));
+                    blocksWidth, blocksHeight, "GameBlock", colors[i]));
             resList.get(resList.size() - 1).initializeHitsCounter(1);
                 xStart -= blocksWidth;
         }

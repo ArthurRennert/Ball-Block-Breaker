@@ -143,7 +143,7 @@ public class InClouds implements LevelInformation {
         for (int row = 1; row <= 7; row++) {
             for (int col = 0; col < 15; col++) {
                 resList.add(new Block(new Point(xStart, yStart),
-                        blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
+                        blocksWidth, blocksHeight, "GameBlock", colors[row - 1]));
                 if(row == 1) {
                     resList.get(resList.size() - 1).initializeHitsCounter(2);
                 } else {

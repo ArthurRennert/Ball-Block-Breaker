@@ -162,4 +162,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
    public int getValue() {
       return value;
    }
+
+   public String getName() {
+      return rectangle.getName();
+   }
 }

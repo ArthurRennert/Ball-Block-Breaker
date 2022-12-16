@@ -132,7 +132,7 @@ public class TheTower implements LevelInformation {
         for (int row = 1; row <= 5; row++) {
             for (int i = 0; i <= (11 - row); i++) {
                 resList.add(new Block(new Point(xStart, yStart),
-                        blocksWidth, blocksHeight, "gameblocks", colors[row - 1]));
+                        blocksWidth, blocksHeight, "GameBlock", colors[row - 1]));
                 if(row == 1) {
                     resList.get(resList.size() - 1).initializeHitsCounter(2);
                 } else {

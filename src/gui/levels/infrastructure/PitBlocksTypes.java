@@ -19,7 +19,7 @@ public class PitBlocksTypes {
     */
    public static List<Block> getRegularPitBlocks() {
       List<Block> resList = new ArrayList<>();
-      resList.add(new Block(new Point(0, ScreenSettings.FRAME_HEIGHT * 0.995), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.005), "LowerScreen", Color.BLACK)); //lower screen block
+      resList.add(new Block(new Point(0, ScreenSettings.FRAME_HEIGHT * 0.995), ScreenSettings.FRAME_WIDTH, (int) (ScreenSettings.FRAME_HEIGHT * 0.005), "PitBlock", Color.BLACK)); //lower screen block
       return resList;
    }
 }

@@ -24,8 +24,8 @@ public class BallBlockBreaker {
       List<LevelInformation> levels = new ArrayList<>();
       levels.add(new DirectHit());
       levels.add(new WideEasy());
-//      levels.add(new TheTower());
-//      levels.add(new InClouds());
+      levels.add(new TheTower());
+      levels.add(new InClouds());
       gameFlow.runLevels(levels);
    }
 }

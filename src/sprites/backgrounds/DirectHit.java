@@ -5,7 +5,7 @@ import gui.ScreenSettings;
 import gui.animations.GameLevel;
 import sprites.backgrounds.infrastructure.Background;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  *

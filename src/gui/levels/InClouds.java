@@ -10,6 +10,7 @@ import sprites.backgrounds.infrastructure.Background;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
+import music.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class InClouds implements LevelInformation {
     @Override
     public List<Ball> initialBalls() {
         List<Ball> resList = new ArrayList<>();
-        for(int i = 0; i < numberOfBalls; i++) {
+        for (int i = 0; i < numberOfBalls; i++) {
             resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
         }
         return resList;
@@ -94,6 +95,31 @@ public class InClouds implements LevelInformation {
     @Override
     public List<Velocity> getVelocityList() {
         return velList;
+    }
+
+    @Override
+    public Sound getPaddleHitSound() {
+        return null;
+    }
+
+    @Override
+    public Sound getFrameBlockHitSound() {
+        return null;
+    }
+
+    @Override
+    public Sound getPitBlockHitSound() {
+        return null;
+    }
+
+    @Override
+    public Sound getGameBlockHitSound() {
+        return null;
+    }
+
+    @Override
+    public Sound getBackgroundMusic() {
+        return null;
     }
 
     @Override

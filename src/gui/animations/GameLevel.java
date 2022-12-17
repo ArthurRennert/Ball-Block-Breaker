@@ -10,6 +10,8 @@ import gui.animations.infrastructure.AnimationRunner;
 import gui.levels.infrastructure.LevelInformation;
 import gui.motion.Velocity;
 import gui.shapes.Point;
+import music.MusicPlayer;
+import music.Sound;
 import sprites.Ball;
 import sprites.Block;
 import sprites.GameInformation;
@@ -35,6 +37,7 @@ public class GameLevel implements Animation {
     private static BallAdder ballAdderListener;
     private static GameInformation gameInformation;
     private static Timer timer;
+    private static MusicPlayer levelSounds;
 
     private SpriteCollection sprites;
     private GameEnvironment environment;
@@ -62,6 +65,7 @@ public class GameLevel implements Animation {
         levelInformation = levelInfo;
         keyboardSensor = ks;
         animationRunner = ar;
+        levelSounds = new MusicPlayer();
         this.score = score;
         this.lives = lives;
     }
@@ -72,6 +76,7 @@ public class GameLevel implements Animation {
     public void initialize() {
         timer = new Timer(0, 0, 0);
         initializeBackground();
+        initializeSounds();
         initializeListeners();
         initializeFrameBlocks();
         initializeGameBlocks();
@@ -85,18 +90,25 @@ public class GameLevel implements Animation {
         levelInformation.getBackground().addToGame(this);
     }
 
+    private void initializeSounds() {
+        levelSounds.setPaddleHit(levelInformation.getPaddleHitSound());
+        levelSounds.setFrameBlockHit(levelInformation.getFrameBlockHitSound());
+        levelSounds.setPitBlockHit(levelInformation.getPitBlockHitSound());
+        levelSounds.setGameBlockHit(levelInformation.getGameBlockHitSound());
+        levelSounds.setBackgroundMusic(levelInformation.getBackgroundMusic());
+    }
+
     private void initializeListeners() {
         blockRemoverListener = new BlockRemover(this, blocksCounter);
         scoreTrackingListener = new ScoreTracking(score);
         ballRemoverListener = new BallRemover(this, ballsCounter, lives);
-        soundMakerListener = new SoundMaker();
+        soundMakerListener = new SoundMaker(levelSounds);
         //        BallAdder ballAdderListener = new BallAdder(this, ballsCounter);
     }
 
     private void initializeFrameBlocks() {
         for (Block elem : levelInformation.getFrameBlocksList()) {
             elem.addToGame(this);
-            elem.addHitListener(soundMakerListener);
         }
     }
 
@@ -106,7 +118,6 @@ public class GameLevel implements Animation {
             elem.addToGame(this);
             elem.addHitListener(blockRemoverListener);
             elem.addHitListener(scoreTrackingListener);
-            elem.addHitListener(soundMakerListener);
         }
     }
 
@@ -130,6 +141,7 @@ public class GameLevel implements Animation {
             ballList.get(i).addToGame(this);
             ballList.get(i).setGameEnvironment(environment);
             ballList.get(i).setVelocity(velocityList.get(i));
+            ballList.get(i).addHitListener(soundMakerListener);
         }
     }
 
@@ -142,6 +154,7 @@ public class GameLevel implements Animation {
      *
      */
     public void run() {
+        levelSounds.playBackgroundMusic();
         this.running = true;
         timer.timerInit();
         this.animationRunner.run(this);
@@ -176,6 +189,7 @@ public class GameLevel implements Animation {
      *
      */
     public void restartAfterLiveLost() {
+        //add here stop music
         timer.stopTimer();
         if (lives.getValue() == 0) {
             return;

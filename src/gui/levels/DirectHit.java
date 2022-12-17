@@ -10,6 +10,7 @@ import sprites.backgrounds.infrastructure.Background;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
+import music.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -167,5 +168,30 @@ public class DirectHit implements LevelInformation {
    @Override
    public List<Velocity> getVelocityList() {
       return velList;
+   }
+
+   @Override
+   public Sound getPaddleHitSound() {
+      return null;
+   }
+
+   @Override
+   public Sound getFrameBlockHitSound() {
+      return null;
+   }
+
+   @Override
+   public Sound getPitBlockHitSound() {
+      return null;
+   }
+
+   @Override
+   public Sound getGameBlockHitSound() {
+      return null;
+   }
+
+   @Override
+   public Sound getBackgroundMusic() {
+      return null;
    }
 }

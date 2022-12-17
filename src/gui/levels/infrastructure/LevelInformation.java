@@ -6,6 +6,7 @@ import gui.motion.Velocity;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
+import music.Sound;
 
 import java.util.List;
 
@@ -40,4 +41,10 @@ public interface LevelInformation {
    List<Block> getFrameBlocksList();
    List<Block> getPitBlocksList();
    List<Velocity> getVelocityList();
+   Sound getPaddleHitSound();
+   Sound getFrameBlockHitSound();
+   Sound getPitBlockHitSound();
+   Sound getGameBlockHitSound();
+   Sound getBackgroundMusic();
+
 }

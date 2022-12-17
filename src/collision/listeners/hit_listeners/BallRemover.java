@@ -31,6 +31,7 @@ public class BallRemover implements HitListener {
     */
    @Override
    public void hitEvent(Block beingHit, Ball hitter) {
+//      SoundMaker.playMusic(SoundMaker.pitBlockHit.getSound());
       hitter.removeFromGame(gameLevel);
       hitter.unsetGameEnvironment();
       remainingBalls.decrease(1);

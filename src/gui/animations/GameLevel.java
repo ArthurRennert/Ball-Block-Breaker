@@ -154,10 +154,17 @@ public class GameLevel implements Animation {
      *
      */
     public void run() {
-        levelSounds.playBackgroundMusic();
+//        levelSounds.playBackgroundMusic();
         this.running = true;
         timer.timerInit();
         this.animationRunner.run(this);
+    }
+
+    /**
+     *
+     */
+    public void playBackgroundMusic() {
+        levelSounds.playBackgroundMusic();
     }
 
     /**

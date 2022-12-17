@@ -43,6 +43,7 @@ public class GameFlow {
             if (i == 0) {
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new Instructions(keyboardSensor, level.getSpritesListForInstructionAnimation())));
             }
+            level.playBackgroundMusic();
             this.animationRunner.run(new Countdown(3, level.getSprites(), animationRunner, keyboardSensor));
 
 //            while (level.getNumOfBallsLeft() > 0 && level.getNumOfBlocksLeft() > 0) {

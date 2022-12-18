@@ -58,11 +58,11 @@ public class SunnyDay implements LevelInformation {
         levelName = "Sunny Day";
         paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
         paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
-        paddleHit = new Sound("/Paddle-Hit.wav");
-        frameBlockHit = new Sound("/Frame-Block.wav");
-        pitBlockHit = new Sound("/Fall.wav");
-        gameBlockHit = new Sound("/Game-Block.wav");
-        backgroundMusic = new Sound("/Sunny-Day.wav");
+        paddleHit = new Sound("/Sunny-Day/Paddle-Hit.wav");
+        frameBlockHit = new Sound("/Sunny-Day/Frame-Block.wav");
+        pitBlockHit = new Sound("/Sunny-Day/Pit-Block.wav");
+        gameBlockHit = new Sound("/Sunny-Day/Game-Block.wav");
+        backgroundMusic = new Sound("/Sunny-Day/Background.wav");
     }
 
     @Override

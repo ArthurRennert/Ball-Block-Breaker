@@ -34,6 +34,11 @@ public class DirectHit implements LevelInformation {
    private List<Block> frameBlocks;
    private List<Block> pitBlocks;
    private int numberOfBlocksToRemove;
+   private Sound paddleHit;
+   private Sound frameBlockHit;
+   private Sound pitBlockHit;
+   private Sound gameBlockHit;
+   private Sound backgroundMusic;
 
 
    /**
@@ -54,6 +59,11 @@ public class DirectHit implements LevelInformation {
       numberOfBlocksToRemove = 1;
       paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
+      paddleHit = new Sound("/Direct-Hit/Paddle-Hit.wav");
+      frameBlockHit = new Sound("/Direct-Hit/Frame-Block.wav");
+      pitBlockHit = new Sound("/Direct-Hit/Pit-Block.wav");
+      gameBlockHit = new Sound("/Direct-Hit/Game-Block.wav");
+      backgroundMusic = new Sound("/Direct-Hit/Background.wav");
    }
 
    @Override
@@ -172,26 +182,26 @@ public class DirectHit implements LevelInformation {
 
    @Override
    public Sound getPaddleHitSound() {
-      return null;
+      return paddleHit;
    }
 
    @Override
    public Sound getFrameBlockHitSound() {
-      return null;
+      return frameBlockHit;
    }
 
    @Override
    public Sound getPitBlockHitSound() {
-      return null;
+      return pitBlockHit;
    }
 
    @Override
    public Sound getGameBlockHitSound() {
-      return null;
+      return gameBlockHit;
    }
 
    @Override
    public Sound getBackgroundMusic() {
-      return null;
+      return backgroundMusic;
    }
 }

@@ -4,6 +4,8 @@ import biuoop.KeyboardSensor;
 import collision.listeners.hit_listeners.SoundMaker;
 import gui.animations.*;
 import gui.animations.infrastructure.AnimationRunner;
+import music.MusicPlayer;
+import music.Sound;
 import utilities.Counter;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public class GameFlow {
     private KeyboardSensor keyboardSensor;
     private Counter score;
     private Counter lives;
+    private MusicPlayer musicPlayer;
 
     /**
      * @param ar
@@ -25,7 +28,8 @@ public class GameFlow {
         score = new Counter();
         lives = new Counter();
         score.setValue(0);
-        lives.setValue(5);
+        lives.setValue(1);
+        musicPlayer = new MusicPlayer();
     }
 
     /**
@@ -37,7 +41,7 @@ public class GameFlow {
 
             LevelInformation levelInfo = levels.get(i);
 
-            GameLevel level = new GameLevel(levelInfo, this.keyboardSensor, this.animationRunner, score, lives);
+            GameLevel level = new GameLevel(levelInfo, this.keyboardSensor, this.animationRunner, score, lives, musicPlayer);
 
             level.initialize();
             if (i == 0) {
@@ -61,16 +65,22 @@ public class GameFlow {
 //            }
 
             if (lives.getValue() == 0) {  //level.getNumOfBallsLeft() == 0
+                level.stopBackgroundMusic();
+                musicPlayer.playMusic(new Sound("/Fail-Sounds.wav").getSound());
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new GameOver(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
                 break;
             }
 
             if (i == (levels.size() - 1) && level.getNumOfBlocksLeft() == 0) {
+                level.stopBackgroundMusic();
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().getMinute(), level.getTimer().getSecond(), levelInfo.levelName(), level.getSprites(), true)));
+                level.stopBackgroundMusic();
+                musicPlayer.playMusic(new Sound("/Win-Sound.wav").getSound());
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new GameWon(keyboardSensor, level.getSprites(), score.getValue())));
                 System.exit(0);
             }
+            level.stopBackgroundMusic();
             this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new BetweenLevels(keyboardSensor, level.getTimer().getMinute(), level.getTimer().getSecond(), levelInfo.levelName(), level.getSprites(), false)));
         }
     }

@@ -19,19 +19,14 @@ public class BallBlockBreaker {
     * @param args
     */
    public static void main(String[] args) {
-
-//      SoundMaker s = new SoundMaker();
-//      Sound b = new Sound("/Terminator.wav");
-//      playMusic(b.getSound());
-
       AnimationRunner animationRunner = new AnimationRunner(60, "Ball Block Breaker", ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
       KeyboardSensor keyboardSensor = animationRunner.getGUI().getKeyboardSensor();
       GameFlow gameFlow = new GameFlow(animationRunner, keyboardSensor);
       List<LevelInformation> levels = new ArrayList<>();
 //      levels.add(new DirectHit());
-      levels.add(new SunnyDay());
-//      levels.add(new TheTower());
-//      levels.add(new InClouds());
+//      levels.add(new SunnyDay());
+//      levels.add(new Aden());
+      levels.add(new Clouds());
       gameFlow.runLevels(levels);
    }
 }

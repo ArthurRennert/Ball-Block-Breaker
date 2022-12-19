@@ -9,6 +9,7 @@ import gui.motion.Velocity;
 import gui.shapes.Line;
 import gui.shapes.Point;
 import sprites.infrastructure.Sprite;
+import utilities.Timer;
 
 
 import java.awt.Color;
@@ -114,7 +115,7 @@ public class Paddle extends Block implements Sprite, Collidable {
      *
      */
     @Override
-    public void timePassed() {
+    public void timePassed(Timer timer) {
         if ((keyboard.isPressed("left") || keyboard.isPressed("a")) && (keyboard.isPressed("up") || keyboard.isPressed("w"))) {
             moveLeftFast();
         } else if ((keyboard.isPressed("left") || keyboard.isPressed("a")) && (keyboard.isPressed("down") || keyboard.isPressed("s"))) {

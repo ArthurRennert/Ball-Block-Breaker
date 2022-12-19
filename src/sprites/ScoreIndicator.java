@@ -6,6 +6,7 @@ import gui.shapes.Point;
 import gui.shapes.Rectangle;
 import sprites.infrastructure.Sprite;
 import utilities.Counter;
+import utilities.Timer;
 
 import java.awt.Color;
 
@@ -42,7 +43,7 @@ public class ScoreIndicator implements Sprite {
    }
 
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 
    }
 

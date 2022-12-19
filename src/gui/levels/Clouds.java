@@ -65,6 +65,7 @@ public class Clouds implements LevelInformation {
         paddleHit = new Sound("/Clouds/Paddle-Hit.wav");
         frameBlockHit = new Sound("/Clouds/Frame-Block.wav");
         pitBlockHit = new Sound("/Clouds/Pit-Block.wav");
+        gameBlockHit = new ArrayList<>();
         gameBlockHit.add(new Sound("/Clouds/Game-Block.wav"));
         isSingleGameBlockSound = true;
         backgroundMusic = new Sound("/Clouds/Background.wav");

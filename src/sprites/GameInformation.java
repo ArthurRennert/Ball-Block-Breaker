@@ -58,7 +58,7 @@ public class GameInformation implements Sprite {
    }
 
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 
    }
 

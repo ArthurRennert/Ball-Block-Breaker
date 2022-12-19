@@ -4,6 +4,7 @@ import biuoop.DrawSurface;
 import gui.ScreenSettings;
 import gui.animations.GameLevel;
 import sprites.backgrounds.infrastructure.Background;
+import utilities.Timer;
 
 import java.awt.*;
 
@@ -16,22 +17,26 @@ public class Friends extends Background {
    private static final Color LIGHT_GRAY = new Color(211, 211, 211);
    private static final Color DARK_GRAY = new Color(169, 169, 169);
 
+   private static Image image;
+
    /**
     *
     */
-   public Friends() {}
+   public Friends() {
+      image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Friends.jpg"));
+   }
 
    /**
     * @param d
     */
    @Override
    public void drawOn(DrawSurface d) {
-      Image image = null;
-      try {
-         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Friends.jpg"));
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
+//      Image image = null;
+//      try {
+//         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Friends.jpg"));
+//      } catch (Exception e) {
+//         e.printStackTrace();
+//      }
       d.drawImage(-25, (int) (ScreenSettings.FRAME_HEIGHT * 0.08), image);
    }
 
@@ -39,7 +44,7 @@ public class Friends extends Background {
     *
     */
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 
    }
 

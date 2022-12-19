@@ -4,6 +4,7 @@ import biuoop.DrawSurface;
 import gui.ScreenSettings;
 import gui.animations.GameLevel;
 import sprites.backgrounds.infrastructure.Background;
+import utilities.Timer;
 
 import java.awt.Color;
 
@@ -42,7 +43,7 @@ public class SunnyDay extends Background {
      *
      */
     @Override
-    public void timePassed() {
+    public void timePassed(Timer timer) {
 
     }
 

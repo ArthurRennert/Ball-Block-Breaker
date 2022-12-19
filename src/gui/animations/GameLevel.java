@@ -245,7 +245,7 @@ public class GameLevel implements Animation {
     @Override
     public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
-        this.sprites.notifyAllTimePassed();
+        this.sprites.notifyAllTimePassed(timer);
         if (this.keyboardSensor.isPressed("enter")) {
             timer.stopTimer();
             musicPlayer.pauseBackgroundMusic();

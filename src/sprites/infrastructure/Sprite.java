@@ -1,6 +1,7 @@
 package sprites.infrastructure;
 
 import biuoop.DrawSurface;
+import utilities.Timer;
 
 
 /**
@@ -19,5 +20,5 @@ public interface Sprite {
      *
      */
     // notify the sprite that time has passed
-    void timePassed();
+    void timePassed(Timer timer);
 }

@@ -11,6 +11,7 @@ import gui.shapes.Point;
 import gui.shapes.Rectangle;
 import sprites.infrastructure.Sprite;
 import utilities.Counter;
+import utilities.Timer;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     *
     */
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 //      if (rectangle.getColor().getRGB() == Color.GREEN.getRGB()) {
 //         rectangle.setColor(Color.RED);
 //      }

@@ -9,6 +9,7 @@ import gui.animations.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Point;
 import sprites.infrastructure.Sprite;
+import utilities.Timer;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -204,7 +205,7 @@ public class Ball implements Sprite, HitNotifier {
     *
     */
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 //      if(stepsToNextCollision <= 1) {
       CollisionInfo collInfoCenterBall =
               ge.getClosestCollision(new gui.shapes.Line(this.getPoint(),

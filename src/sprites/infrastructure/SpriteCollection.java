@@ -1,6 +1,8 @@
 package sprites.infrastructure;
 
 import biuoop.DrawSurface;
+import utilities.Timer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,10 +74,10 @@ public class SpriteCollection {
      *
      */
     // call timePassed() on all sprites.
-    public void notifyAllTimePassed() {
+    public void notifyAllTimePassed(Timer timer) {
         List<Sprite> copyList = new ArrayList<>(this.listOfSpriteObjects);
         for (Sprite elem : copyList) {
-            elem.timePassed();
+            elem.timePassed(timer);
         }
     }
 

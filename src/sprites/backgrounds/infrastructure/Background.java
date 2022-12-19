@@ -4,6 +4,7 @@ import biuoop.DrawSurface;
 import gui.ScreenSettings;
 import gui.animations.GameLevel;
 import sprites.infrastructure.Sprite;
+import utilities.Timer;
 
 import java.awt.*;
 
@@ -41,7 +42,7 @@ public class Background implements Sprite {
     *
     */
    @Override
-   public void timePassed() {
+   public void timePassed(Timer timer) {
 
    }
 

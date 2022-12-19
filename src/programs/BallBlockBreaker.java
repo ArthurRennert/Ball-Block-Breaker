@@ -27,8 +27,8 @@ public class BallBlockBreaker {
 //      levels.add(new SunnyDay());
 //      levels.add(new Aden());
 //      levels.add(new Clouds());
-//      levels.add(new Terminator());
-      levels.add(new Friends());
+      levels.add(new Terminator());
+//      levels.add(new Friends());
       gameFlow.runLevels(levels);
    }
 }

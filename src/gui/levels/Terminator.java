@@ -61,10 +61,22 @@ public class Terminator implements LevelInformation {
       frameBlockHit = new Sound("/Terminator/Frame-Block.wav");
       pitBlockHit = new Sound("/Terminator/Pit-Block.wav");
       gameBlockHit = new ArrayList<>();
-      gameBlockHit.add(new Sound("/Terminator/Game-Block.wav"));
-      isSingleGameBlockSound = true;
+      initializeAllGameBlockHitSounds();
+      isSingleGameBlockSound = false;
       backgroundMusic = new Sound("/Terminator/Background.wav");
       backgroundMusicVolume = 1f;
+   }
+
+
+   private void initializeAllGameBlockHitSounds() {
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block1.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block2.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block3.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block4.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block5.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block6.wav"));
+      gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block7.wav"));
+
    }
 
    @Override
@@ -81,12 +93,18 @@ public class Terminator implements LevelInformation {
       return resList;
    }
 
+   /**
+    *
+    */
    public void resetBalls() {
       numberOfBalls = 1;
       ballsList = initialBalls();
       velList = initialBallVelocities();
    }
 
+   /**
+    * @return
+    */
    public List<Ball> getBallsList () {
       return ballsList;
    }
@@ -98,6 +116,9 @@ public class Terminator implements LevelInformation {
       return resList;
    }
 
+   /**
+    * @return
+    */
    public List<Velocity> getVelocityList() {
       return velList;
    }
@@ -171,7 +192,7 @@ public class Terminator implements LevelInformation {
       double xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
       double xLeft = ScreenSettings.FRAME_WIDTH * 0.03;
       double yTop = ScreenSettings.FRAME_HEIGHT * 0.09;
-      double yBottom = ScreenSettings.FRAME_HEIGHT * 0.09 + (14 * blocksHeight);
+      double yBottom = ScreenSettings.FRAME_HEIGHT * 0.09 + (18 * blocksHeight);
 
       for (int row = 1; row <= 8; row++) {
          for (int col = 0; col < (9 - row); col++) {
@@ -189,7 +210,7 @@ public class Terminator implements LevelInformation {
          xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
          xLeft = ScreenSettings.FRAME_WIDTH * 0.03;
          yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + (row  * blocksHeight);
-         yBottom = ScreenSettings.FRAME_HEIGHT * 0.09 + ((14 - row) * blocksHeight);
+         yBottom = ScreenSettings.FRAME_HEIGHT * 0.09 + ((18 - row) * blocksHeight);
       }
 
       for (int i = 0; i < numberOfBlocksToRemove; i++) {

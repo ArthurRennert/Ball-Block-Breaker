@@ -29,10 +29,10 @@ public class Terminator extends Background {
     */
    public Terminator() {
       imageToShow = 0;
-      image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator.jpg"));
+      image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator2.jpg"));
       wallpapersCoordinates = new ArrayList<>();
-      wallpapersCoordinates.add(new Point(-80, (int) (ScreenSettings.FRAME_HEIGHT * 0.05)));
       wallpapersCoordinates.add(new Point(30, (int) (ScreenSettings.FRAME_HEIGHT * 0.08)));
+      wallpapersCoordinates.add(new Point(-80, (int) (ScreenSettings.FRAME_HEIGHT * 0.05)));
       wallpapersCoordinates.add(new Point(0, (int) (ScreenSettings.FRAME_HEIGHT * 0.05)));
    }
 
@@ -51,10 +51,10 @@ public class Terminator extends Background {
    public void timePassed(Timer timer) {
       if (timer.getMinute() % 3 == 0) {
          imageToShow = 0;
-         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator.jpg"));
+         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator2.jpg"));
       } else if (timer.getMinute() % 3 == 1) {
          imageToShow = 1;
-         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator2.jpg"));
+         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator.jpg"));
       } else if (timer.getMinute() % 3 == 2) {
          imageToShow = 2;
          image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Terminator3.jpg"));

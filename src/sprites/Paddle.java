@@ -3,6 +3,7 @@ package sprites;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import collision.Collidable;
+import collision.listeners.hit_notifiers.HitNotifier;
 import gui.ScreenSettings;
 import gui.motion.Velocity;
 import gui.shapes.Line;
@@ -162,6 +163,7 @@ public class Paddle extends Block implements Sprite, Collidable {
             }
         }
 
+        this.notifyHit(b);
         if (l.isVerticalLine()) {
             return new Velocity(-currentVelocity.getDx(), currentVelocity.getDy());
         }

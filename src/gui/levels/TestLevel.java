@@ -10,6 +10,8 @@ import gui.shapes.Point;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
+import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,11 +27,18 @@ public class TestLevel implements LevelInformation {
     private Point paddleInitialPoint;
     private Paddle paddle;
     private String levelName;
-    private Background background;
+    private sprites.backgrounds.infrastructure.Background background;
     private List<Block> blocks;
     private List<Block> frameBlocks;
     private List<Block> pitBlocks;
     private int numberOfBlocksToRemove;
+    private Sound paddleHit;
+    private Sound frameBlockHit;
+    private Sound pitBlockHit;
+    private List<Sound> gameBlockHit;
+    private boolean isSingleGameBlockSound;
+    private Sound backgroundMusic;
+    private float backgroundMusicVolume;
 
 
     public TestLevel() {
@@ -47,6 +56,14 @@ public class TestLevel implements LevelInformation {
         levelName = "Random";
         background = new Background();
         numberOfBlocksToRemove = 1;
+        backgroundMusicVolume = 1f;
+        paddleHit = new Sound("/Clouds/Paddle-Hit.wav");
+        frameBlockHit = new Sound("/Clouds/Frame-Block.wav");
+        pitBlockHit = new Sound("/Clouds/Pit-Block.wav");
+        gameBlockHit = new ArrayList<>();
+        gameBlockHit.add(new Sound("/Clouds/Game-Block.wav"));
+        isSingleGameBlockSound = true;
+        backgroundMusic = new Sound("/Clouds/Background.wav");
     }
 
     @Override
@@ -85,6 +102,31 @@ public class TestLevel implements LevelInformation {
 
     public List<Velocity> getVelocityList() {
         return velList;
+    }
+
+    @Override
+    public Sound getPaddleHitSound() {
+        return paddleHit;
+    }
+
+    @Override
+    public Sound getFrameBlockHitSound() {
+        return frameBlockHit;
+    }
+
+    @Override
+    public Sound getPitBlockHitSound() {
+        return pitBlockHit;
+    }
+
+    @Override
+    public List<Sound> getGameBlockHitSound() {
+        return gameBlockHit;
+    }
+
+    @Override
+    public Sound getBackgroundMusic() {
+        return backgroundMusic;
     }
 
     @Override
@@ -137,7 +179,7 @@ public class TestLevel implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        return FrameBlocksTypes.getRegularFrameBlocks();
+        return FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
     }
 
     @Override
@@ -160,5 +202,15 @@ public class TestLevel implements LevelInformation {
     @Override
     public int numberOfBlocksToRemove() {
         return numberOfBlocksToRemove;
+    }
+
+    @Override
+    public float getBackgroundMusicVolume() {
+        return backgroundMusicVolume;
+    }
+
+    @Override
+    public boolean isSingleGameBlockSound() {
+        return isSingleGameBlockSound;
     }
 }

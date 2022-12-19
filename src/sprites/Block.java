@@ -24,8 +24,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
-   private Counter hitsCounter;
-   int value;
+   public Counter hitsCounter;
+   private int value;
    private List<HitListener> hitListeners;
 
 
@@ -137,7 +137,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
    /**
     * @param hitter
     */
-   private void notifyHit(Ball hitter) {
+   public void notifyHit(Ball hitter) {
       // Make a copy of the hitListeners before iterating over them.
       List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
       // Notify all listeners about a hit event:
@@ -146,6 +146,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
       }
    }
 
+   /**
+    * @param counter
+    */
    public void initializeHitsCounter(int counter) {
       hitsCounter.setValue(counter);
       value = counter * 5;
@@ -161,5 +164,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
    public int getValue() {
       return value;
+   }
+
+   public String getName() {
+      return rectangle.getName();
    }
 }

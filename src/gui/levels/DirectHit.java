@@ -10,6 +10,8 @@ import sprites.backgrounds.infrastructure.Background;
 import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
+import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,6 +35,13 @@ public class DirectHit implements LevelInformation {
    private List<Block> frameBlocks;
    private List<Block> pitBlocks;
    private int numberOfBlocksToRemove;
+   private Sound paddleHit;
+   private Sound frameBlockHit;
+   private Sound pitBlockHit;
+   private List<Sound> gameBlockHit;
+   private boolean isSingleGameBlockSound;
+   private Sound backgroundMusic;
+   private float backgroundMusicVolume;
 
 
    /**
@@ -53,6 +62,14 @@ public class DirectHit implements LevelInformation {
       numberOfBlocksToRemove = 1;
       paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
+      paddleHit = new Sound("/Direct-Hit/Paddle-Hit.wav");
+      frameBlockHit = new Sound("/Direct-Hit/Frame-Block.wav");
+      pitBlockHit = new Sound("/Direct-Hit/Pit-Block.wav");
+      gameBlockHit = new ArrayList<>();
+      gameBlockHit.add(new Sound("/Direct-Hit/Game-Block.wav"));
+      isSingleGameBlockSound = true;
+      backgroundMusic = new Sound("/Direct-Hit/Background.wav");
+      backgroundMusicVolume = 1f;
    }
 
    @Override
@@ -117,7 +134,7 @@ public class DirectHit implements LevelInformation {
       int blocksWidth = 30;
       int blocksHeight = 30;
       resList.add(new Block(new Point(((ScreenSettings.FRAME_WIDTH  - blocksWidth) / 2), ScreenSettings.FRAME_HEIGHT * 0.35),
-              blocksWidth, blocksHeight, "gameblocks", colors[0]));
+              blocksWidth, blocksHeight, "GameBlock", colors[0]));
       resList.get(resList.size() - 1).initializeHitsCounter(1);
       return resList;
    }
@@ -146,7 +163,7 @@ public class DirectHit implements LevelInformation {
 
    @Override
    public List<Block> initialFrameBlocks() {
-      return FrameBlocksTypes.getRegularFrameBlocks();
+      return FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
    }
 
    @Override
@@ -167,5 +184,40 @@ public class DirectHit implements LevelInformation {
    @Override
    public List<Velocity> getVelocityList() {
       return velList;
+   }
+
+   @Override
+   public Sound getPaddleHitSound() {
+      return paddleHit;
+   }
+
+   @Override
+   public Sound getFrameBlockHitSound() {
+      return frameBlockHit;
+   }
+
+   @Override
+   public Sound getPitBlockHitSound() {
+      return pitBlockHit;
+   }
+
+   @Override
+   public List<Sound> getGameBlockHitSound() {
+      return gameBlockHit;
+   }
+
+   @Override
+   public boolean isSingleGameBlockSound() {
+      return isSingleGameBlockSound;
+   }
+
+   @Override
+   public Sound getBackgroundMusic() {
+      return backgroundMusic;
+   }
+
+   @Override
+   public float getBackgroundMusicVolume() {
+      return backgroundMusicVolume;
    }
 }

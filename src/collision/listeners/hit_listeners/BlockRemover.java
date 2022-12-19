@@ -33,7 +33,7 @@ public class BlockRemover implements HitListener {
    // that is being removed from the gameLevel.
    public void hitEvent(Block beingHit, Ball hitter) {
       beingHit.markHit();
-      if(beingHit.hitsLeft() == 0) {
+      if (beingHit.hitsLeft() == 0) {
          beingHit.removeHitListener(this);
          beingHit.removeFromGame(gameLevel);
          numOfBlocksToRemove.decrease(1);

@@ -3,16 +3,14 @@ package gui.animations;
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import collision.GameEnvironment;
-import collision.listeners.hit_listeners.BallAdder;
-import collision.listeners.hit_listeners.BallRemover;
-import collision.listeners.hit_listeners.BlockRemover;
-import collision.listeners.hit_listeners.ScoreTracking;
+import collision.listeners.hit_listeners.*;
 import gui.ScreenSettings;
 import gui.animations.infrastructure.Animation;
 import gui.animations.infrastructure.AnimationRunner;
 import gui.levels.infrastructure.LevelInformation;
 import gui.motion.Velocity;
 import gui.shapes.Point;
+import music.MusicPlayer;
 import sprites.Ball;
 import sprites.Block;
 import sprites.GameInformation;
@@ -34,6 +32,7 @@ public class GameLevel implements Animation {
     private static BlockRemover blockRemoverListener;
     private static ScoreTracking scoreTrackingListener;
     private static BallRemover ballRemoverListener;
+    private static SoundMaker soundMakerListener;
     private static BallAdder ballAdderListener;
     private static GameInformation gameInformation;
     private static Timer timer;
@@ -48,6 +47,7 @@ public class GameLevel implements Animation {
     private boolean running;
     private KeyboardSensor keyboardSensor;
     private LevelInformation levelInformation;
+    private MusicPlayer musicPlayer;
 
     /**
      * @param levelInfo
@@ -56,7 +56,7 @@ public class GameLevel implements Animation {
      * @param score
      * @param lives
      */
-    public GameLevel(LevelInformation levelInfo, KeyboardSensor ks, AnimationRunner ar, Counter score, Counter lives) {
+    public GameLevel(LevelInformation levelInfo, KeyboardSensor ks, AnimationRunner ar, Counter score, Counter lives, MusicPlayer musicPlayer) {
         environment = new GameEnvironment(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
         sprites = new SpriteCollection();
         blocksCounter = new Counter();
@@ -64,6 +64,7 @@ public class GameLevel implements Animation {
         levelInformation = levelInfo;
         keyboardSensor = ks;
         animationRunner = ar;
+        this.musicPlayer = musicPlayer;
         this.score = score;
         this.lives = lives;
     }
@@ -74,6 +75,7 @@ public class GameLevel implements Animation {
     public void initialize() {
         timer = new Timer(0, 0, 0);
         initializeBackground();
+        initializeSounds();
         initializeListeners();
         initializeFrameBlocks();
         initializeGameBlocks();
@@ -87,10 +89,19 @@ public class GameLevel implements Animation {
         levelInformation.getBackground().addToGame(this);
     }
 
+    private void initializeSounds() {
+        musicPlayer.setPaddleHit(levelInformation.getPaddleHitSound());
+        musicPlayer.setFrameBlockHit(levelInformation.getFrameBlockHitSound());
+        musicPlayer.setPitBlockHit(levelInformation.getPitBlockHitSound());
+        musicPlayer.setGameBlockHit(levelInformation.getGameBlockHitSound(), levelInformation.isSingleGameBlockSound());
+        musicPlayer.setBackgroundMusic(levelInformation.getBackgroundMusic());
+    }
+
     private void initializeListeners() {
         blockRemoverListener = new BlockRemover(this, blocksCounter);
         scoreTrackingListener = new ScoreTracking(score);
         ballRemoverListener = new BallRemover(this, ballsCounter, lives);
+        soundMakerListener = new SoundMaker(musicPlayer);
         //        BallAdder ballAdderListener = new BallAdder(this, ballsCounter);
     }
 
@@ -129,6 +140,7 @@ public class GameLevel implements Animation {
             ballList.get(i).addToGame(this);
             ballList.get(i).setGameEnvironment(environment);
             ballList.get(i).setVelocity(velocityList.get(i));
+            ballList.get(i).addHitListener(soundMakerListener);
         }
     }
 
@@ -141,9 +153,24 @@ public class GameLevel implements Animation {
      *
      */
     public void run() {
+//        levelSounds.playBackgroundMusic();
         this.running = true;
         timer.timerInit();
         this.animationRunner.run(this);
+    }
+
+    /**
+     *
+     */
+    public void playBackgroundMusic() {
+        musicPlayer.playBackgroundMusic(levelInformation.getBackgroundMusicVolume());
+    }
+
+    /**
+     *
+     */
+    public void stopBackgroundMusic() {
+        musicPlayer.stopBackgroundMusic();
     }
 
     /**
@@ -182,7 +209,7 @@ public class GameLevel implements Animation {
         levelInformation.getPaddle().setLocation(levelInformation.paddleInitialPoint());
         levelInformation.resetBalls();
         initializeBalls();
-        this.animationRunner.run(new Countdown(2, this.sprites, animationRunner, keyboardSensor));
+        this.animationRunner.run(new Countdown(2, this.sprites, animationRunner, keyboardSensor, musicPlayer));
         timer.restartTimer();
     }
 
@@ -221,7 +248,9 @@ public class GameLevel implements Animation {
         this.sprites.notifyAllTimePassed();
         if (this.keyboardSensor.isPressed("enter")) {
             timer.stopTimer();
+            musicPlayer.pauseBackgroundMusic();
             this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new PauseScreen(this.keyboardSensor, this.sprites)));
+            musicPlayer.unpauseBackgroundMusic();
             timer.restartTimer();
         }
         if (blocksCounter.getValue() == 0) {

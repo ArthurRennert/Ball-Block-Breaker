@@ -3,23 +3,28 @@ package sprites;
 import biuoop.DrawSurface;
 import collision.CollisionInfo;
 import collision.GameEnvironment;
+import collision.listeners.hit_listeners.infrastructure.HitListener;
+import collision.listeners.hit_notifiers.HitNotifier;
 import gui.animations.GameLevel;
 import gui.motion.Velocity;
 import gui.shapes.Point;
 import sprites.infrastructure.Sprite;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  */
-public class Ball implements Sprite {
+public class Ball implements Sprite, HitNotifier {
    //instance variables
    private Point point;
    private final int radius;
    private final Color color;
    private Velocity velocity;
    private GameEnvironment ge;
+   private List<HitListener> hitListeners;
 
 
 
@@ -33,6 +38,7 @@ public class Ball implements Sprite {
       radius = r;
       this.color = new Color(color.getRGB());
       velocity = new Velocity(0, 0);
+      hitListeners = new ArrayList<>();
    }
 
    /**
@@ -240,6 +246,7 @@ public class Ball implements Sprite {
 
       int stepsToNextCollision = (int) (minDistance / 10);
       if (stepsToNextCollision <= 1) {
+         this.notifyHit((Block) collisionInfo.collisionObject(), this);
 //         System.out.println("hit");
          Velocity newVel = collisionInfo.collisionObject().hit(this, collisionInfo.collisionPoint(), this.getVelocity());
          this.setVelocity(newVel);
@@ -247,6 +254,20 @@ public class Ball implements Sprite {
       }
 //      }
       point = this.getVelocity().applyToPoint(point);
+   }
+
+
+   /**
+    * @param beingHit
+    * @param hitter
+    */
+   public void notifyHit(Block beingHit, Ball hitter) {
+      // Make a copy of the hitListeners before iterating over them.
+      List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+      // Notify all listeners about a hit event:
+      for (HitListener hl : listeners) {
+         hl.hitEvent(beingHit, this);
+      }
    }
 
    /**
@@ -266,5 +287,15 @@ public class Ball implements Sprite {
          velocity.setDy(-velocity.getDy());
       }
       point = this.getVelocity().applyToPoint(point);
+   }
+
+   @Override
+   public void addHitListener(HitListener hl) {
+      hitListeners.add(hl);
+   }
+
+   @Override
+   public void removeHitListener(HitListener hl) {
+      hitListeners.remove(hl);
    }
 }

@@ -44,7 +44,9 @@ public interface LevelInformation {
    Sound getPaddleHitSound();
    Sound getFrameBlockHitSound();
    Sound getPitBlockHitSound();
-   Sound getGameBlockHitSound();
+   List<Sound> getGameBlockHitSound();
+   boolean isSingleGameBlockSound();
    Sound getBackgroundMusic();
+   float getBackgroundMusicVolume();
 
 }

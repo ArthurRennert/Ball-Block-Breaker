@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.net.URL;
+import java.util.List;
 
 /**
  *
@@ -16,11 +17,12 @@ public class MusicPlayer {
    private Sound paddleHit;
    private Sound frameBlockHit;
    private Sound pitBlockHit;
-   private Sound gameBlockHit;
+   private List<Sound> gameBlockHit;
+   private boolean isSingleGameBlockSound;
    private Sound silence;
-   private Sound terminator;
 
    private static Clip backgroundClip;
+   private static long backgroundClipTime;
 
    /**
     *
@@ -62,7 +64,8 @@ public class MusicPlayer {
    /**
     * @param gameBlockHit
     */
-   public void setGameBlockHit(Sound gameBlockHit) {
+   public void setGameBlockHit(List<Sound> gameBlockHit, boolean isSingleGameBlockSound) {
+      this.isSingleGameBlockSound = isSingleGameBlockSound;
       this.gameBlockHit = gameBlockHit;
    }
 
@@ -77,7 +80,11 @@ public class MusicPlayer {
       } else if (beingHit.getName().equals("PitBlock")) {
          playMusic(pitBlockHit.getSound());
       } else if (beingHit.getName().equals("GameBlock")) {
-         playMusic(gameBlockHit.getSound());
+         if (isSingleGameBlockSound) {
+            playMusic(gameBlockHit.get(0).getSound());
+         } else {
+            playMusic(gameBlockHit.get((int) (Math.random() * gameBlockHit.size())).getSound());
+         }
       }
    }
 
@@ -95,22 +102,51 @@ public class MusicPlayer {
       }
    }
 
-   public void playBackgroundMusic() {
+   /**
+    * @param volume
+    */
+   public void playBackgroundMusic(float volume) {
       try {
          AudioInputStream audioInput = AudioSystem.getAudioInputStream(backgroundMusic.getSound());
          backgroundClip = AudioSystem.getClip();
          backgroundClip.open(audioInput);
+         setVolume(volume, backgroundClip);
          backgroundClip.start();
          backgroundClip.loop(Clip.LOOP_CONTINUOUSLY);
       } catch (Exception e) {
          e.printStackTrace();
       }
+
    }
 
+   /**
+    *
+    */
+   public void pauseBackgroundMusic() {
+      backgroundClipTime = backgroundClip.getMicrosecondPosition();
+      backgroundClip.stop();
+   }
+
+   /**
+    *
+    */
+   public void unpauseBackgroundMusic() {
+      backgroundClip.setMicrosecondPosition(backgroundClipTime);
+      backgroundClip.start();
+      backgroundClip.loop(Clip.LOOP_CONTINUOUSLY);
+   }
+
+   /**
+    *
+    */
    public void stopBackgroundMusic() {
       backgroundClip.stop();
    }
 
+   /**
+    * @param volume
+    * @param clip
+    */
    public void setVolume(float volume, Clip clip) {
       if (volume < 0f || volume > 1f)
          throw new IllegalArgumentException("Volume not valid: " + volume);
@@ -118,6 +154,10 @@ public class MusicPlayer {
       gainControl.setValue(20f * (float) Math.log10(volume));
    }
 
+   /**
+    * @param clip
+    * @return
+    */
    public float getVolume(Clip clip) {
       FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
       return (float) Math.pow(10f, gainControl.getValue() / 20f);

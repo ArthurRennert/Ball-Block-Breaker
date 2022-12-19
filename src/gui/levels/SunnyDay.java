@@ -11,6 +11,7 @@ import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
 import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,8 +38,11 @@ public class SunnyDay implements LevelInformation {
     private Sound paddleHit;
     private Sound frameBlockHit;
     private Sound pitBlockHit;
-    private Sound gameBlockHit;
+    private List<Sound> gameBlockHit;
+    private boolean isSingleGameBlockSound;
     private Sound backgroundMusic;
+    private float backgroundMusicVolume;
+
 
     /**
      *
@@ -61,8 +65,11 @@ public class SunnyDay implements LevelInformation {
         paddleHit = new Sound("/Sunny-Day/Paddle-Hit.wav");
         frameBlockHit = new Sound("/Sunny-Day/Frame-Block.wav");
         pitBlockHit = new Sound("/Sunny-Day/Pit-Block.wav");
-        gameBlockHit = new Sound("/Sunny-Day/Game-Block.wav");
+        gameBlockHit = new ArrayList<>();
+        gameBlockHit.add(new Sound("/Sunny-Day/Game-Block.wav"));
+        isSingleGameBlockSound = true;
         backgroundMusic = new Sound("/Sunny-Day/Background.wav");
+        backgroundMusicVolume = 1f;
     }
 
     @Override
@@ -122,7 +129,7 @@ public class SunnyDay implements LevelInformation {
     }
 
     @Override
-    public Sound getGameBlockHitSound() {
+    public List<Sound> getGameBlockHitSound() {
         return gameBlockHit;
     }
 
@@ -198,7 +205,7 @@ public class SunnyDay implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        return FrameBlocksTypes.getRegularFrameBlocks();
+        return FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
     }
 
     @Override
@@ -214,5 +221,15 @@ public class SunnyDay implements LevelInformation {
     @Override
     public List<Block> getPitBlocksList() {
         return pitBlocks;
+    }
+
+    @Override
+    public float getBackgroundMusicVolume() {
+        return backgroundMusicVolume;
+    }
+
+    @Override
+    public boolean isSingleGameBlockSound() {
+        return isSingleGameBlockSound;
     }
 }

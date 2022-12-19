@@ -11,6 +11,7 @@ import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
 import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -34,16 +35,18 @@ public class Aden implements LevelInformation {
     private Sound paddleHit;
     private Sound frameBlockHit;
     private Sound pitBlockHit;
-    private Sound gameBlockHit;
+    private List<Sound> gameBlockHit;
+    private boolean isSingleGameBlockSound;
     private Sound backgroundMusic;
+    private float backgroundMusicVolume;
 
 
     public Aden() {
         numberOfBalls = 2;
         numberOfBlocksToRemove = 45;
         background = new sprites.backgrounds.Aden();
-        paddleSpeed = 15;
-        paddleWidth = 130;
+        paddleSpeed = 8;
+        paddleWidth = 140;
         ballsList = initialBalls();
         velList = initialBallVelocities();
         blocks = initialBlocks();
@@ -56,8 +59,11 @@ public class Aden implements LevelInformation {
         paddleHit = new Sound("/Aden/Paddle-Hit.wav");
         frameBlockHit = new Sound("/Aden/Frame-Block.wav");
         pitBlockHit = new Sound("/Aden/Pit-Block.wav");
-        gameBlockHit = new Sound("/Aden/Game-Block.wav");
+        gameBlockHit = new ArrayList<>();
+        gameBlockHit.add(new Sound("/Aden/Game-Block.wav"));
+        isSingleGameBlockSound = true;
         backgroundMusic = new Sound("/Aden/Background.wav");
+        backgroundMusicVolume = 1f;
     }
 
     @Override
@@ -112,7 +118,7 @@ public class Aden implements LevelInformation {
     }
 
     @Override
-    public Sound getGameBlockHitSound() {
+    public List<Sound> getGameBlockHitSound() {
         return gameBlockHit;
     }
 
@@ -169,7 +175,7 @@ public class Aden implements LevelInformation {
             for (int i = 0; i <= (11 - row); i++) {
                 resList.add(new Block(new Point(xStart, yStart),
                         blocksWidth, blocksHeight, "GameBlock", colors[row - 1]));
-                if(row == 1) {
+                if (row == 1) {
                     resList.get(resList.size() - 1).initializeHitsCounter(2);
                 } else {
                     resList.get(resList.size() - 1).initializeHitsCounter(1);
@@ -193,7 +199,7 @@ public class Aden implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        return  FrameBlocksTypes.getRegularFrameBlocks();
+        return  FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
     }
 
     @Override
@@ -201,11 +207,23 @@ public class Aden implements LevelInformation {
         return PitBlocksTypes.getRegularPitBlocks();
     }
 
+    @Override
     public List<Block> getFrameBlocksList() {
         return frameBlocks;
     }
 
+    @Override
     public List<Block> getPitBlocksList() {
         return pitBlocks;
+    }
+
+    @Override
+    public float getBackgroundMusicVolume() {
+        return backgroundMusicVolume;
+    }
+
+    @Override
+    public boolean isSingleGameBlockSound() {
+        return isSingleGameBlockSound;
     }
 }

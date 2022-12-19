@@ -11,6 +11,7 @@ import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
 import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,8 +38,10 @@ public class Clouds implements LevelInformation {
     private Sound paddleHit;
     private Sound frameBlockHit;
     private Sound pitBlockHit;
-    private Sound gameBlockHit;
+    private List<Sound> gameBlockHit;
+    private boolean isSingleGameBlockSound;
     private Sound backgroundMusic;
+    private float backgroundMusicVolume;
 
 
     /**
@@ -48,7 +51,7 @@ public class Clouds implements LevelInformation {
         numberOfBalls = 3;
         numberOfBlocksToRemove = 105;
         background = new sprites.backgrounds.Clouds();
-        paddleSpeed = 15;
+        paddleSpeed = 8;
         paddleWidth = 130;
         ballsList = initialBalls();
         velList = initialBallVelocities();
@@ -62,8 +65,10 @@ public class Clouds implements LevelInformation {
         paddleHit = new Sound("/Clouds/Paddle-Hit.wav");
         frameBlockHit = new Sound("/Clouds/Frame-Block.wav");
         pitBlockHit = new Sound("/Clouds/Pit-Block.wav");
-        gameBlockHit = new Sound("/Clouds/Game-Block.wav");
+        gameBlockHit.add(new Sound("/Clouds/Game-Block.wav"));
+        isSingleGameBlockSound = true;
         backgroundMusic = new Sound("/Clouds/Background.wav");
+        backgroundMusicVolume = 1f;
     }
 
     @Override
@@ -96,7 +101,7 @@ public class Clouds implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> resList = new ArrayList<>();
-        for(int i = 0; i < numberOfBalls; i++) {
+        for (int i = 0; i < numberOfBalls; i++) {
             resList.add(Velocity.fromAngleAndSpeed(135 + (i * 45), 9));
         }
         return resList;
@@ -123,8 +128,13 @@ public class Clouds implements LevelInformation {
     }
 
     @Override
-    public Sound getGameBlockHitSound() {
+    public List<Sound> getGameBlockHitSound() {
         return gameBlockHit;
+    }
+
+    @Override
+    public boolean isSingleGameBlockSound() {
+        return isSingleGameBlockSound;
     }
 
     @Override
@@ -180,7 +190,7 @@ public class Clouds implements LevelInformation {
             for (int col = 0; col < 15; col++) {
                 resList.add(new Block(new Point(xStart, yStart),
                         blocksWidth, blocksHeight, "GameBlock", colors[row - 1]));
-                if(row == 1) {
+                if (row == 1) {
                     resList.get(resList.size() - 1).initializeHitsCounter(2);
                 } else {
                     resList.get(resList.size() - 1).initializeHitsCounter(1);
@@ -205,7 +215,7 @@ public class Clouds implements LevelInformation {
 
     @Override
     public List<Block> initialFrameBlocks() {
-        return FrameBlocksTypes.getRegularFrameBlocks();
+        return FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
     }
 
     @Override
@@ -221,5 +231,10 @@ public class Clouds implements LevelInformation {
     @Override
     public List<Block> getPitBlocksList() {
         return pitBlocks;
+    }
+
+    @Override
+    public float getBackgroundMusicVolume() {
+        return backgroundMusicVolume;
     }
 }

@@ -28,7 +28,7 @@ public class GameFlow {
         score = new Counter();
         lives = new Counter();
         score.setValue(0);
-        lives.setValue(1);
+        lives.setValue(5);
         musicPlayer = new MusicPlayer();
     }
 
@@ -48,7 +48,7 @@ public class GameFlow {
                 this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new Instructions(keyboardSensor, level.getSpritesListForInstructionAnimation())));
             }
             level.playBackgroundMusic();
-            this.animationRunner.run(new Countdown(3, level.getSprites(), animationRunner, keyboardSensor));
+            this.animationRunner.run(new Countdown(3, level.getSprites(), animationRunner, keyboardSensor, musicPlayer));
 
 //            while (level.getNumOfBallsLeft() > 0 && level.getNumOfBlocksLeft() > 0) {
 //                level.run();

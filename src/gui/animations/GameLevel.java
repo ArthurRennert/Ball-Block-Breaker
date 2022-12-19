@@ -93,7 +93,7 @@ public class GameLevel implements Animation {
         musicPlayer.setPaddleHit(levelInformation.getPaddleHitSound());
         musicPlayer.setFrameBlockHit(levelInformation.getFrameBlockHitSound());
         musicPlayer.setPitBlockHit(levelInformation.getPitBlockHitSound());
-        musicPlayer.setGameBlockHit(levelInformation.getGameBlockHitSound());
+        musicPlayer.setGameBlockHit(levelInformation.getGameBlockHitSound(), levelInformation.isSingleGameBlockSound());
         musicPlayer.setBackgroundMusic(levelInformation.getBackgroundMusic());
     }
 
@@ -163,7 +163,7 @@ public class GameLevel implements Animation {
      *
      */
     public void playBackgroundMusic() {
-        musicPlayer.playBackgroundMusic();
+        musicPlayer.playBackgroundMusic(levelInformation.getBackgroundMusicVolume());
     }
 
     /**
@@ -202,7 +202,6 @@ public class GameLevel implements Animation {
      *
      */
     public void restartAfterLiveLost() {
-        //add here stop music
         timer.stopTimer();
         if (lives.getValue() == 0) {
             return;
@@ -210,7 +209,7 @@ public class GameLevel implements Animation {
         levelInformation.getPaddle().setLocation(levelInformation.paddleInitialPoint());
         levelInformation.resetBalls();
         initializeBalls();
-        this.animationRunner.run(new Countdown(2, this.sprites, animationRunner, keyboardSensor));
+        this.animationRunner.run(new Countdown(2, this.sprites, animationRunner, keyboardSensor, musicPlayer));
         timer.restartTimer();
     }
 
@@ -249,7 +248,9 @@ public class GameLevel implements Animation {
         this.sprites.notifyAllTimePassed();
         if (this.keyboardSensor.isPressed("enter")) {
             timer.stopTimer();
+            musicPlayer.pauseBackgroundMusic();
             this.animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new PauseScreen(this.keyboardSensor, this.sprites)));
+            musicPlayer.unpauseBackgroundMusic();
             timer.restartTimer();
         }
         if (blocksCounter.getValue() == 0) {

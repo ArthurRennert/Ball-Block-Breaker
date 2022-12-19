@@ -12,6 +12,7 @@ import sprites.Ball;
 import sprites.Block;
 import sprites.Paddle;
 import music.Sound;
+import utilities.SpecialColors;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,11 +31,19 @@ public class FirstLevel implements LevelInformation {
    private Point paddleInitialPoint;
    private Paddle paddle;
    private String levelName;
-   private Background background;
+   private sprites.backgrounds.infrastructure.Background background;
    private List<Block> blocks;
    private List<Block> frameBlocks;
    private List<Block> pitBlocks;
    private int numberOfBlocksToRemove;
+   private Sound paddleHit;
+   private Sound frameBlockHit;
+   private Sound pitBlockHit;
+   private List<Sound> gameBlockHit;
+   private boolean isSingleGameBlockSound;
+   private Sound backgroundMusic;
+   private float backgroundMusicVolume;
+
 
 
    /**
@@ -55,6 +64,14 @@ public class FirstLevel implements LevelInformation {
       numberOfBlocksToRemove = 57;
       paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
+      backgroundMusicVolume = 1f;
+      isSingleGameBlockSound = true;
+      paddleHit = new Sound("/Clouds/Paddle-Hit.wav");
+      frameBlockHit = new Sound("/Clouds/Frame-Block.wav");
+      pitBlockHit = new Sound("/Clouds/Pit-Block.wav");
+      gameBlockHit = new ArrayList<>();
+      gameBlockHit.add(new Sound("/Clouds/Game-Block.wav"));
+      backgroundMusic = new Sound("/Clouds/Background.wav");
    }
 
    @Override
@@ -115,7 +132,7 @@ public class FirstLevel implements LevelInformation {
    }
 
    @Override
-   public Sound getGameBlockHitSound() {
+   public List<Sound> getGameBlockHitSound() {
       return null;
    }
 
@@ -182,7 +199,7 @@ public class FirstLevel implements LevelInformation {
 
    @Override
    public List<Block> initialFrameBlocks() {
-      return FrameBlocksTypes.getRegularFrameBlocks();
+      return FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.MID_DARK_GRAY);
    }
 
    @Override
@@ -214,5 +231,15 @@ public class FirstLevel implements LevelInformation {
    @Override
    public int numberOfBlocksToRemove() {
       return numberOfBlocksToRemove;
+   }
+
+   @Override
+   public float getBackgroundMusicVolume() {
+      return backgroundMusicVolume;
+   }
+
+   @Override
+   public boolean isSingleGameBlockSound() {
+      return isSingleGameBlockSound;
    }
 }

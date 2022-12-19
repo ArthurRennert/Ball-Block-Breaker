@@ -24,7 +24,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
    private static final double EPSILON = 0.5;
 
    private Rectangle rectangle;
-   private Counter hitsCounter;
+   public Counter hitsCounter;
    private int value;
    private List<HitListener> hitListeners;
 

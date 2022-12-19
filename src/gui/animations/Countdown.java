@@ -4,6 +4,7 @@ import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import gui.animations.infrastructure.Animation;
 import gui.animations.infrastructure.AnimationRunner;
+import music.MusicPlayer;
 import sprites.infrastructure.SpriteCollection;
 import java.awt.Color;
 import utilities.Timer;
@@ -20,12 +21,13 @@ public class Countdown implements Animation {
    private AnimationRunner animationRunner;
    private boolean stop;
    private Timer timer;
+   private MusicPlayer musicPlayer;
 
    /**
     * @param countFrom
     * @param gameScreen
     */
-   public Countdown(int countFrom, SpriteCollection gameScreen, AnimationRunner ar, KeyboardSensor ks) {
+   public Countdown(int countFrom, SpriteCollection gameScreen, AnimationRunner ar, KeyboardSensor ks, MusicPlayer musicPlayer) {
       this.countFrom = countFrom;
       this.gameScreen = gameScreen;
       animationRunner = ar;
@@ -33,6 +35,7 @@ public class Countdown implements Animation {
       this.stop = false;
       timer = new Timer(0, 0, countFrom);
       timer.countdownTimerInit();
+      this.musicPlayer = musicPlayer;
    }
 
    /**
@@ -43,7 +46,9 @@ public class Countdown implements Animation {
       gameScreen.drawAllOn(d);
       if (keyboardSensor.isPressed("enter")) {
          timer = new Timer(0, 0, timer.getTimeInSeconds());
+         musicPlayer.pauseBackgroundMusic();
          animationRunner.run(new KeyPressStoppable(keyboardSensor, "space", new PauseScreen(keyboardSensor, gameScreen)));
+         musicPlayer.unpauseBackgroundMusic();
          timer.countdownTimerInit();
       }
       d.setColor(DARK_YELLOW);

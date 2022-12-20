@@ -116,7 +116,6 @@ public class MusicPlayer {
       } catch (Exception e) {
          e.printStackTrace();
       }
-
    }
 
    /**
@@ -124,6 +123,9 @@ public class MusicPlayer {
     */
    public void pauseBackgroundMusic() {
       backgroundClipTime = backgroundClip.getMicrosecondPosition();
+      if (backgroundClipTime >= backgroundClip.getMicrosecondLength()) {
+         backgroundClipTime = backgroundClipTime - ((int) (backgroundClipTime / backgroundClip.getMicrosecondLength()) * backgroundClip.getMicrosecondLength());
+      }
       backgroundClip.stop();
    }
 

@@ -48,8 +48,8 @@ public class Friends implements LevelInformation {
     *
     */
    public Friends() {
-      numberOfBalls = 3;
-      numberOfBlocksToRemove = 300;
+      numberOfBalls = 1;
+      numberOfBlocksToRemove = 206;
       background = new sprites.backgrounds.Friends();
       paddleSpeed = 8;
       paddleWidth = 130;
@@ -69,7 +69,7 @@ public class Friends implements LevelInformation {
       initializeAllGameBlockHitSounds();
       isSingleGameBlockSound = false;
       backgroundMusic = new Sound("/Friends/Background.wav");
-      backgroundMusicVolume = 0.4f;
+      backgroundMusicVolume = 0.2f;
    }
 
    private void initializeAllGameBlockHitSounds() {
@@ -177,7 +177,7 @@ public class Friends implements LevelInformation {
 
    @Override
    public void resetBalls() {
-      numberOfBalls = 3;
+      numberOfBalls = 1;
       ballsList = initialBalls();
       velList = initialBallVelocities();
    }
@@ -190,9 +190,7 @@ public class Friends implements LevelInformation {
    @Override
    public List<Velocity> initialBallVelocities() {
       List<Velocity> resList = new ArrayList<>();
-      for (int i = 0; i < numberOfBalls; i++) {
-         resList.add(Velocity.fromAngleAndSpeed(135 + (i * 45), 9));
-      }
+      resList.add(Velocity.fromAngleAndSpeed(180, 9));
       return resList;
    }
 
@@ -268,21 +266,33 @@ public class Friends implements LevelInformation {
               new Color(Color.WHITE.getRGB()), new Color(Color.PINK.getRGB()), new Color(Color.CYAN.getRGB())};
       double blocksWidth = (ScreenSettings.FRAME_WIDTH * 0.97 - ScreenSettings.FRAME_WIDTH * 0.03) / 15;
       double blocksHeight = 30;
-      double xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
-      double yStart = ScreenSettings.FRAME_HEIGHT * 0.09;
-      for (int row = 1; row <= 20; row++) {
+      double xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
+      double yTop = ScreenSettings.FRAME_HEIGHT * 0.09;
+      for (int row = 1; row <= 10; row++) {
          for (int col = 0; col < 15; col++) {
-            resList.add(new Block(new Point(xStart, yStart),
+            resList.add(new Block(new Point(xRight, yTop),
                     blocksWidth, blocksHeight, "GameBlock", colors[(int) (Math.random() * colors.length)]));
-            if (row == 1) {
-               resList.get(resList.size() - 1).initializeHitsCounter(2);
-            } else {
-               resList.get(resList.size() - 1).initializeHitsCounter(1);
-            }
-            xStart -= blocksWidth;
+            xRight -= blocksWidth;
          }
-         xStart = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
-         yStart = ScreenSettings.FRAME_HEIGHT * 0.09 + (row  * blocksHeight);
+         xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
+         yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + (row * blocksHeight);
+      }
+      double xLeft = ScreenSettings.FRAME_WIDTH * 0.03;
+      for (int row = 1; row <= 7; row++) {
+         for (int col = 0; col < (8 - row); col++) {
+            resList.add(new Block(new Point(xRight, yTop),
+                    blocksWidth, blocksHeight, "GameBlock", colors[(int) (Math.random() * colors.length)]));
+            resList.add(new Block(new Point(xLeft, yTop),
+                    blocksWidth, blocksHeight, "GameBlock", colors[(int) (Math.random() * colors.length)]));
+            xRight -= blocksWidth;
+            xLeft += blocksWidth;
+         }
+         xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
+         xLeft = ScreenSettings.FRAME_WIDTH * 0.03;
+         yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + ((10 + row)  * blocksHeight);
+      }
+      for (int i = 0; i < resList.size(); i++) {
+         resList.get(i).initializeHitsCounter(((int) (Math.random() * 2)) + 1);
       }
       return resList;
    }

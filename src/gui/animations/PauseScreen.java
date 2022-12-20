@@ -34,7 +34,7 @@ public class PauseScreen implements Animation {
    public void doOneFrame(DrawSurface d) {
       gameScreen.drawAllOn(d);
       d.setColor(DARK_YELLOW);
-      d.drawText((int) (d.getWidth() / 3.5), d.getHeight() / 5, "Game paused. Press the SPACE key to continue.", 30);
+      d.drawText((int) (d.getWidth() / 3.5), d.getHeight() / 13, "Game paused. Press the SPACE key to continue.", 30);
 //      running = false;
    }
 

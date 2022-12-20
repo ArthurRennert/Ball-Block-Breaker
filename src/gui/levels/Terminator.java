@@ -209,7 +209,7 @@ public class Terminator implements LevelInformation {
          }
          xRight = ScreenSettings.FRAME_WIDTH * 0.97 - blocksWidth;
          xLeft = ScreenSettings.FRAME_WIDTH * 0.03;
-         yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + (row  * blocksHeight);
+         yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + (row * blocksHeight);
          yBottom = ScreenSettings.FRAME_HEIGHT * 0.09 + ((18 - row) * blocksHeight);
       }
 

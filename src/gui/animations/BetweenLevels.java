@@ -48,22 +48,17 @@ public class BetweenLevels implements Animation {
         d.setColor(DARK_YELLOW);
 
         String minutesElapsed = minutesElapsedToFinishLevel == 1 ? "minute" : "minutes";
+        minutesElapsed = minutesElapsedToFinishLevel + " " + minutesElapsed;
         String secondsElapsed = secondsElapsedToFinishLevel == 1 ? "second" : "seconds";
-        String timeElapsed =
-                minutesElapsedToFinishLevel > 0 ? String.valueOf(minutesElapsedToFinishLevel) + " " + minutesElapsed + " and " + String.valueOf(secondsElapsedToFinishLevel) + " seconds."
-                : String.valueOf(secondsElapsedToFinishLevel) + " " + secondsElapsed + ".";
+        secondsElapsed = secondsElapsedToFinishLevel + " " + secondsElapsed;
+
+        String timeElapsed = minutesElapsed + " and " + secondsElapsed;
 
         String isLast = isLastLevel ? "move to the next screen." : "continue to the next level.";
 
-        if (minutesElapsedToFinishLevel > 0) {
-            d.drawText((int) (d.getWidth() / 12), d.getHeight() / 5, "You finished the "
-                    + this.levelName + " level in "
-                    + timeElapsed + " Press the SPACE key to " + isLast, 25);
-        } else {
-            d.drawText((int) (d.getWidth() / 7), d.getHeight() / 5, "You finished the "
-                    + this.levelName + " level in "
-                    + timeElapsed + " Press the SPACE key to " + isLast, 25);
-        }
+        d.drawText((int) (d.getWidth() / 12), d.getHeight() / 5, "You finished the "
+                + this.levelName + " level in "
+                + timeElapsed + " .Press the SPACE key to " + isLast, 25);
     }
 
     /**

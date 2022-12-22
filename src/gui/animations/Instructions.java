@@ -35,11 +35,13 @@ public class Instructions implements Animation {
       d.setColor(Color.YELLOW);
       d.drawText((int) (d.getWidth() / 3), (int) (d.getHeight() / 5.2), "Welcome to Ball Block Breaker game!", 30);
       d.drawText((int) (d.getWidth() / 2.3), (int) (d.getHeight() / 3.9), "Just so you know:", 30);
-      d.drawText((int) (d.getWidth() / 3.6), (int) (d.getHeight() / 3.1), "You can see the game stats in the top of the screen.", 30);
-      d.drawText((int) (d.getWidth() / 4), (int) (d.getHeight() / 2.55), "You can press the ENTER key anytime to pause the game.", 30);
-      d.drawText((int) (d.getWidth() / 3.8), (int) (d.getHeight() / 2.15), "If you are ready for the first level, press the SPACE key.", 30);
+      d.drawText((int) (d.getWidth() / 4), (int) (d.getHeight() / 3.1), "To move the Paddle left, use the left arrow key or the 'A' key.", 30);
+      d.drawText((int) (d.getWidth() / 4.2), (int) (d.getHeight() / 2.6), "To move the Paddle right, use the right arrow key or the 'D' key.", 30);
+      d.drawText((int) (d.getWidth() / 3.4), (int) (d.getHeight() / 2.25), "You can see the game stats in the top of the screen.", 30);
+      d.drawText((int) (d.getWidth() / 4), (int) (d.getHeight() / 1.95), "You can press the ENTER key anytime to pause the game.", 30);
+      d.drawText((int) (d.getWidth() / 3.6), (int) (d.getHeight() / 1.7), "If you are ready for the first level, press the SPACE key.", 30);
       d.setColor(Color.GREEN);
-      d.drawText((int) (d.getWidth() / 2.4), (int) (d.getHeight() / 1.7), "GOOD LUCK!", 50);
+      d.drawText((int) (d.getWidth() / 2.4), (int) (d.getHeight() / 1.3), "GOOD LUCK!", 50);
 //      running = false;
    }
 

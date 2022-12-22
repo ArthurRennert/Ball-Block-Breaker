@@ -14,6 +14,7 @@ import music.Sound;
 import utilities.SpecialColors;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,13 @@ public class Friends implements LevelInformation {
    }
 
    private void initializeAllGameBlockHitSounds() {
+//      File dir = new File("Sounds/Friends/Game-Block");
+//      File[] directoryListing = dir.listFiles();
+//      if (directoryListing != null) {
+//         for (File child : directoryListing) {
+//            gameBlockHit.add(new Sound("/Friends/Game-Block/" + child.getName()));
+//         }
+//      }
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block1.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block2.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block3.wav"));
@@ -91,7 +99,7 @@ public class Friends implements LevelInformation {
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block16.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block17.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block18.wav"));
-      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block10.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block19.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block20.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block21.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block22.wav"));
@@ -152,12 +160,77 @@ public class Friends implements LevelInformation {
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block77.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block78.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block79.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block80.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block81.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block82.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block83.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block84.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block85.wav"));
       gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block86.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block87.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block88.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block89.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block90.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block91.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block92.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block93.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block94.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block95.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block96.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block97.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block98.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block99.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block100.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block101.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block102.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block103.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block104.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block105.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block106.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block107.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block108.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block109.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block110.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block111.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block112.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block113.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block114.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block115.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block116.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block117.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block118.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block119.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block120.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block121.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block122.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block123.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block124.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block125.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block126.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block127.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block128.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block129.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block130.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block131.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block132.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block133.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block134.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block135.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block136.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block137.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block138.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block139.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block140.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block141.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block142.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block143.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block144.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block145.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block146.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block147.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block148.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block149.wav"));
+      gameBlockHit.add(new Sound("/Friends/Game-Block/Game-Block150.wav"));
    }
 
    @Override
@@ -292,7 +365,7 @@ public class Friends implements LevelInformation {
          yTop = ScreenSettings.FRAME_HEIGHT * 0.09 + ((10 + row)  * blocksHeight);
       }
       for (int i = 0; i < resList.size(); i++) {
-         resList.get(i).initializeHitsCounter(((int) (Math.random() * 2)) + 1);
+         resList.get(i).initializeHitsCounter(1);
       }
       return resList;
    }

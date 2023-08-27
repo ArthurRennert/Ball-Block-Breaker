@@ -1,6 +1,6 @@
 # Ball-Block-Breaker
 
-A fun game. Written in Java. Using biuoop-1.4.jar library for simple work with Java's Swing library.
+A fun game. Written in Java. Using biuoop-1.4.jar library for simpler use of Java's Swing library.
 
 Friends level:
 

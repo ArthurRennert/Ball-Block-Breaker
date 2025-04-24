@@ -8,23 +8,29 @@ import java.util.List;
 
 
 /**
+ * The GameEnvironment class holds a collection of collidable objects.
  *
+ * It is responsible for managing collisions by checking the trajectory of a moving object
+ * and determining whether and where it will collide with one of the collidable objects.
  */
 public class GameEnvironment {
 
    private List<Collidable> listOfCollidableObjects;
 
    /**
-    * @param frameWidth
-    * @param frameHeight
+    * Creates a new GameEnvironment.
+    *
+    * @param frameWidth the width of the game frame (not used directly here)
+    * @param frameHeight the height of the game frame (not used directly here)
     */
    public GameEnvironment(int frameWidth, int frameHeight) {
       listOfCollidableObjects = new ArrayList<>();
    }
 
    /**
-    * Add the given collidable to the environment.
-    * @param c
+    * Adds the given collidable to the environment.
+    *
+    * @param c the collidable object to add
     */
    public void addCollidable(Collidable c) {
       listOfCollidableObjects.add(c);
@@ -32,21 +38,18 @@ public class GameEnvironment {
 
 
    /**
-    * @param c
+    * Removes the given collidable from the environment.
+    *
+    * @param c the collidable object to remove
     */
    public void removeCollidable(Collidable c) {
-//      Iterator<Collidable> it = listOfCollidableObjects.iterator();
-//      while (it.hasNext()) {
-//         Collidable coll = it.next();
-//         if (coll.equals(c)) {
-//            it.remove();
-//         }
-//      }
       listOfCollidableObjects.remove(c);
    }
 
    /**
-    * @return - the list of collidable objects.
+    * Returns the list of collidable objects in the environment.
+    *
+    * @return the list of collidable objects
     */
    public List<Collidable> getListOfCollidableObjects() {
       return listOfCollidableObjects;
@@ -54,13 +57,13 @@ public class GameEnvironment {
 
 
    /**
-    * Assume an object moving from line.start() to line.end().
-    * If this object will not collide with any of the collidables
-    * in this collection, return null. Else, return the information
-    * about the closest collision that is going to occur.
-    * @param trajectory
-    * @return - the information about the closest collision that is going to occur.
-    *           If no collision going to occur, null is returned.
+    * Determines the closest collision that will occur if an object moves along the given trajectory.
+    *
+    * If no collision is detected, returns null. Otherwise, returns a CollisionInfo object
+    * describing the closest collision.
+    *
+    * @param trajectory the path along which the object is moving
+    * @return information about the closest collision, or null if no collision occurs
     */
    public CollisionInfo getClosestCollision(Line trajectory) {
       double distance = Integer.MAX_VALUE, temp;
@@ -72,8 +75,6 @@ public class GameEnvironment {
             temp = trajectory.getStartPoint().distance(tempCollisionPoint);
             if (temp < distance) {
                distance = temp;
-//               System.out.println(utilities.ConsoleColors.GREEN + "distance: "
-//               + distance + "\n\n" + utilities.ConsoleColors.RESET);
                resCollisionPoint = tempCollisionPoint;
                collObj = elem;
             }

@@ -44,7 +44,7 @@ The goal of the game is to break all blocks in each level using a bouncing ball.
 ### Requirements
 
 - Java JDK 8 or higher
-- `biuoop.jar` file (download from course or project resources)
+- `biuoop.jar` file (you can download it from this repo)
 
 ### Option 1: Run with an IDE (e.g., IntelliJ, Eclipse)
 

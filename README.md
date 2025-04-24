@@ -94,7 +94,7 @@ src/
 │   ├── shapes/                   # Geometry helpers: Point, Line, Rectangle
 │   └── ScreenSettings.java       # Global screen size constants
 ├── music/                        # Sound engine: MusicPlayer, Sound
-├── programs/                     # Main entry point and sample programs
+├── main/                         # Main entry point and sample programs
 │   └── BallBlockBreaker.java     # Main game launcher
 ├── sprites/                      # Game objects: Ball, Block, Paddle
 │   └── backgrounds/              # Custom animated backgrounds per level

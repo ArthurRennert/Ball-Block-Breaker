@@ -37,12 +37,11 @@ Additional demo programs (in the `programs` package) showcase ball bouncing, art
 
 ### Option 2: Run from the Terminal
 
-# Compile all Java files
+Compile all Java files
 ```bash
 javac -classpath biuoop.jar -d out src/**/*.java
 ```
-
-# Run the main class
+Run the main class
 ```bash
 java -classpath biuoop.jar:out programs.BallBlockBreaker
 ```

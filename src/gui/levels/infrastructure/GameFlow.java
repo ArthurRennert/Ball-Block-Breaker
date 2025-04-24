@@ -28,7 +28,7 @@ public class GameFlow {
         score = new Counter();
         lives = new Counter();
         score.setValue(0);
-        lives.setValue(15);
+        lives.setValue(5);
         musicPlayer = new MusicPlayer();
     }
 

@@ -61,7 +61,7 @@ public class Friends implements LevelInformation {
       pitBlocks = initialPitBlocks();
       paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
       levelName = "Friends";
-      paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
+      paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.92);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
       paddleHit = new Sound("/Clouds/Paddle-Hit.wav");
       frameBlockHit = new Sound("/Friends/Frame-Block.wav");
@@ -243,7 +243,7 @@ public class Friends implements LevelInformation {
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
       for (int i = 0; i < numberOfBalls; i++) {
-         resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT * 0.93), 10, Color.WHITE));
+         resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT * 0.90), 10, Color.WHITE));
       }
       return resList;
    }

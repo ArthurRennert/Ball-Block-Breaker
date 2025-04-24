@@ -55,7 +55,7 @@ public class Terminator implements LevelInformation {
       pitBlocks = initialPitBlocks();
       paddleHeight = (int) (ScreenSettings.FRAME_HEIGHT * 0.03);
       levelName = "Terminator";
-      paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.95);
+      paddleInitialPoint = new Point((ScreenSettings.FRAME_WIDTH - paddleWidth) / 2, ScreenSettings.FRAME_HEIGHT * 0.92);
       paddle = new Paddle(paddleInitialPoint, paddleWidth, paddleHeight, paddleSpeed);
       paddleHit = new Sound("/Terminator/Paddle-Hit.wav");
       frameBlockHit = new Sound("/Terminator/Frame-Block.wav");
@@ -88,7 +88,7 @@ public class Terminator implements LevelInformation {
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
       for (int i = 0; i < numberOfBalls; i++) {
-         resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT / 3), 10, Color.RED));
+         resList.add(new Ball(new Point(ScreenSettings.FRAME_WIDTH / 2, ScreenSettings.FRAME_HEIGHT / 2.5), 10, Color.RED));
       }
       return resList;
    }

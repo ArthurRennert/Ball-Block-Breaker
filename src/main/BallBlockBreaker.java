@@ -1,4 +1,4 @@
-package programs;
+package main;
 
 import biuoop.KeyboardSensor;
 import gui.animations.infrastructure.AnimationRunner;
@@ -23,7 +23,7 @@ public class BallBlockBreaker {
       KeyboardSensor keyboardSensor = animationRunner.getGUI().getKeyboardSensor();
       GameFlow gameFlow = new GameFlow(animationRunner, keyboardSensor);
       List<LevelInformation> levels = new ArrayList<>();
-//      levels.add(new Friends());
+      levels.add(new Friends());
       levels.add(new Terminator());
       gameFlow.runLevels(levels);
    }

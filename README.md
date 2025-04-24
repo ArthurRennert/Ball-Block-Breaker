@@ -68,7 +68,7 @@ java -classpath biuoop.jar:out programs.BallBlockBreaker
 
 ### Option 3: Run the JAR file
 
-1. Download the `BallBlockBreaker.jar` file.
+1. Download the `BallBlockBreaker.jar` file from here: https://drive.google.com/file/d/1tgSLcptNafGhFDfttMK9HIEtu2JlLwsX/view?usp=drive_link
 2. Run from terminal:
 ```bash
 java -jar BallBlockBreaker.jar

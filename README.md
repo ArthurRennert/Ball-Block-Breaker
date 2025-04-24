@@ -32,7 +32,7 @@ The goal of the game is to break all blocks in each level using a bouncing ball.
 - Countdown screen, pause/resume, win and game over animations.
 - Background music and sound effects for a richer experience.
 
-## 🧰 Technologies Use
+## 🧰 Technologies Used
 
 - **Language:** Java
 - **Graphics Library:** [biuoop](https://www.cs.biu.ac.il/~baraks/oop/biuoop.jar) – a lightweight GUI and animation library used in academic courses

@@ -37,11 +37,13 @@ Additional demo programs (in the `programs` package) showcase ball bouncing, art
 
 ### Option 2: Run from the Terminal
 
-```bash
 # Compile all Java files
+```bash
 javac -classpath biuoop.jar -d out src/**/*.java
+```
 
 # Run the main class
+```bash
 java -classpath biuoop.jar:out programs.BallBlockBreaker
 ```
 
@@ -77,3 +79,44 @@ src/
 ├── tests/                        # Helper/demo test classes (optional)
 └── utilities/                    # Tools: Counter, Timer, ConsoleColors
 ```
+
+### 🔊 Audio Support
+
+The game optionally plays sound effects and background music for each level. Ensure .wav files are available under a matching resources/ folder (e.g., resources/Friends/). If the audio files are missing, the game will still run but without sound.
+
+
+### 🧠 Key OOP Concepts Demonstrated
+
+- Use of interfaces like Sprite, Collidable, HitListener, Animation
+
+- Decoupled event systems using listeners (e.g., for hit tracking or sound effects)
+
+- Composition of game entities and infrastructure
+
+- Reusable animation engine (AnimationRunner)
+
+- Modular design for levels and game flow (GameFlow, LevelInformation)
+
+
+### ✨ Screens Included
+
+- Countdown before each level
+
+- Pause screen
+
+- Win screen
+
+- Game over screen
+
+- Instructions screen
+
+
+### 🙏 Credits
+
+- **biuoop library** provided as part of an academic OOP course at Bar-Ilan University.
+
+- **Game logic and design** implemented independently by the project developer as part of a full OOP assignment.
+
+- **Inspiration:** Classic games like Breakout and Arkanoid.
+
+

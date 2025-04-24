@@ -47,10 +47,10 @@ java -classpath biuoop.jar:out programs.BallBlockBreaker
 ```
 
 ### Option 3: Run the JAR file
-```bash
-1. Download the BallBlockBreaker.jar file.
-2. Run from terminal: java -jar BallBlockBreaker.jar
-```
+
+1. Download the `BallBlockBreaker.jar` file.
+2. Run from terminal: ```bash java -jar BallBlockBreaker.jar```
+
 
 ### Controls
 - ← / → or A / D: Move paddle left/right

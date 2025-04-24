@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
 /**
- *
+ * A timer utility that tracks and formats time in hours, minutes, and seconds.
+ * Supports both regular counting and countdown modes.
  */
 public class Timer {
    private static DecimalFormat dFormat = new DecimalFormat("00");
@@ -15,9 +16,10 @@ public class Timer {
    private int hour;
 
    /**
-    * @param hour
-    * @param minute
-    * @param second
+    * Constructs a new Timer with the specified initial time.
+    * @param hour initial hours
+    * @param minute initial minutes
+    * @param second initial seconds
     */
    public Timer(int hour, int minute, int second) {
       this.second = second;
@@ -26,9 +28,10 @@ public class Timer {
    }
 
    /**
-    * @param hour
-    * @param minute
-    * @param second
+    * Sets the timer to a new time.
+    * @param hour new hour
+    * @param minute new minute
+    * @param second new second
     */
    public void setTimer(int hour, int minute, int second) {
       this.second = second;
@@ -37,13 +40,15 @@ public class Timer {
    }
 
    /**
-    * @return
+    * Returns the total time in seconds.
+    * @return total time in seconds
     */
    public int getTimeInSeconds () {
       return hour * 60 * 60 + minute * 60 + second;
    }
+
    /**
-    *
+    * Initializes and starts a timer that counts forward every second.
     */
    public void timerInit() {
       timer = new javax.swing.Timer(1000, e -> {
@@ -61,21 +66,22 @@ public class Timer {
    }
 
    /**
-    *
+    * Stops the timer if it's currently running.
     */
    public void stopTimer() {
       timer.stop();
    }
 
    /**
-    *
+    * Restarts the timer from its current time.
     */
    public void restartTimer() {
       timer.restart();
    }
 
    /**
-    *
+    * Initializes and starts a countdown timer.
+    * When the time reaches 00:00:00, the timer stops.
     */
    public void countdownTimerInit() {
       timer = new javax.swing.Timer(1000, e -> {
@@ -95,9 +101,9 @@ public class Timer {
       timer.start();
    }
 
-
    /**
-    * @return
+    * Returns a formatted string representing the current time.
+    * @return formatted time string (MM:SS or HH:MM:SS)
     */
    public String showTimer() {
       String ddSecond = dFormat.format(second);
@@ -112,21 +118,21 @@ public class Timer {
    }
 
    /**
-    * @return
+    * @return current hour
     */
    public int getHour() {
       return hour;
    }
 
    /**
-    * @return
+    * @return current minute
     */
    public int getMinute() {
       return minute;
    }
 
    /**
-    * @return
+    * @return current second
     */
    public int getSecond() {
       return second;

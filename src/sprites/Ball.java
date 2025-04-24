@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The Ball class represents a moving ball in the game.
+ * It handles drawing itself, moving according to its velocity, detecting and responding to collisions,
+ * and notifying listeners when it hits a block.
  */
 public class Ball implements Sprite, HitNotifier {
-   //instance variables
    private Point point;
    private final int radius;
    private final Color color;
@@ -27,12 +28,12 @@ public class Ball implements Sprite, HitNotifier {
    private GameEnvironment ge;
    private List<HitListener> hitListeners;
 
-
-
    /**
-    * @param center
-    * @param r
-    * @param color
+    * Constructs a ball with a given center point, radius, and color.
+    *
+    * @param center the center point of the ball
+    * @param r      the radius of the ball
+    * @param color  the color of the ball
     */
    public Ball(Point center, int r, Color color) {
       point = new Point(center);
@@ -43,10 +44,12 @@ public class Ball implements Sprite, HitNotifier {
    }
 
    /**
-    * @param x
-    * @param y
-    * @param r
-    * @param color
+    * Constructs a ball using x and y coordinates for the center.
+    *
+    * @param x     the x-coordinate of the center
+    * @param y     the y-coordinate of the center
+    * @param r     the radius
+    * @param color the color
     */
    public Ball(double x, double y, int r, Color color) {
       point = new Point(x, y);
@@ -56,7 +59,9 @@ public class Ball implements Sprite, HitNotifier {
    }
 
    /**
-    * @param other
+    * Constructs a new ball as a deep copy of another ball.
+    *
+    * @param other the ball to copy
     */
    public Ball(Ball other) {
       this.point = new Point(other.getPoint());
@@ -65,16 +70,17 @@ public class Ball implements Sprite, HitNotifier {
       this.velocity = new Velocity(other.getVelocity());
    }
 
-
    /**
-    * @param gameEnvironment
+    * Sets the game environment for collision detection.
+    *
+    * @param gameEnvironment the game environment
     */
    public void setGameEnvironment(GameEnvironment gameEnvironment) {
       ge = gameEnvironment;
    }
 
    /**
-    *
+    * Unsets the game environment.
     */
    public void unsetGameEnvironment() {
       ge = null;
@@ -82,65 +88,83 @@ public class Ball implements Sprite, HitNotifier {
 
 
    /**
-    * @return
+    * Returns the current game environment.
+    *
+    * @return the GameEnvironment
     */
    public GameEnvironment getGameEnvironment() {
       return ge;
    }
 
    /**
-    * @return the radius of the Ball object.
+    * Returns the radius of the ball.
+    *
+    * @return radius
     */
    public int getRadius() {
       return radius;
    }
 
    /**
-    * @return - the point object.
+    * Returns the center point of the ball.
+    *
+    * @return the center point
     */
    public Point getPoint() {
       return point;
    }
 
    /**
-    * @param p
+    * Sets the center point of the ball.
+    *
+    * @param p the new point
     */
    public void setPoint(Point p) {
       this.point = new Point(p);
    }
 
    /**
-    * @return - the x coordinate of the center of the ball.
+    * Returns the x-coordinate of the ball's center.
+    *
+    * @return x-coordinate
     */
    public int getX() {
       return (int) point.getX();
    }
 
    /**
-    * @return - the y coordinate of the center of the ball.
+    * Returns the y-coordinate of the ball's center.
+    *
+    * @return y-coordinate
     */
    public int getY() {
       return (int) point.getY();
    }
 
    /**
-    * @return - the volume of the ball.
+    * Returns the volume of the ball.
+    *
+    * @return volume (approximation)
     */
    public int getSize() {
       return (int) ((4 * Math.PI * Math.pow(radius, 3)) / 3);
    }
 
    /**
-    * @return - the color of the ball.
+    * Returns the color of the ball.
+    *
+    * @return ball color
     */
    public Color getColor() {
       return this.color;
    }
 
-
    /**
-    * @param surface
+    * Draws the ball on the given DrawSurface.
+    *
+    * @param surface the drawing surface
     */
+   @Override
    public void drawOn(DrawSurface surface) {
       surface.setColor(this.color);
       surface.fillCircle((int) point.getX(), (int) point.getY(), radius);
@@ -149,15 +173,19 @@ public class Ball implements Sprite, HitNotifier {
    }
 
    /**
-    * @param v
+    * Sets the velocity of the ball.
+    *
+    * @param v the new velocity
     */
    public void setVelocity(Velocity v) {
       velocity = new Velocity(v);
    }
 
    /**
-    * @param dx
-    * @param dy
+    * Sets the velocity components dx and dy.
+    *
+    * @param dx the delta x
+    * @param dy the delta y
     */
    public void setVelocity(double dx, double dy) {
       velocity.setDx(dx);
@@ -165,15 +193,19 @@ public class Ball implements Sprite, HitNotifier {
    }
 
    /**
-    * @return - the velocity of the ball.
+    * Returns the current velocity of the ball.
+    *
+    * @return velocity
     */
    public Velocity getVelocity() {
       return velocity;
    }
 
    /**
-    * @param frameWidth
-    * @param frameHeight
+    * Moves the ball one step, bouncing off the screen bounds.
+    *
+    * @param frameWidth  the width of the frame
+    * @param frameHeight the height of the frame
     */
    public void moveOneStep(int frameWidth, int frameHeight) {
       if (frameWidth <= point.getX() + radius || point.getX() <= radius) {
@@ -186,23 +218,28 @@ public class Ball implements Sprite, HitNotifier {
       point = this.getVelocity().applyToPoint(point);
    }
 
-
    /**
-    * @param g
+    * Adds the ball to the given game level.
+    *
+    * @param g the game level
     */
    public void addToGame(GameLevel g) {
       g.addSprite(this);
    }
 
    /**
-    * @param gameLevel
+    * Removes the ball from the given game level.
+    *
+    * @param gameLevel the game level
     */
    public void removeFromGame(GameLevel gameLevel) {
       gameLevel.removeSprite(this);
    }
 
    /**
+    * Updates the ball's position and handles collision detection.
     *
+    * @param timer the game timer
     */
    @Override
    public void timePassed(Timer timer) {
@@ -237,30 +274,20 @@ public class Ball implements Sprite, HitNotifier {
          minDistance = distanceToCollisionFromRightBall;
       }
 
-//      if (collisionInfo == collInfoCenterBall) {
-//         System.out.println("center\n");
-//      } else if (collisionInfo == collInfoRightBall) {
-//         System.out.println("right\n");
-//      } else {
-//         System.out.println("left\n");
-//      }
-
       int stepsToNextCollision = (int) (minDistance / 10);
       if (stepsToNextCollision <= 1) {
          this.notifyHit((Block) collisionInfo.collisionObject(), this);
-//         System.out.println("hit");
          Velocity newVel = collisionInfo.collisionObject().hit(this, collisionInfo.collisionPoint(), this.getVelocity());
          this.setVelocity(newVel);
-//         ge.updateCollision(collInfo.collisionObject());
       }
-//      }
       point = this.getVelocity().applyToPoint(point);
    }
 
-
    /**
-    * @param beingHit
-    * @param hitter
+    * Notifies all registered hit listeners about a hit event.
+    *
+    * @param beingHit the block being hit
+    * @param hitter   the ball that hit the block
     */
    public void notifyHit(Block beingHit, Ball hitter) {
       // Make a copy of the hitListeners before iterating over them.
@@ -272,10 +299,12 @@ public class Ball implements Sprite, HitNotifier {
    }
 
    /**
-    * @param fromWidth
-    * @param fromHeight
-    * @param frameWidth
-    * @param frameHeight
+    * Moves the ball one step within custom bounds.
+    *
+    * @param fromWidth   the left bound
+    * @param fromHeight  the upper bound
+    * @param frameWidth  the right bound
+    * @param frameHeight the lower bound
     */
    public void moveOneStep(int fromWidth, int fromHeight, int frameWidth, int frameHeight) {
       if (frameWidth <= point.getX() + radius + velocity.getDx()
@@ -290,11 +319,21 @@ public class Ball implements Sprite, HitNotifier {
       point = this.getVelocity().applyToPoint(point);
    }
 
+   /**
+    * Adds a hit listener to the ball.
+    *
+    * @param hl the hit listener
+    */
    @Override
    public void addHitListener(HitListener hl) {
       hitListeners.add(hl);
    }
 
+   /**
+    * Removes a hit listener from the ball.
+    *
+    * @param hl the hit listener
+    */
    @Override
    public void removeHitListener(HitListener hl) {
       hitListeners.remove(hl);

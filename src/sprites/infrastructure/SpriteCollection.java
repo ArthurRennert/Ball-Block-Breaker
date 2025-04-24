@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The SpriteCollection class manages a list of Sprite objects.
+ * It provides methods to add, remove, update, and draw all the sprites in the collection.
  */
 public class SpriteCollection {
 
     private List<Sprite> listOfSpriteObjects;
 
     /**
-     *
+     * Constructs an empty SpriteCollection.
      */
     public SpriteCollection() {
         listOfSpriteObjects = new ArrayList<>();
@@ -22,7 +23,9 @@ public class SpriteCollection {
 
 
     /**
-     * @param other
+     * Constructs a new SpriteCollection as a deep copy of another collection.
+     *
+     * @param other the SpriteCollection to copy from
      */
     public SpriteCollection(SpriteCollection other) {
         listOfSpriteObjects = new ArrayList<>(other.listOfSpriteObjects);
@@ -30,50 +33,48 @@ public class SpriteCollection {
 
 
     /**
-     * @param s
+     * Adds a new sprite to the collection.
+     *
+     * @param s the Sprite to add
      */
     public void addSprite(Sprite s) {
         listOfSpriteObjects.add(s);
     }
 
     /**
-     * @param s
+     * Removes a sprite from the collection.
+     *
+     * @param s the Sprite to remove
      */
     public void removeSprite(Sprite s) {
-//        Iterator<Sprite> it = listOfSpriteObjects.iterator();
-//            Sprite sprite = it.next();
-//            if (sprite.equals(s)) {
-//                it.remove();
-//            }
-//        }
         listOfSpriteObjects.remove(s);
     }
 
-//    /**
-//     * @return
-//     */
-//    public List<Sprite> getListOfSpriteObjects() {
-//        return listOfSpriteObjects;
-//    }
-
     /**
-     * @return
+     * Returns the number of sprites currently in the collection.
+     *
+     * @return the size of the sprite list
      */
     public int getSize() {
         return listOfSpriteObjects.size();
     }
 
     /**
-     * @return
+     * Returns the number of sprites in the collection.
+     * This is an alias for getSize().
+     *
+     * @return number of sprites
      */
     public int getNumOfSprites() {
         return listOfSpriteObjects.size();
     }
 
     /**
+     * Notifies all sprites in the collection that time has passed.
+     * This is used to update their state.
      *
+     * @param timer the Timer object representing the current time state
      */
-    // call timePassed() on all sprites.
     public void notifyAllTimePassed(Timer timer) {
         List<Sprite> copyList = new ArrayList<>(this.listOfSpriteObjects);
         for (Sprite elem : copyList) {
@@ -82,9 +83,10 @@ public class SpriteCollection {
     }
 
     /**
-     * @param d
+     * Draws all the sprites in the collection on the given DrawSurface.
+     *
+     * @param d the DrawSurface to draw on
      */
-    // call drawOn(d) on all sprites.
     public void drawAllOn(DrawSurface d) {
         for (Sprite elem : listOfSpriteObjects) {
             elem.drawOn(d);

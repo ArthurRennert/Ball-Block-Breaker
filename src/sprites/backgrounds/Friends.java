@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The Friends class is a dynamic background implementation based on the popular TV show theme.
+ * It extends the Background class and overrides the drawing behavior to switch between
+ * different background images based on the timer. The images are switched every 3 minutes.
  */
 public class Friends extends Background {
    private static final Color LIGHT_BLUE = new Color(51, 153, 255);
@@ -25,7 +27,8 @@ public class Friends extends Background {
    private List<Point> wallpapersCoordinates;
 
    /**
-    *
+    * Constructs a Friends background.
+    * Initializes the image list and positions for the background images.
     */
    public Friends() {
       imageToShow = 0;
@@ -38,7 +41,9 @@ public class Friends extends Background {
    }
 
    /**
-    * @param d
+    * Draws the current background image onto the given DrawSurface.
+    *
+    * @param d the DrawSurface on which to draw the background
     */
    @Override
    public void drawOn(DrawSurface d) {
@@ -46,7 +51,10 @@ public class Friends extends Background {
    }
 
    /**
+    * Updates the background image based on the elapsed time.
+    * Switches between three images every 3 minutes using modulo logic.
     *
+    * @param timer the game timer used to determine the image to show
     */
    @Override
    public void timePassed(Timer timer) {
@@ -63,7 +71,9 @@ public class Friends extends Background {
    }
 
    /**
-    * @param g
+    * Adds this background to the given game level.
+    *
+    * @param g the GameLevel to which the background should be added
     */
    public void addToGame(GameLevel g) {
       g.addSprite(this);

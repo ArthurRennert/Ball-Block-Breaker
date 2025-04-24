@@ -2,6 +2,8 @@ package utilities;
 
 /**
  * Console colors.
+ * This class defines ANSI escape codes for changing the colors of text and background
+ * in the console. Use in terminal outputs that support ANSI codes.
  */
 public class ConsoleColors {
     // Reset

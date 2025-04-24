@@ -2,6 +2,9 @@ package utilities;
 
 import java.awt.*;
 
+/**
+ * A collection of custom color definitions used throughout the game.
+ */
 public class SpecialColors {
    public static final Color DARK_BLUE = new Color(0, 0, 139);
    public static final Color MID_DARK_GRAY = new Color(104, 104, 104);

@@ -10,7 +10,9 @@ import java.net.URL;
 import java.util.List;
 
 /**
- *
+ * The MusicPlayer class is responsible for managing and playing sound effects and background music
+ * in the game. It supports setting sounds for specific block types, volume control,
+ * continuous background music looping, and pause/unpause functionality.
  */
 public class MusicPlayer {
    private Sound backgroundMusic;
@@ -25,7 +27,7 @@ public class MusicPlayer {
    private static long backgroundClipTime;
 
    /**
-    *
+    * Constructs a MusicPlayer and plays a default silent sound to initialize audio systems.
     */
    public MusicPlayer() {
       silence = new Sound("/Silence.wav");
@@ -33,14 +35,18 @@ public class MusicPlayer {
    }
 
    /**
-    * @param backgroundMusic
+    * Sets the background music sound clip.
+    *
+    * @param backgroundMusic the background music sound
     */
    public void setBackgroundMusic(Sound backgroundMusic) {
          this.backgroundMusic = backgroundMusic;
    }
 
    /**
-    * @param paddleHit
+    * Sets the paddle hit sound.
+    *
+    * @param paddleHit the paddle hit sound
     */
    public void setPaddleHit(Sound paddleHit) {
       this.paddleHit = paddleHit;
@@ -48,21 +54,28 @@ public class MusicPlayer {
 
 
    /**
-    * @param frameBlockHit
+    * Sets the frame block hit sound.
+    *
+    * @param frameBlockHit the frame block hit sound
     */
    public void setFrameBlockHit(Sound frameBlockHit) {
       this.frameBlockHit = frameBlockHit;
    }
 
    /**
-    * @param pitBlockHit
+    * Sets the pit block hit sound.
+    *
+    * @param pitBlockHit the pit block hit sound
     */
    public void setPitBlockHit(Sound pitBlockHit) {
       this.pitBlockHit = pitBlockHit;
    }
 
    /**
-    * @param gameBlockHit
+    * Sets the game block hit sounds.
+    *
+    * @param gameBlockHit a list of game block hit sounds
+    * @param isSingleGameBlockSound true if only one sound should be used for all blocks
     */
    public void setGameBlockHit(List<Sound> gameBlockHit, boolean isSingleGameBlockSound) {
       this.isSingleGameBlockSound = isSingleGameBlockSound;
@@ -70,7 +83,9 @@ public class MusicPlayer {
    }
 
    /**
-    * @param beingHit
+    * Plays the sound corresponding to the type of the block that was hit.
+    *
+    * @param beingHit the block that was hit
     */
    public void playMusic(Block beingHit) {
       if (beingHit.getName().equals("Paddle")) {
@@ -89,7 +104,9 @@ public class MusicPlayer {
    }
 
    /**
-    * @param filepath
+    * Plays a sound from a given file path (URL).
+    *
+    * @param filepath the URL to the sound file
     */
    public void playMusic(URL filepath) {
       try {
@@ -103,7 +120,9 @@ public class MusicPlayer {
    }
 
    /**
-    * @param volume
+    * Plays the background music in a loop with the specified volume.
+    *
+    * @param volume the volume level (0.0 to 1.0)
     */
    public void playBackgroundMusic(float volume) {
       try {
@@ -119,7 +138,7 @@ public class MusicPlayer {
    }
 
    /**
-    *
+    * Pauses the currently playing background music and stores the position for later resume.
     */
    public void pauseBackgroundMusic() {
       backgroundClipTime = backgroundClip.getMicrosecondPosition();
@@ -130,7 +149,7 @@ public class MusicPlayer {
    }
 
    /**
-    *
+    * Resumes playing the background music from the last paused position.
     */
    public void unpauseBackgroundMusic() {
       backgroundClip.setMicrosecondPosition(backgroundClipTime);
@@ -139,15 +158,17 @@ public class MusicPlayer {
    }
 
    /**
-    *
+    * Stops the background music playback.
     */
    public void stopBackgroundMusic() {
       backgroundClip.stop();
    }
 
    /**
-    * @param volume
-    * @param clip
+    * Sets the volume for the specified audio clip.
+    *
+    * @param volume the volume level (0.0 to 1.0)
+    * @param clip the audio clip
     */
    public void setVolume(float volume, Clip clip) {
       if (volume < 0f || volume > 1f)
@@ -157,8 +178,10 @@ public class MusicPlayer {
    }
 
    /**
-    * @param clip
-    * @return
+    * Gets the current volume of the specified audio clip.
+    *
+    * @param clip the audio clip
+    * @return the current volume level (0.0 to 1.0)
     */
    public float getVolume(Clip clip) {
       FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

@@ -13,7 +13,9 @@ import java.util.List;
 import java.awt.*;
 
 /**
- *
+ * The Terminator class represents a dynamic background inspired by the Terminator movie.
+ * It extends the Background class and switches between different themed wallpapers based on the timer.
+ * The displayed image changes every 3 minutes.
  */
 public class Terminator extends Background {
    private static final Color DARK_GREEN = new Color(0, 100, 0);
@@ -25,7 +27,8 @@ public class Terminator extends Background {
    private List<Point> wallpapersCoordinates;
 
    /**
-    *
+    * Constructs a Terminator background with predefined image positions
+    * and loads the initial wallpaper image.
     */
    public Terminator() {
       imageToShow = 0;
@@ -37,7 +40,9 @@ public class Terminator extends Background {
    }
 
    /**
-    * @param d
+    * Draws the current background image onto the given DrawSurface.
+    *
+    * @param d the DrawSurface on which to draw the background
     */
    @Override
    public void drawOn(DrawSurface d) {
@@ -45,7 +50,10 @@ public class Terminator extends Background {
    }
 
    /**
+    * Updates the background image based on the game timer.
+    * Changes the image every 3 minutes in a rotating cycle.
     *
+    * @param timer the game timer used to determine which image to display
     */
    @Override
    public void timePassed(Timer timer) {
@@ -62,7 +70,9 @@ public class Terminator extends Background {
    }
 
    /**
-    * @param g
+    * Adds this background to the given game level.
+    *
+    * @param g the GameLevel to which the background should be added
     */
    public void addToGame(GameLevel g) {
       g.addSprite(this);

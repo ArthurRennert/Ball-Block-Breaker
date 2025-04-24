@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class that runs the game.
+ * The BallBlockBreaker class is the main entry point for the game.
+ * It initializes the animation runner, keyboard sensor, game flow, and level list,
+ * then starts running the game.
  */
 public class BallBlockBreaker {
 
    /**
-    * @param args
+    * The main method that launches the Ball Block Breaker game.
+    * It creates an AnimationRunner and GameFlow instance, initializes the levels,
+    * and begins the game sequence.
+    *
+    * @param args command-line arguments (not used)
     */
    public static void main(String[] args) {
       AnimationRunner animationRunner = new AnimationRunner(60, "Ball Block Breaker", ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);

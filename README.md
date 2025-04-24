@@ -2,6 +2,26 @@
 
 **Ball Block Breaker** is a Java-based arcade-style brick-breaking game, inspired by classics like *Arkanoid*. The player controls a paddle to bounce a ball and break all blocks on the screen without losing the ball. This project demonstrates object-oriented programming (OOP) principles, animation handling, collision detection, sound effects, and game flow management.
 
+Each level in the game is designed with a unique theme and nostalgic inspiration:
+
+- Level 1: "Friends" – based on the iconic Friends TV show, featuring a cheerful background and matching color palette.
+
+- Level 2: "Terminator" – inspired by the legendary Terminator movies, with a darker, more intense design and sound effects.
+
+These references add a fun and familiar twist to the gameplay while showcasing dynamic background animations and personalized audio effects.
+
+The game includes:
+
+- Multiple levels with themed designs and sounds
+
+- Paddle control with adjustable speed
+
+- Score tracking and limited lives
+
+- Countdown, pause, win and game over screens
+
+- Background music and sound effects for each level
+
 ## 🎮 Project Overview
 
 The goal of the game is to break all blocks in each level using a bouncing ball. The player controls a paddle at the bottom of the screen using keyboard keys, trying to keep the ball in play. The game features:
@@ -121,4 +141,6 @@ The game optionally plays sound effects and background music for each level. Ens
 
 - **Inspiration:** Classic games like Breakout and Arkanoid.
 
+### 📄 License
 
+This project was created by **Arthur Rennert**. You are free to **use, copy, modify, distribute, and share** this code for any purpose — personal, academic, or commercial. No permission is needed. Just give credit if you can 😊

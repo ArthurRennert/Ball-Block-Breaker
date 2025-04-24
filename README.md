@@ -32,8 +32,6 @@ The goal of the game is to break all blocks in each level using a bouncing ball.
 - Countdown screen, pause/resume, win and game over animations.
 - Background music and sound effects for a richer experience.
 
-Additional demo programs (in the `programs` package) showcase ball bouncing, artistic animations, and simple GUI usage.
-
 ## 🧰 Technologies Used
 
 - **Language:** Java

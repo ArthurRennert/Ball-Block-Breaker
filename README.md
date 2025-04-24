@@ -53,7 +53,7 @@ Additional demo programs (in the `programs` package) showcase ball bouncing, art
 1. Open the `src/` folder as a Java project.
 2. Add `biuoop.jar` as an external library.
 3. Compile the project.
-4. Run the `main()` method in `programs.BallBlockBreaker`.
+4. Run the `main()` method in `main.BallBlockBreaker`.
 
 ### Option 2: Run from the Terminal
 
@@ -63,7 +63,7 @@ javac -classpath biuoop.jar -d out src/**/*.java
 ```
 Run the main class
 ```bash
-java -classpath biuoop.jar:out programs.BallBlockBreaker
+java -classpath biuoop.jar:out main.BallBlockBreaker
 ```
 
 ### Option 3: Run the JAR file

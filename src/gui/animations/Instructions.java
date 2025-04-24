@@ -8,7 +8,9 @@ import sprites.infrastructure.SpriteCollection;
 import java.awt.*;
 
 /**
+ * An animation screen that displays game instructions to the player.
  *
+ * Shows controls, game tips, and a welcome message before starting the first level.
  */
 public class Instructions implements Animation {
 
@@ -18,8 +20,10 @@ public class Instructions implements Animation {
 
 
    /**
-    * @param k
-    * @param gameScreen
+    * Creates a new Instructions screen.
+    *
+    * @param k the keyboard sensor used to detect key presses
+    * @param gameScreen the background screen to display behind the instructions
     */
    public Instructions(KeyboardSensor k, SpriteCollection gameScreen) {
       this.keyboard = k;
@@ -28,7 +32,11 @@ public class Instructions implements Animation {
    }
 
    /**
-    * @param d
+    * Draws one frame of the instruction screen.
+    *
+    * Displays movement controls, game tips, and a prompt to start the game.
+    *
+    * @param d the surface to draw on
     */
    public void doOneFrame(DrawSurface d) {
       gameScreen.drawAllOn(d);
@@ -42,11 +50,12 @@ public class Instructions implements Animation {
       d.drawText((int) (d.getWidth() / 3.6), (int) (d.getHeight() / 1.7), "If you are ready for the first level, press the SPACE key.", 30);
       d.setColor(Color.GREEN);
       d.drawText((int) (d.getWidth() / 2.4), (int) (d.getHeight() / 1.3), "GOOD LUCK!", 50);
-//      running = false;
    }
 
    /**
-    * @return
+    * Indicates whether the animation should stop.
+    *
+    * @return true if the animation should stop, false otherwise
     */
    public boolean shouldStop() {
       return !this.running;

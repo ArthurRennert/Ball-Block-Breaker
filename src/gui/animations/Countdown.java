@@ -10,7 +10,9 @@ import java.awt.Color;
 import utilities.Timer;
 
 /**
+ * An animation that displays a countdown before the game starts.
  *
+ * Also allows pausing the countdown using the keyboard.
  */
 public class Countdown implements Animation {
    private static final Color DARK_YELLOW = new Color(255, 204, 0);
@@ -24,8 +26,13 @@ public class Countdown implements Animation {
    private MusicPlayer musicPlayer;
 
    /**
-    * @param countFrom
-    * @param gameScreen
+    * Creates a new Countdown animation.
+    *
+    * @param countFrom the number to count down from (in seconds)
+    * @param gameScreen the sprites to draw during the countdown
+    * @param ar the animation runner to run pause animations if needed
+    * @param ks the keyboard sensor to detect key presses
+    * @param musicPlayer the music player to pause and unpause background music
     */
    public Countdown(int countFrom, SpriteCollection gameScreen, AnimationRunner ar, KeyboardSensor ks, MusicPlayer musicPlayer) {
       this.countFrom = countFrom;
@@ -39,7 +46,12 @@ public class Countdown implements Animation {
    }
 
    /**
-    * @param d
+    * Draws one frame of the countdown animation.
+    *
+    * If the "enter" key is pressed, the countdown pauses and a pause screen appears.
+    * Otherwise, the countdown continues until it reaches zero.
+    *
+    * @param d the surface to draw on
     */
    @Override
    public void doOneFrame(DrawSurface d) {
@@ -62,7 +74,9 @@ public class Countdown implements Animation {
    }
 
    /**
-    * @return
+    * Indicates whether the countdown has finished.
+    *
+    * @return true if the countdown is complete and the animation should stop, false otherwise
     */
    @Override
    public boolean shouldStop() {

@@ -3,7 +3,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * The Line class represents a line segment between two points in a 2D space.
+ * It includes geometric utilities such as slope calculation, intersection detection,
+ * and point positioning.
  */
 public class Line {
 
@@ -16,8 +18,10 @@ public class Line {
     private double yIntercept;
 
    /**
-    * @param start
-    * @param end
+    * Constructs a Line object given start and end points.
+    *
+    * @param start the starting point of the line
+    * @param end the ending point of the line
     */
    public Line(Point start, Point end) {
       this.start = new Point(start);
@@ -27,10 +31,12 @@ public class Line {
    }
 
    /**
-    * @param x1
-    * @param y1
-    * @param x2
-    * @param y2
+    * Constructs a Line object given the x and y coordinates of the two points.
+    *
+    * @param x1 x-coordinate of the start point
+    * @param y1 y-coordinate of the start point
+    * @param x2 x-coordinate of the end point
+    * @param y2 y-coordinate of the end point
     */
    public Line(double x1, double y1, double x2, double y2) {
       this.start = new Point(x1, y1);
@@ -47,85 +53,100 @@ public class Line {
    }
 
    /**
-    * @return - the Y Intercept of the line.
+    * Calculates the y-intercept of the line.
+    *
+    * @return the y-intercept
     */
-   //change public to private
    public double calcYIntercept() {
       return this.start.getY() - (this.slope * this.start.getX());
    }
 
    /**
-    * @return - the slope of the line.
+    * Returns the slope of the line.
+    *
+    * @return slope of the line
     */
    public double getSlope() {
       return this.slope;
    }
 
    /**
-    * @return - the length of the line.
+    * Returns the length of the line.
+    *
+    * @return line length
     */
    public double length() {
       return this.start.distance(end);
    }
 
    /**
-    * @return - a new Point object representing the middle point of the line.
+    * Calculates and returns the middle point of the line.
+    *
+    * @return midpoint of the line
     */
-   // Returns the middle point of the line
    public Point calcMiddle() {
       return new Point((this.start.getX() + this.end.getX()) / 2, (this.start.getY() + this.end.getY()) / 2);
    }
 
    /**
-    * @return - the starting Point object of the line.
+    * Returns the starting point of the line.
+    *
+    * @return start point
     */
-   // Returns the start point of the line
    public Point getStartPoint() {
       return this.start;
    }
 
    /**
-    * @return - the x's coordinate of the starting Point object of the line.
+    * Returns the x-coordinate of the start point.
+    *
+    * @return x of start point
     */
    public double getXOfStartPoint() {
       return this.start.getX();
    }
 
    /**
-    * @return - the y's coordinate of the starting Point object of the line.
+    * Returns the y-coordinate of the start point.
+    *
+    * @return y of start point
     */
-
    public double getYOfStartPoint() {
       return this.start.getY();
    }
 
    /**
-    * @return - the ending Point object of the line.
+    * Returns the ending point of the line.
+    *
+    * @return end point
     */
-   // Returns the end point of the line
    public Point getEndPoint() {
       return this.end;
    }
 
    /**
-    * @return - the x's coordinate of the ending Point object of the line.
+    * Returns the x-coordinate of the end point.
+    *
+    * @return x of end point
     */
    public double getXOfEndPoint() {
       return this.end.getX();
    }
 
    /**
-    * @return - the y's coordinate of the ending Point object of the line.
+    * Returns the y-coordinate of the end point.
+    *
+    * @return y of end point
     */
    public double getYOfEndPoint() {
       return this.end.getY();
    }
 
    /**
-    * Method that returns true if line segment 'p1q1'
-    * and 'p2q2' intersect.
-    * @param other
-    * @return - true if the lines intersect, false otherwise.
+    * Returns true if this line intersects with another line.
+    *
+    * @param other the other line
+    * @return true if the lines intersect, false otherwise
     */
    public boolean isIntersecting(Line other) {
       // Find the four orientations needed for general and special cases
@@ -164,15 +185,14 @@ public class Line {
       return false; // Doesn't fall in any of the above cases
    }
 
-
    /**
-    * @param rect
-    * @return - If this line does not intersect with the rectangle, null is returned,
-    *           otherwise, the closest intersection point to the start of the line is returned.
+    * Returns the closest intersection point with a rectangle to the start of the line.
+    *
+    * @param rect the rectangle
+    * @return closest intersection point or null if none
     */
    public Point closestIntersectionToStartOfLine(Rectangle rect) {
       List<Point> intersectionPoints = rect.intersectionPoints(this);
-//      System.out.println("Intersection Points: " + intersectionPoints);
       if (intersectionPoints.size() == 0) {
          return null;
       }
@@ -180,7 +200,6 @@ public class Line {
       Point resPoint = intersectionPoints.get(0);
       for (Point elem : intersectionPoints) {
          temp = elem.distance(this.start);
-//         System.out.println(temp);
          if (distance > temp) {
             distance = temp;
             resPoint = elem;
@@ -190,8 +209,10 @@ public class Line {
    }
 
    /**
-    * @param other
-    * @return - a new Point object representing the intersection point of the lines, null otherwise.
+    * Returns the intersection point of this line with another line, if it exists.
+    *
+    * @param other the other line
+    * @return the intersection point or null if no intersection
     */
    public Point intersectionWith(Line other) {
       Point a = this.start, b = this.end, c = other.start, d = other.end;
@@ -220,22 +241,17 @@ public class Line {
       double x = (b2 * c1 - b1 * c2) / determinant;
       double y = (a1 * c2 - a2 * c1) / determinant;
       return new Point(x, y);
-
-      //      System.out.println("x: " + x);
-      //      System.out.println("y: " + y);
-      //      System.out.println("this line: " + this);
-      //      System.out.println("other line: " + other);
    }
 
    /**
-    * Given three collinear points p, q, r, the function checks if point q lies on line segment 'pr'.
-    * @param p - point p.
-    * @param q - point q.
-    * @param r - point r.
-    * @return - true if point q lies on line segment 'pr', otherwise false is returned.
+    * Checks if point q lies on the line segment pr.
+    *
+    * @param p start of segment
+    * @param q point to check
+    * @param r end of segment
+    * @return true if q lies on segment pr
     */
    public static boolean isPointOnSegment(Point p, Point q, Point r) {
-//      System.out.println("p: " + p + "\nq: " + q + "\nr: " + r);
       if (q.getX() <= (Math.max(p.getX(), r.getX()) + EPSILON) && q.getX() >= Math.min(p.getX(), r.getX()) - EPSILON
               && q.getY() <= Math.max(p.getY(), r.getY()) + EPSILON && q.getY() >= Math.min(p.getY(), r.getY()) - EPSILON) {
          return true;
@@ -244,19 +260,28 @@ public class Line {
    }
 
    /**
-    * @return - true if this line is vertical, otherwise false is returned.
+    * Returns true if the line is vertical.
+    *
+    * @return true if vertical
     */
    public boolean isVerticalLine() {
       return this.start.getX() == this.end.getX();
    }
 
    /**
-    * @return - true if this line is horizontal, otherwise false is returned.
+    * Returns true if the line is horizontal.
+    *
+    * @return true if horizontal
     */
    public boolean isHorizontalLine() {
       return this.start.getY() == this.end.getY();
    }
 
+   /**
+    * Returns a string representation of the line.
+    *
+    * @return string showing start and end points
+    */
    @Override
    public String toString() {
       return "Start Line: " + "(" + this.getStartPoint().getX() + " , " + this.getStartPoint().getY() + ")\tEnd Line: "
@@ -264,8 +289,10 @@ public class Line {
    }
 
    /**
-    * @param other
-    * @return - return true if the lines are equal, false otherwise.
+    * Compares this line to another for equality.
+    *
+    * @param other the other line
+    * @return true if both lines have the same start and end points (in any order)
     */
    public boolean equals(Line other) {
       if (other == null) {
@@ -278,7 +305,9 @@ public class Line {
    }
 
    /**
-    * @return - a random line.
+    * Generates a random line with coordinates between 1 and 350.
+    *
+    * @return a new random Line object
     */
    public static Line generateRandomLine() {
       Random rand = new Random();
@@ -289,5 +318,4 @@ public class Line {
 
       return new Line(p1, p2);
    }
-
 }

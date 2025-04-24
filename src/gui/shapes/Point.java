@@ -1,7 +1,9 @@
 package gui.shapes;
 
 /**
- *
+ * The Point class represents a point in 2D space with x and y coordinates.
+ * It provides utility methods for distance calculation, equality checking,
+ * and geometric orientation.
  */
 public class Point {
 
@@ -9,10 +11,11 @@ public class Point {
    private double x;
    private double y;
 
-
    /**
-    * @param x
-    * @param y
+    * Constructs a point given x and y coordinates.
+    *
+    * @param x the x-coordinate
+    * @param y the y-coordinate
     */
    public Point(double x, double y) {
       this.x = x;
@@ -20,7 +23,9 @@ public class Point {
    }
 
    /**
-    * @param other
+    * Copy constructor for Point.
+    *
+    * @param other the point to copy
     */
    public Point(Point other) {
       x = other.x;
@@ -28,16 +33,20 @@ public class Point {
    }
 
    /**
-    * @param other
-    * @return - the distance between the two points.
+    * Calculates the Euclidean distance between this point and another.
+    *
+    * @param other the other point
+    * @return the distance between the two points
     */
    public double distance(Point other) {
       return Math.sqrt(((this.x - other.x) * (this.x - other.x)) + ((this.y - other.y) * (this.y - other.y)));
    }
 
    /**
-    * @param other
-    * @return - true is the points are equal, false otherwise.
+    * Checks whether this point is equal to another.
+    *
+    * @param other the other point
+    * @return true if the points have the same coordinates, false otherwise
     */
    public boolean equals(Point other) {
       if (other == null) {
@@ -51,43 +60,48 @@ public class Point {
    }
 
    /**
-    * @return -  the x value of the point.
+    * Returns the x-coordinate of the point.
+    *
+    * @return the x value
     */
-   // Return the x and y values of this point
    public double getX() {
       return this.x;
    }
 
    /**
-    * @return - the y value of the point.
+    * Returns the y-coordinate of the point.
+    *
+    * @return the y value
     */
    public double getY() {
       return this.y;
    }
 
    /**
-    * @param x
+    * Sets the x-coordinate of the point.
+    *
+    * @param x the new x value
     */
    public void setX(double x) {
       this.x = x;
    }
 
    /**
-    * @param x
+    * Sets the y-coordinate of the point.
+    *
+    * @param x the new y value
     */
    public void setY(double x) {
       this.y = y;
    }
 
-
    /**
-    * This method finds orientation of ordered triplet (p, q, r).
-    * @param p - point one.
-    * @param q - point two.
-    * @param r - point three.
-    * @return - 0 --> p, q and r are collinear.
-    *           1 --> Clockwise.
-    *           2 --> Counterclockwise.
+    * Determines the orientation of an ordered triplet (p, q, r).
+    *
+    * @param p the first point
+    * @param q the second point
+    * @param r the third point
+    * @return 0 if collinear, 1 if clockwise, 2 if counterclockwise
     */
    public static int orientation(Point p, Point q, Point r) {
       double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
@@ -99,13 +113,14 @@ public class Point {
       return (val > 0) ? 1 : 2; // clock or counterclock wise
    }
 
-
    /**
-    * @return - a String representation of the Point object. The format: x: value , y: value
+    * Returns a string representation of the point in the format:
+    * "x: [value] , y: [value]".
+    *
+    * @return string representation of the point
     */
    @Override
    public String toString() {
       return "x: " + this.x + " , y: " + this.y;
    }
-
 }

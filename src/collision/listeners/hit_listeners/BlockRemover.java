@@ -7,17 +7,19 @@ import sprites.Block;
 import sprites.Ball;
 
 /**
+ * A HitListener that is responsible for removing blocks from the game when they are hit.
  *
+ * Also updates the counter that tracks the number of remaining blocks in the level.
  */
-// a BlockRemover is in charge of removing blocks from the gameLevel, as well as keeping count
-// of the number of blocks that remain.
 public class BlockRemover implements HitListener {
    private GameLevel gameLevel;
    private Counter numOfBlocksToRemove;
 
    /**
-    * @param g
-    * @param numOfBlocksToRemove
+    * Creates a new BlockRemover.
+    *
+    * @param g the game level from which blocks will be removed
+    * @param numOfBlocksToRemove the counter tracking how many blocks remain in the level
     */
    public BlockRemover(GameLevel g, Counter numOfBlocksToRemove) {
       gameLevel = g;
@@ -25,12 +27,13 @@ public class BlockRemover implements HitListener {
    }
 
    /**
-    * @param beingHit
-    * @param hitter
+    * Called when the specified block is hit.
+    * If the block has no remaining hits, it is removed from the game,
+    * this listener is removed from it, and the counter is decreased.
+    *
+    * @param beingHit the block that was hit
+    * @param hitter the ball that hit the block
     */
-   // Blocks that are hit should be removed
-   // from the gameLevel. Remember to remove this listener from the block
-   // that is being removed from the gameLevel.
    public void hitEvent(Block beingHit, Ball hitter) {
       beingHit.markHit();
       if (beingHit.hitsLeft() == 0) {

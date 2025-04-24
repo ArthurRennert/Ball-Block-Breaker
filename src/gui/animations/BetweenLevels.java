@@ -8,7 +8,9 @@ import sprites.infrastructure.SpriteCollection;
 import java.awt.Color;
 
 /**
+ * An animation screen that is displayed between levels.
  *
+ * Shows the level name, time taken to finish the level, and a message prompting the player to continue.
  */
 public class BetweenLevels implements Animation {
     private static final Color DARK_YELLOW = new Color(255, 204, 0);
@@ -23,12 +25,14 @@ public class BetweenLevels implements Animation {
 
 
     /**
-     * @param k
-     * @param minutesElapsedToFinishLevel
-     * @param secondsElapsedToFinishLevel
-     * @param name
-     * @param gameScreen
-     * @param isLastLevel
+     * Creates a new BetweenLevels animation.
+     *
+     * @param k the keyboard sensor used to detect user input
+     * @param minutesElapsedToFinishLevel the number of minutes it took to complete the level
+     * @param secondsElapsedToFinishLevel the number of seconds it took to complete the level
+     * @param name the name of the level just completed
+     * @param gameScreen the sprite collection representing the game screen
+     * @param isLastLevel true if this was the last level, false otherwise
      */
     public BetweenLevels(KeyboardSensor k, int minutesElapsedToFinishLevel, int secondsElapsedToFinishLevel, String name, SpriteCollection gameScreen, boolean isLastLevel) {
         this.keyboard = k;
@@ -41,7 +45,9 @@ public class BetweenLevels implements Animation {
     }
 
     /**
-     * @param d
+     * Draws one frame of the between-level animation.
+     *
+     * @param d the surface to draw on
      */
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
@@ -62,7 +68,9 @@ public class BetweenLevels implements Animation {
     }
 
     /**
-     * @return - true whether the animation should stop, otherwise false.
+     * Indicates whether the animation should stop.
+     *
+     * @return true if the animation should stop, false otherwise
      */
     public boolean shouldStop() {
         return !this.running;

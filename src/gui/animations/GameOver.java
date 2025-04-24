@@ -8,7 +8,9 @@ import sprites.infrastructure.SpriteCollection;
 import java.awt.Color;
 
 /**
+ * An animation that displays the "Game Over" screen.
  *
+ * Shows the final score and a message instructing the player to press SPACE to terminate.
  */
 public class GameOver implements Animation {
     private static final Color DARK_YELLOW = new Color(255, 204, 0);
@@ -20,9 +22,11 @@ public class GameOver implements Animation {
 
 
     /**
-     * @param k
-     * @param gameScreen
-     * @param score
+     * Creates a new GameOver screen.
+     *
+     * @param k the keyboard sensor used for input
+     * @param gameScreen the background screen to display behind the message
+     * @param score the final score to display
      */
     public GameOver(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
@@ -32,7 +36,9 @@ public class GameOver implements Animation {
     }
 
     /**
-     * @param d
+     * Draws one frame of the Game Over screen.
+     *
+     * @param d the surface to draw on
      */
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
@@ -42,7 +48,9 @@ public class GameOver implements Animation {
     }
 
     /**
-     * @return
+     * Indicates whether the animation should stop.
+     *
+     * @return true if the animation should stop, false otherwise
      */
     public boolean shouldStop() {
         return !this.running;

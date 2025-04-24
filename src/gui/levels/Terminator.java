@@ -17,6 +17,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A level inspired by the "Terminator" movie.
+ *
+ * Implements the LevelInformation interface and defines all game elements for this level,
+ * including blocks, sounds, paddle settings, and background.
+ */
 public class Terminator implements LevelInformation {
    private static final Color EERIE_BLACK = new Color(27, 27, 27);
    private int numberOfBalls;
@@ -42,6 +48,10 @@ public class Terminator implements LevelInformation {
    private float backgroundMusicVolume;
 
 
+   /**
+    * Constructs the Terminator level with predefined configuration.
+    * Sets paddle and ball parameters, background, blocks, and sound effects.
+    */
    public Terminator() {
       numberOfBalls = 1;
       numberOfBlocksToRemove = 144;
@@ -67,7 +77,9 @@ public class Terminator implements LevelInformation {
       backgroundMusicVolume = 1f;
    }
 
-
+   /**
+    * Loads sound effects for each game block in the level.
+    */
    private void initializeAllGameBlockHitSounds() {
       gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block1.wav"));
       gameBlockHit.add(new Sound("/Terminator/Game-Block/Game-Block2.wav"));
@@ -79,12 +91,21 @@ public class Terminator implements LevelInformation {
 
    }
 
+   /**
+    * Returns the number of balls in the level.
+    *
+    * @return number of balls
+    */
    @Override
    public int numberOfBalls() {
       return numberOfBalls;
    }
 
-
+   /**
+    * Returns a list of Ball objects at their initial positions.
+    *
+    * @return list of initial balls
+    */
    public List<Ball> initialBalls() {
       List<Ball> resList = new ArrayList<>();
       for (int i = 0; i < numberOfBalls; i++) {
@@ -94,7 +115,7 @@ public class Terminator implements LevelInformation {
    }
 
    /**
-    *
+    * Resets the balls to their initial state.
     */
    public void resetBalls() {
       numberOfBalls = 1;
@@ -103,12 +124,20 @@ public class Terminator implements LevelInformation {
    }
 
    /**
-    * @return
+    * Returns the list of Ball objects in the level.
+    *
+    * @return list of balls
     */
+   @Override
    public List<Ball> getBallsList () {
       return ballsList;
    }
 
+   /**
+    * Returns a list of initial velocities for the balls.
+    *
+    * @return list of velocities
+    */
    @Override
    public List<Velocity> initialBallVelocities() {
       List<Velocity> resList = new ArrayList<>();
@@ -117,72 +146,140 @@ public class Terminator implements LevelInformation {
    }
 
    /**
-    * @return
+    * Returns the list of velocities for the balls.
+    *
+    * @return list of velocities
     */
+   @Override
    public List<Velocity> getVelocityList() {
       return velList;
    }
 
+   /**
+    * Returns the sound that plays when the paddle is hit.
+    *
+    * @return paddle hit sound
+    */
    @Override
    public Sound getPaddleHitSound() {
       return paddleHit;
    }
 
+   /**
+    * Returns the sound that plays when a frame block is hit.
+    *
+    * @return frame block hit sound
+    */
    @Override
    public Sound getFrameBlockHitSound() {
       return frameBlockHit;
    }
 
+   /**
+    * Returns the sound that plays when a pit block is hit.
+    *
+    * @return pit block hit sound
+    */
    @Override
    public Sound getPitBlockHitSound() {
       return pitBlockHit;
    }
 
+   /**
+    * Returns the list of sounds used when game blocks are hit.
+    *
+    * @return list of game block hit sounds
+    */
    @Override
    public List<Sound> getGameBlockHitSound() {
       return gameBlockHit;
    }
 
+   /**
+    * Returns the background music of the level.
+    *
+    * @return background music sound
+    */
    @Override
    public Sound getBackgroundMusic() {
       return backgroundMusic;
    }
 
+   /**
+    * Returns the speed of the paddle.
+    *
+    * @return paddle speed
+    */
    @Override
    public int paddleSpeed() {
       return paddleSpeed;
    }
 
+   /**
+    * Returns the width of the paddle.
+    *
+    * @return paddle width
+    */
    @Override
    public int paddleWidth() {
       return paddleWidth;
    }
 
+   /**
+    * Returns the height of the paddle.
+    *
+    * @return paddle height
+    */
    @Override
    public int paddleHeight() {
       return paddleHeight;
    }
 
+   /**
+    * Returns the starting position of the paddle.
+    *
+    * @return initial paddle position
+    */
    @Override
    public Point paddleInitialPoint() {
       return paddleInitialPoint;
    }
 
+   /**
+    * Returns the Paddle object used in this level.
+    *
+    * @return paddle
+    */
    @Override
    public Paddle getPaddle() {
       return paddle;
    }
 
+   /**
+    * Returns the name of the level.
+    *
+    * @return level name
+    */
    @Override
    public String levelName() {
       return levelName;
    }
 
+   /**
+    * Returns the background sprite for the level.
+    *
+    * @return background sprite
+    */
    @Override
    public Background getBackground() {
       return background;
    }
 
+   /**
+    * Returns a list of blocks at the start of the level.
+    *
+    * @return list of game blocks
+    */
    @Override
    public List<Block> initialBlocks() {
       List<Block> resList = new ArrayList<>();
@@ -223,40 +320,81 @@ public class Terminator implements LevelInformation {
       return resList;
    }
 
+   /**
+    * Returns the number of blocks that must be removed to win the level.
+    *
+    * @return number of blocks to remove
+    */
    @Override
    public int numberOfBlocksToRemove() {
       return numberOfBlocksToRemove;
    }
 
+   /**
+    * Returns the current list of game blocks in the level.
+    *
+    * @return list of game blocks
+    */
+   @Override
    public List<Block> getGameBlocksList() {
       return blocks;
    }
 
+   /**
+    * Returns the frame blocks (top, left, right) for the level.
+    *
+    * @return list of frame blocks
+    */
    @Override
    public List<Block> initialFrameBlocks() {
       return  FrameBlocksTypes.getRegularFrameBlocks(SpecialColors.RAISIN_BLACK);
    }
 
+   /**
+    * Returns the pit blocks (bottom) for the level.
+    *
+    * @return list of pit blocks
+    */
    @Override
    public List<Block> initialPitBlocks() {
       return PitBlocksTypes.getRegularPitBlocks();
    }
 
+   /**
+    * Returns the current frame blocks.
+    *
+    * @return list of frame blocks
+    */
    @Override
    public List<Block> getFrameBlocksList() {
       return frameBlocks;
    }
 
+   /**
+    * Returns the current pit blocks.
+    *
+    * @return list of pit blocks
+    */
    @Override
    public List<Block> getPitBlocksList() {
       return pitBlocks;
    }
 
+   /**
+    * Returns the volume of the background music.
+    *
+    * @return background music volume (between 0 and 1)
+    */
    @Override
    public float getBackgroundMusicVolume() {
       return backgroundMusicVolume;
    }
 
+   /**
+    * Indicates whether a single sound is used for all game blocks.
+    *
+    * @return true if single sound is used, false otherwise
+    */
    @Override
    public boolean isSingleGameBlockSound() {
       return isSingleGameBlockSound;

@@ -26,7 +26,10 @@ import java.util.List;
 
 
 /**
+ * The GameLevel class manages a single level in the game.
  *
+ * It initializes and runs all game components such as blocks, balls, paddle,
+ * background, counters, and manages collisions, animations, sounds, and game logic.
  */
 public class GameLevel implements Animation {
     private static BlockRemover blockRemoverListener;
@@ -50,11 +53,14 @@ public class GameLevel implements Animation {
     private MusicPlayer musicPlayer;
 
     /**
-     * @param levelInfo
-     * @param ks
-     * @param ar
-     * @param score
-     * @param lives
+     * Constructs a new GameLevel.
+     *
+     * @param levelInfo the level configuration and information
+     * @param ks the keyboard sensor to detect user input
+     * @param ar the animation runner to run animations
+     * @param score the counter tracking the score
+     * @param lives the counter tracking the remaining lives
+     * @param musicPlayer the music player for sound effects and background music
      */
     public GameLevel(LevelInformation levelInfo, KeyboardSensor ks, AnimationRunner ar, Counter score, Counter lives, MusicPlayer musicPlayer) {
         environment = new GameEnvironment(ScreenSettings.FRAME_WIDTH, ScreenSettings.FRAME_HEIGHT);
@@ -70,7 +76,7 @@ public class GameLevel implements Animation {
     }
 
     /**
-     *
+     * Initializes the game elements for the level.
      */
     public void initialize() {
         timer = new Timer(0, 0, 0);
@@ -150,7 +156,7 @@ public class GameLevel implements Animation {
     }
 
     /**
-     *
+     * Runs the game loop for this level.
      */
     public void run() {
 //        levelSounds.playBackgroundMusic();
@@ -160,21 +166,23 @@ public class GameLevel implements Animation {
     }
 
     /**
-     *
+     * Starts background music for the level.
      */
     public void playBackgroundMusic() {
         musicPlayer.playBackgroundMusic(levelInformation.getBackgroundMusicVolume());
     }
 
     /**
-     *
+     * Stops background music.
      */
     public void stopBackgroundMusic() {
         musicPlayer.stopBackgroundMusic();
     }
 
     /**
-     * @return
+     * Returns the sprite list excluding the paddle and game blocks.
+     *
+     * @return the filtered sprite collection used for instruction screen
      */
     public SpriteCollection getSpritesListForInstructionAnimation() {
         SpriteCollection s = new SpriteCollection(sprites);
@@ -191,7 +199,9 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * @return
+     * Returns all the sprites in the level.
+     *
+     * @return the sprite collection
      */
     public SpriteCollection getSprites() {
         return this.sprites;
@@ -199,7 +209,7 @@ public class GameLevel implements Animation {
 
 
     /**
-     *
+     * Restarts the level after the player loses a life.
      */
     public void restartAfterLiveLost() {
         timer.stopTimer();
@@ -215,33 +225,46 @@ public class GameLevel implements Animation {
 
 
     /**
-     * @param c - the Collidable to add.
+     * Adds a collidable object to the game environment.
+     *
+     * @param c the collidable object to add
      */
     public void addCollidable(Collidable c) {
         environment.addCollidable(c);
     }
 
     /**
-     * @param s - the Sprite to add.
+     * Adds a sprite to the game.
+     *
+     * @param s the sprite to add
      */
     public void addSprite(Sprite s) {
         sprites.addSprite(s);
     }
 
     /**
-     * @param c
+     * Removes a collidable object from the environment.
+     *
+     * @param c the collidable to remove
      */
     public void removeCollidable(Collidable c) {
         environment.removeCollidable(c);
     }
 
     /**
-     * @param s
+     * Removes a sprite from the game.
+     *
+     * @param s the sprite to remove
      */
     public void removeSprite(Sprite s) {
         sprites.removeSprite(s);
     }
 
+    /**
+     * Performs one frame of the game loop.
+     *
+     * @param d the surface to draw on
+     */
     @Override
     public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
@@ -265,26 +288,37 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * @return
+     * Returns the level's timer.
+     *
+     * @return the timer instance
      */
     public Timer getTimer() {
         return timer;
     }
 
     /**
-     * @return
+     * Returns the number of balls remaining in the level.
+     *
+     * @return the number of balls
      */
     public int getNumOfBallsLeft() {
         return ballsCounter.getValue();
     }
 
     /**
-     * @return
+     * Returns the number of blocks remaining in the level.
+     *
+     * @return the number of blocks
      */
     public int getNumOfBlocksLeft() {
         return blocksCounter.getValue();
     }
 
+    /**
+     * Indicates whether the level animation should stop.
+     *
+     * @return true if the level should stop, false otherwise
+     */
     @Override
     public boolean shouldStop() {
         return !this.running;

@@ -10,6 +10,12 @@ import utilities.Counter;
 
 import java.util.List;
 
+/**
+ * The GameFlow class manages the overall flow of the game.
+ *
+ * It initializes and runs levels one by one, handles transitions between levels,
+ * manages player score and lives, and determines when the game ends or is won.
+ */
 public class GameFlow {
 
     private AnimationRunner animationRunner;
@@ -19,8 +25,10 @@ public class GameFlow {
     private MusicPlayer musicPlayer;
 
     /**
-     * @param ar
-     * @param ks
+     * Creates a new GameFlow manager.
+     *
+     * @param ar the animation runner used to run animations
+     * @param ks the keyboard sensor for user input
      */
     public GameFlow(AnimationRunner ar, KeyboardSensor ks) {
         animationRunner = ar;
@@ -33,7 +41,12 @@ public class GameFlow {
     }
 
     /**
-     * @param levels
+     * Runs the list of levels in sequence.
+     *
+     * Initializes and plays each level. Handles the instruction screen, countdown,
+     * background music, transitions between levels, and end screens for win or loss.
+     *
+     * @param levels a list of LevelInformation objects representing the game's levels
      */
     public void runLevels(List<LevelInformation> levels) {
 
@@ -50,19 +63,9 @@ public class GameFlow {
             level.playBackgroundMusic();
             this.animationRunner.run(new Countdown(3, level.getSprites(), animationRunner, keyboardSensor, musicPlayer));
 
-//            while (level.getNumOfBallsLeft() > 0 && level.getNumOfBlocksLeft() > 0) {
-//                level.run();
-//            }
-
             while (lives.getValue() > 0 && level.getNumOfBlocksLeft() > 0) {
                 level.run();
             }
-
-//            if (level.getNumOfBallsLeft() == 0) {
-//                this.animationRunner.run(new GameOver(keyboardSensor, level.getSprites(), score.getValue()));
-//                System.exit(0);
-//                break;
-//            }
 
             if (lives.getValue() == 0) {  //level.getNumOfBallsLeft() == 0
                 level.stopBackgroundMusic();
@@ -85,10 +88,20 @@ public class GameFlow {
         }
     }
 
+    /**
+     * Returns the animation runner used in this game flow.
+     *
+     * @return the animation runner
+     */
     public AnimationRunner getAnimationRunner() {
         return this.animationRunner;
     }
 
+    /**
+     * Returns the keyboard sensor used in this game flow.
+     *
+     * @return the keyboard sensor
+     */
     public KeyboardSensor getKeyboardSensor() {
         return this.keyboardSensor;
     }

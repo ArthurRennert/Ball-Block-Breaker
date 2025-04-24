@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The Rectangle class represents a rectangle in 2D space.
+ * It is defined by its upper-left point, width, height, color, and name.
+ * The class provides utility methods for accessing corners, sides, and computing intersections.
  */
 public class Rectangle {
 
@@ -13,13 +15,14 @@ public class Rectangle {
    private String name;
    private Color color;
 
-
    /**
-    * @param upperLeft
-    * @param width
-    * @param height
-    * @param name
-    * @param c
+    * Constructs a rectangle with a given upper-left point, width, height, name, and color.
+    *
+    * @param upperLeft the upper-left point
+    * @param width the rectangle width
+    * @param height the rectangle height
+    * @param name the name of the rectangle
+    * @param c the color of the rectangle
     */
    public Rectangle(Point upperLeft, double width, double height, String name, Color c) {
       point = new Point(upperLeft);
@@ -30,15 +33,19 @@ public class Rectangle {
    }
 
    /**
-    * @param p
+    * Updates the upper-left point of the rectangle.
+    *
+    * @param p the new upper-left point
     */
    public void setUpperLeftPoint(Point p) {
       point = new Point(p);
    }
 
    /**
-    * @param line
-    * @return - Return a (possibly empty) List of intersection points with the specified line.
+    * Returns a list of intersection points between this rectangle and a given line.
+    *
+    * @param line the line to check for intersection
+    * @return list of intersection points (may be empty)
     */
    public java.util.List<Point> intersectionPoints(Line line) {
       List<Point> retList = new ArrayList<Point>();
@@ -55,21 +62,27 @@ public class Rectangle {
    }
 
    /**
-    * @return
+    * Returns the current color of the rectangle.
+    *
+    * @return rectangle color
     */
    public Color getColor() {
       return color;
    }
 
    /**
-    * @param c
+    * Sets a new color for the rectangle.
+    *
+    * @param c the new color
     */
    public void setColor(Color c) {
       color = c;
    }
 
    /**
-    * @return - A list of the 4 sides combining the rectangle.
+    * Returns a list containing the four sides of the rectangle as Line objects.
+    *
+    * @return list of rectangle sides
     */
    public List<Line> getSidesList() {
       List<Line> rectSidesList = new ArrayList<>();
@@ -83,142 +96,184 @@ public class Rectangle {
    }
 
    /**
-    * @return - Return the width of the rectangle.
+    * Returns the width of the rectangle.
+    *
+    * @return width
     */
    public double getWidth() {
       return width;
    }
 
    /**
-    * @return Return the height of the rectangle.
+    * Returns the height of the rectangle.
+    *
+    * @return height
     */
    public double getHeight() {
       return height;
    }
 
    /**
-    * @return - The name of the rectangle.
+    * Returns the name of the rectangle.
+    *
+    * @return name
     */
    public String getName() {
       return name;
    }
 
    /**
-    * @return - Returns the upper-left point of the rectangle.
+    * Returns the upper-left point of the rectangle.
+    *
+    * @return upper-left point
     */
    public Point getUpperLeft() {
       return point;
    }
 
    /**
-    * @return - Returns the x's upper-left coordinate of the rectangle.
+    * Returns the x-coordinate of the upper-left point.
+    *
+    * @return x of upper-left point
     */
    public double getXUpperLeftCoordinate() {
       return point.getX();
    }
 
    /**
-    * @return - Returns the y's upper-left coordinate of the rectangle.
+    * Returns the y-coordinate of the upper-left point.
+    *
+    * @return y of upper-left point
     */
    public double getYUpperLeftCoordinate() {
       return point.getY();
    }
 
    /**
-    * @return - Returns the upper-right point of the rectangle.
+    * Returns the upper-right point of the rectangle.
+    *
+    * @return upper-right point
     */
    public Point getUpperRight() {
       return new Point(point.getX() + width, point.getY());
    }
 
    /**
-    * @return - Returns the x's upper-right coordinate of the rectangle.
+    * Returns the x-coordinate of the upper-right point.
+    *
+    * @return x of upper-right point
     */
    public double getXUpperRightCoordinate() {
       return point.getX() + width;
    }
 
    /**
-    * @return - Returns the y's upper-right coordinate of the rectangle.
+    * Returns the y-coordinate of the upper-right point.
+    *
+    * @return y of upper-right point
     */
    public double getYUpperRightCoordinate() {
       return point.getY();
    }
 
    /**
-    * @return - Returns the lower-left point of the rectangle.
+    * Returns the lower-left point of the rectangle.
+    *
+    * @return lower-left point
     */
    public Point getLowerLeft() {
       return new Point(point.getX(), point.getY() + height);
    }
 
    /**
-    * @return - Returns the x's lower-left coordinate of the rectangle.
+    * Returns the x-coordinate of the lower-left point.
+    *
+    * @return x of lower-left point
     */
    public double getXLowerLeftCoordinate() {
       return point.getX();
    }
 
    /**
-    * @return - Returns the y's lower-left coordinate of the rectangle.
+    * Returns the y-coordinate of the lower-left point.
+    *
+    * @return y of lower-left point
     */
    public double getYLowerLeftCoordinate() {
       return point.getY() + height;
    }
 
    /**
-    * @return - Returns the lower-right point of the rectangle.
+    * Returns the lower-right point of the rectangle.
+    *
+    * @return lower-right point
     */
    public Point getLowerRight() {
       return new Point(point.getX() + width, point.getY() + height);
    }
 
    /**
-    * @return - Returns the x's lower-right coordinate of the rectangle.
+    * Returns the x-coordinate of the lower-right point.
+    *
+    * @return x of lower-right point
     */
    public double getXLowerRightCoordinate() {
       return point.getX() + width;
    }
 
    /**
-    * @return - Returns the y's lower-right coordinate of the rectangle.
+    * Returns the y-coordinate of the lower-right point.
+    *
+    * @return y of lower-right point
     */
    public double getYLowerRightCoordinate() {
       return point.getY() + height;
    }
 
    /**
-    * @return - Returns the left-edge of the rectangle.
+    * Returns the left side of the rectangle as a Line.
+    *
+    * @return left side
     */
    public Line getLeftSide() {
       return new Line(getUpperLeft(), getLowerLeft());
    }
 
    /**
-    * @return - Returns the upper-edge of the rectangle.
+    * Returns the upper side of the rectangle as a Line.
+    *
+    * @return upper side
     */
    public Line getUpperSide() {
       return new Line(getUpperLeft(), getUpperRight());
    }
 
    /**
-    * @return - Returns the right-edge of the rectangle.
+    * Returns the right side of the rectangle as a Line.
+    *
+    * @return right side
     */
    public Line getRightSide() {
       return new Line(getUpperRight(), getLowerRight());
    }
 
    /**
-    * @return - Returns the bottom-edge of the rectangle.
+    * Returns the bottom side of the rectangle as a Line.
+    *
+    * @return bottom side
     */
    public Line getBottomSide() {
       return new Line(getLowerLeft(), getLowerRight());
    }
 
+   /**
+    * Returns a string representation of the rectangle including name and side information.
+    *
+    * @return string describing the rectangle
+    */
    @Override
    public String toString() {
       return "Name: " + name + "\nUpper side: " + getUpperSide() + "\nBottom side: " + getBottomSide() + "\nLeft side: "
               + getLeftSide() + "\nRight side: " + getRightSide();
    }
-
 }

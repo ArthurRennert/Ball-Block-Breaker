@@ -8,7 +8,9 @@ import sprites.infrastructure.SpriteCollection;
 import java.awt.Color;
 
 /**
+ * An animation that displays the "You Win" screen.
  *
+ * Shows a congratulatory message with the final score and instructions to terminate.
  */
 public class GameWon implements Animation {
     private static final Color DARK_YELLOW = new Color(255, 204, 0);
@@ -20,9 +22,11 @@ public class GameWon implements Animation {
 
 
     /**
-     * @param k
-     * @param gameScreen
-     * @param score
+     * Creates a new GameWon screen.
+     *
+     * @param k the keyboard sensor used for input
+     * @param gameScreen the background screen to display behind the message
+     * @param score the final score to display
      */
     public GameWon(KeyboardSensor k, SpriteCollection gameScreen, int score) {
         this.keyboard = k;
@@ -32,27 +36,22 @@ public class GameWon implements Animation {
     }
 
     /**
-     * @param d
+     * Draws one frame of the "You Win" animation.
+     *
+     * @param d the surface to draw on
      */
     public void doOneFrame(DrawSurface d) {
         gameScreen.drawAllOn(d);
         d.setColor(DARK_YELLOW);
         d.drawText((int) (d.getWidth() / 5), d.getHeight() / 5, "You Win. Your score is " +  this.score + ". Press the SPACE key to terminate.", 30);
-//        running = false;
     }
 
     /**
-     * @return
+     * Indicates whether the animation should stop.
+     *
+     * @return true if the animation should stop, false otherwise
      */
     public boolean shouldStop() {
         return !this.running;
     }
-
-
-//    /**
-//     * @param val
-//     */
-//    public void setShouldStop(boolean val) {
-//        running = false;
-//    }
 }

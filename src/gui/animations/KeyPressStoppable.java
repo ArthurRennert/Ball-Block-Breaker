@@ -5,7 +5,10 @@ import biuoop.KeyboardSensor;
 import gui.animations.infrastructure.Animation;
 
 /**
+ * A wrapper animation that stops when a specific key is pressed.
  *
+ * This class ensures that the animation will stop only after the key is released and pressed again,
+ * to avoid stopping immediately if the key was already held down from a previous screen.
  */
 public class KeyPressStoppable implements Animation {
 
@@ -16,9 +19,11 @@ public class KeyPressStoppable implements Animation {
     private boolean isAlreadyPressed;
 
     /**
-     * @param sensor
-     * @param key
-     * @param animation
+     * Creates a new KeyPressStoppable animation.
+     *
+     * @param sensor the keyboard sensor used to detect key presses
+     * @param key the key that stops the animation when pressed
+     * @param animation the inner animation to run until the key is pressed
      */
     public KeyPressStoppable(KeyboardSensor sensor, String key, Animation animation) {
         keyboardSensor = sensor;
@@ -29,7 +34,12 @@ public class KeyPressStoppable implements Animation {
     }
 
     /**
-     * @param d
+     * Performs one frame of the animation.
+     *
+     * Delegates drawing to the inner animation. Stops only if the key was not previously held down
+     * and is now pressed.
+     *
+     * @param d the surface to draw on
      */
     @Override
     public void doOneFrame(DrawSurface d) {
@@ -45,13 +55,12 @@ public class KeyPressStoppable implements Animation {
     }
 
     /**
-     * @return
+     * Indicates whether the animation should stop.
+     *
+     * @return true if the key has been pressed and released, false otherwise
      */
     @Override
     public boolean shouldStop() {
-//        System.out.println(!running);
         return this.stop;
     }
-    // ...
-    // think about the implementations of doOneFrame and shouldStop.
 }
